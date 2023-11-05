@@ -61,6 +61,7 @@
     );
   }
   
+  /* HANDLE CARD DITAMBAHKAN */
   .text-blue {
     position: relative;
     background: linear-gradient(to bottom, #044a5f, #00c3ff);
@@ -96,6 +97,8 @@
     text-align: center;
   }
 }
+
+/* RESPONSIVE CARD DITAMBAHKAN */
 @media (max-width: 990px) {
   .text-blue {
     width: 300px;

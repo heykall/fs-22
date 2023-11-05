@@ -8,6 +8,7 @@ import "./video.css";
 import { useEffect, useState } from "react";
 import CardVideo from "../../components/CardVideo";
 export default function Video() {
+  // handle card ditambahkan, dari api, data dari 2 paling belakang
   const [ditambahkan, setDitambahkan] = useState([]);
   const [data, setData] = useState({
     dataRandom: [],
@@ -23,7 +24,7 @@ export default function Video() {
     );
     // hasil response
     const data = response.data;
-    // data ditambahkan
+    // data ditambahkan data diambil dari 2 paling belakang
     setDitambahkan(data.slice(data.length - 2));
     // Video Rekomendasi
     const randomData = randomVideos(data, 6);
@@ -34,6 +35,8 @@ export default function Video() {
     // Video Akademik
     const lainnyaData = lainnyaVideos(data);
     // Memasukan data diatas kedalam state
+    // duplikat dulu datanya pakai ...data
+    // kemudian masukan datanya disesuaikan
     setData({
       ...data,
       dataRandom: randomData,
@@ -44,58 +47,99 @@ export default function Video() {
   };
   //Logic Video Rekomendasi
   const randomVideos = (data, numItem) => {
+    // sorting secara random
     const dataRandom = data.sort(() => 0.5 - Math.random());
+    // mengambil 6 data dari depan
     return dataRandom.slice(0, numItem);
   };
   // logic Video Terpopuler
   const populerVideos = (data) => {
+    // filter berdasarkan category terpopuler
     const videoPopuler = data.filter((item) => item.category === "Terpopuler");
     return videoPopuler;
   };
 
   // logic Video Akademik
   const akademikVideos = (data) => {
+    // filter berdasarkan category Akademik
     const videoAkademik = data.filter((item) => item.category === "Akademik");
     return videoAkademik;
   };
-  // logic Video Lainya
+  // logic Video Lainnya
   const lainnyaVideos = (data) => {
+    // filter berdasarkan category Lainnya
     const videoLainnya = data.filter((item) => item.category === "Lainnya");
     return videoLainnya;
   };
 
+  //untuk menghandle search inputan
   const [searchInput, setSearchInput] = useState("");
+  // untuk menghandle pemilihan search berdasarkan all, title, author
   const [searchType, setSearchType] = useState("All");
+  // untuk handle hasil search yang sudah di olah
   const [searchResult, setSearchResult] = useState([]);
 
+  // logic menghandle search
   const handleSearch = () => {
+    // variable untuk menampung data hasil yang telah di proses
     let filteredData = [];
+    // jika data kosong
     if (searchInput.trim() === "") {
       setSearchResult([]);
     } else {
+      // duplikasi semua data, dari state data diatas, kedalam satu variable
+      // bernama allData
       const allData = [
         ...data.dataRandom,
         ...data.dataPopuler,
         ...data.dataAkademik,
         ...data.dataLainnya,
       ];
-
+      // jika type search nya itu all
       if (searchType === "All") {
+        // looping semua data menggunakan filter
         filteredData = allData.filter((item) =>
+          // object.values mengembalikan array  dari nilai  setiap item
+          // .some () adalah mengecek  apakah setidaknya salah satu nilai tersebut
+          // mengandung bagian dari kata kunci  yang di inputkan pengguna
           Object.values(item).some(
             (value) =>
               value &&
+              // value dijadikan string, dijadikan huruf kecil
+              // dan mengandung inputkan dari pengguna yang di jadikan hurufh kecil semua
               value.toString().toLowerCase().includes(searchInput.toLowerCase())
           )
         );
-      } else {
+      }
+      // jika searchTypenya bukan all maka akan di handle dibagian ini
+      else {
+        // all data akan di filter berdasarkan kata kunci yang dimasukkan  kedalam
+        // search input.
         filteredData = allData.filter((item) =>
+          //  mengakses nilai dari properti objek sesuai dengan nilai dari searchType
+          // kemudian di ubah menjadi huruf kecil
           item[searchType.toLowerCase()]
+            // kemudian di ubah menjadi string , dan huruf huruf kecil
+            // yang mengandung search input
             .toString()
             .toLowerCase()
             .includes(searchInput.toLowerCase())
         );
       }
+
+      // untuk menghapus duplikasi dari array filteredData
+      // filteredData.map(JSON.stringify) mengonversi setiap objek dalam array filteredData
+      // menjadi string dengan menggunakan JSON.stringify. Ini dilakukan agar setiap objek
+      // direpresentasikan dalam bentuk string.
+      // new Set(...) menciptakan sebuah Set, yang secara alami menghilangkan duplikasi,
+      //  dari array string yang dihasilkan dari langkah sebelumnya. Set adalah struktur
+      //  data yang hanya dapat menyimpan nilai unik, sehingga jika ada duplikasi, hanya
+      //  satu nilai yang akan disimpan.
+      // Array.from(...) mengonversi kembali hasil Set ke dalam bentuk array.
+      // map(JSON.parse) melakukan parsing kembali dari setiap string yang ada di dalam
+      // array kembali menjadi objek menggunakan JSON.parse, sehingga Anda mendapatkan
+      // kembali array dengan objek yang unik dari objek-objek yang sebelumnya mungkin
+      //  memiliki duplikasi.
       filteredData = Array.from(new Set(filteredData.map(JSON.stringify))).map(
         JSON.parse
       );
@@ -280,7 +324,7 @@ export default function Video() {
         <div className="row">
           <h3 className="text-center fw-bold text-lg-start">Selamat Datang</h3>
         </div>
-
+        {/* handle ketika pengguna searching */}
         {searchResult.length > 0 && (
           <div className="row mt-3" id="hasil-pencarian">
             <div className="col-md-6 col-12">
@@ -298,7 +342,7 @@ export default function Video() {
             </div>
           </div>
         )}
-
+        {/* handle ketika tidak ada inputan atau tidak melakukan search */}
         {searchResult.length === 0 && searchInput === "" && (
           <>
             <div className="row mt-3 kategori" id="direkomendasi">
@@ -369,7 +413,7 @@ export default function Video() {
             </div>
           </>
         )}
-
+        {/* saat lagi search pertama kali  */}
         {searchResult.length === 0 && searchInput !== "" && (
           <div className="row mt-3" id="hasil-pencarian">
             <div className="col">

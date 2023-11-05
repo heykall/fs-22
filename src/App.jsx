@@ -6,6 +6,7 @@ import DetailVideo from "./pages/Halaman-Video/DetailVideo";
 function App() {
   return (
     <>
+      {/* routing halaman */}
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/halaman-video" element={<Video />} />
