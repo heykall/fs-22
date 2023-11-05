@@ -146,7 +146,7 @@ export default function Video() {
       setSearchResult(filteredData);
     }
   };
-  console.log(searchResult);
+
   useEffect(() => {
     getDataApi();
   }, []);
