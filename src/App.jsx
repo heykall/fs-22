@@ -10,7 +10,6 @@ import Homepage from './pages/Homepage';
 // import TimLiterasiKita from './pages/TimLiterasiKita';
 
 // Bagian Halaman Buku
-import BookCard from './pages/Halaman-Buku/components/BookCard';
 import Buku from './pages/Halaman-Buku/Buku';
 import DetailBuku from './pages/Halaman-Buku/DetailBuku';
 import BacaBuku from './pages/Halaman-Buku/BacaBuku';
@@ -53,7 +52,6 @@ function App() {
          <Routes>
           <Route path="/" exact element={<Homepage/>} />
           {/* <Route path="/tim-literasi-kita" element={TimLiterasiKita} /> */}
-          <Route path="/book-card" element={<BookCard />} />
           <Route path="/halaman-buku" element={<Buku/>} />
           <Route path="/halaman-buku/:id" element={<DetailBuku/>} />
           <Route path="/baca-buku/:id" element={<BacaBuku/>} />
