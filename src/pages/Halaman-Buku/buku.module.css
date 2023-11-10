@@ -71,20 +71,43 @@
   #warna-card {
     background-color: #ffffff;
   }
-  .vertical-text {
-    /*  writing-mode: vertical-lr; /* Mengatur teks vertikal dari kiri ke kanan */
-    /* text-orientation: sideways; /* Mengatur orientasi teks menjadi miring */
-    /* transform: rotate(180deg); /* Memutar teks 180 derajat untuk memulai dari bawah*/
-    /* transform-origin: left bottom; /* Mengatur titik rotasi di kiri bawah */
-    writing-mode: vertical-lr;
-    text-orientation: sideways;
-    transform: rotate(180deg);
-    transform-origin: left bottom;
-    transform-origin: center;
+
+  .blueTeks{
+    position: relative;
+    background: linear-gradient(to bottom, #044a5f, #00c3ff);
+    transform: rotate(-90deg);
+    /* transform-origin: left bottom; */
+    width: 210px;
+    flex-shrink: 0;
+    padding: 5px;
+    border-radius: 10px 10px 0 0;
+    top: 84px;
+    right: 125px;
   }
-  .ditambahkan {
-    margin-left: -12px;
-    /* padding: 28px 0; */
+
+  .rotatedTeks{
+    flex-shrink: 0;
+    color: rgb(255, 255, 255);
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    text-align: center;
+  }
+
+  .cardImg{
+    width: 115px;
+    height: auto;
+  }
+
+  #bukuBaru {
+   position: relative;
+    top: 10px;
+    right: -90px;
+    height: 13em;
+  }
+  #listBuku {
+    margin-top: -23px;
+    margin-left: 1px;
   }
   
   /* .scroll-video::-webkit-scrollbar {

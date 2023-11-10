@@ -3,6 +3,20 @@ import { useEffect, useState } from "react";
 import CardBuku from "../../components/CardBuku";
 import styles from "./Buku.module.css";
 export default function Buku() {
+  // handle card ditambahkan, dari api, data dari 2 paling belakang
+  const [ditambahkan, setDitambahkan] = useState([]);
+
+  // ngambil data dari api
+  const getDataApi = async () => {
+    const response = await axios(
+      `https://645611f25f9a4f23613a06ba.mockapi.io/book`
+    );
+    // hasil response
+    const data = response.data;
+    // data ditambahkan data diambil dari 2 paling belakang
+    setDitambahkan(data.slice(data.length - 3));
+  };
+
   //untuk menghandle search inputan
   const [searchInput, setSearchInput] = useState("");
   // untuk menghandle pemilihan search berdasarkan all, title, author
@@ -19,7 +33,6 @@ export default function Buku() {
       setSearchResult([]);
     } else {
       // duplikasi semua data, dari state data diatas, kedalam satu variable
-      // bernama allData
       const allData = [
         ...data.dataRandom,
         ...data.dataPopuler,
@@ -30,9 +43,6 @@ export default function Buku() {
       if (searchType === "All") {
         // looping semua data menggunakan filter
         filteredData = allData.filter((book) =>
-          // object.values mengembalikan array  dari nilai  setiap item
-          // .some () adalah mengecek  apakah setidaknya salah satu nilai tersebut
-          // mengandung bagian dari kata kunci  yang di inputkan pengguna
           Object.values(book).some(
             (value) =>
               value &&
@@ -57,20 +67,7 @@ export default function Buku() {
             .includes(searchInput.toLowerCase())
         );
       }
-
-      // untuk menghapus duplikasi dari array filteredData
-      // filteredData.map(JSON.stringify) mengonversi setiap objek dalam array filteredData
-      // menjadi string dengan menggunakan JSON.stringify. Ini dilakukan agar setiap objek
-      // direpresentasikan dalam bentuk string.
-      // new Set(...) menciptakan sebuah Set, yang secara alami menghilangkan duplikasi,
-      //  dari array string yang dihasilkan dari langkah sebelumnya. Set adalah struktur
-      //  data yang hanya dapat menyimpan nilai unik, sehingga jika ada duplikasi, hanya
-      //  satu nilai yang akan disimpan.
-      // Array.from(...) mengonversi kembali hasil Set ke dalam bentuk array.
-      // map(JSON.parse) melakukan parsing kembali dari setiap string yang ada di dalam
-      // array kembali menjadi objek menggunakan JSON.parse, sehingga Anda mendapatkan
-      // kembali array dengan objek yang unik dari objek-objek yang sebelumnya mungkin
-      //  memiliki duplikasi.
+      
       filteredData = Array.from(new Set(filteredData.map(JSON.stringify))).map(
         JSON.parse
       );
@@ -78,9 +75,12 @@ export default function Buku() {
     }
   };
 
+  useEffect(() => {
+    getDataApi();
+  }, []);
+
   return (
     <>
-      {/* <!-- SEARCH BUKU */}
       <div className="container mt-5">
         <div className="row justify-content-center">
           <div className="input-group mb-3 w-75 mt-3">
@@ -148,6 +148,7 @@ export default function Buku() {
         </div>
       </div>
 
+      {/* MOTIVASI */}
       <div className="container mt-5">
         <div className="row">
           <div className="col-lg-6 col-md-12">
@@ -175,6 +176,24 @@ export default function Buku() {
                   </ol>
                 </div>
               </div>
+          </div>
+          <div className="col-lg-5 col-md-12 mt-lg-3 mt-5 rounded-2 border border-primary" id={styles.bukuBaru}>
+            <div className={styles.blueTeks}>
+              <h3 className={styles.rotatedTeks}>Baru ditambahkan</h3>
+            </div>
+            <div className="row row-cols-2 row-cols-md-3 mb-sm-2" id={styles.listBuku}>
+              {ditambahkan.map((book) => (
+                <div className="col" key={book.id}>
+                  <div className="card p-2 ">
+                    <img
+                      src={book.img_url}
+                      className={styles.cardImg}
+                      alt="ditambahkan-1"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
