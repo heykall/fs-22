@@ -5,6 +5,12 @@ import styles from "./Buku.module.css";
 export default function Buku() {
   // handle card ditambahkan, dari api, data dari 2 paling belakang
   const [ditambahkan, setDitambahkan] = useState([]);
+  const [data, setData] = useState({
+    dataRandom: [],
+    dataPopuler: [],
+    dataAkademik: [],
+    dataLainnya: [],
+  });
 
   // ngambil data dari api
   const getDataApi = async () => {
@@ -15,6 +21,54 @@ export default function Buku() {
     const data = response.data;
     // data ditambahkan data diambil dari 2 paling belakang
     setDitambahkan(data.slice(data.length - 3));
+    // Buku Rekomendasi
+    const randomData = randomBuku(data, 6);
+    // Buku Terpopuler
+    const populerData = populerBuku(data);
+    // Buku Akademik
+    const akademikData = akademikBuku(data);
+    // Buku Akademik
+    const lainnyaData = lainnyaBuku(data);
+    // Memasukan data diatas kedalam state
+    // duplikat dulu datanya pakai ...data
+    // kemudian masukan datanya disesuaikan
+    setData({
+      ...data,
+      dataRandom: randomData,
+      dataPopuler: populerData,
+      dataAkademik: akademikData,
+      dataLainnya: lainnyaData,
+    });
+  };
+  //Logic Buku Rekomendasi
+  const randomBuku = (data, numBook) => {
+    // sorting secara random
+    const dataRandom = [...data];
+    for (let i = dataRandom.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [dataRandom[i], dataRandom[j]] = [dataRandom[j], dataRandom[i]];
+    }
+    // mengambil 6 data dari depan
+    return dataRandom.slice(0, numBook);
+  };
+  // logic Buku Terpopuler
+  const populerBuku = (data) => {
+    // filter berdasarkan category terpopuler
+    const bukuPopuler = data.filter((book) => book.category === "Terpopuler");
+    return bukuPopuler;
+  };
+
+  // logic Buku Akademik
+  const akademikBuku = (data) => {
+    // filter berdasarkan category Akademik
+    const bukuAkademik = data.filter((book) => book.category === "Akademik");
+    return bukuAkademik;
+  };
+  // logic Buku Lainnya
+  const lainnyaBuku = (data) => {
+    // filter berdasarkan category Lainnya
+    const bukuLainnya = data.filter((book) => book.category === "Lainnya");
+    return bukuLainnya;
   };
 
   //untuk menghandle search inputan
@@ -33,6 +87,7 @@ export default function Buku() {
       setSearchResult([]);
     } else {
       // duplikasi semua data, dari state data diatas, kedalam satu variable
+      // bernama allData
       const allData = [
         ...data.dataRandom,
         ...data.dataPopuler,
@@ -43,6 +98,9 @@ export default function Buku() {
       if (searchType === "All") {
         // looping semua data menggunakan filter
         filteredData = allData.filter((book) =>
+          // object.values mengembalikan array  dari nilai  setiap item
+          // .some () adalah mengecek  apakah setidaknya salah satu nilai tersebut
+          // mengandung bagian dari kata kunci  yang di inputkan pengguna
           Object.values(book).some(
             (value) =>
               value &&
@@ -67,7 +125,20 @@ export default function Buku() {
             .includes(searchInput.toLowerCase())
         );
       }
-      
+
+      // untuk menghapus duplikasi dari array filteredData
+      // filteredData.map(JSON.stringify) mengonversi setiap objek dalam array filteredData
+      // menjadi string dengan menggunakan JSON.stringify. Ini dilakukan agar setiap objek
+      // direpresentasikan dalam bentuk string.
+      // new Set(...) menciptakan sebuah Set, yang secara alami menghilangkan duplikasi,
+      //  dari array string yang dihasilkan dari langkah sebelumnya. Set adalah struktur
+      //  data yang hanya dapat menyimpan nilai unik, sehingga jika ada duplikasi, hanya
+      //  satu nilai yang akan disimpan.
+      // Array.from(...) mengonversi kembali hasil Set ke dalam bentuk array.
+      // map(JSON.parse) melakukan parsing kembali dari setiap string yang ada di dalam
+      // array kembali menjadi objek menggunakan JSON.parse, sehingga Anda mendapatkan
+      // kembali array dengan objek yang unik dari objek-objek yang sebelumnya mungkin
+      //  memiliki duplikasi.
       filteredData = Array.from(new Set(filteredData.map(JSON.stringify))).map(
         JSON.parse
       );
@@ -81,6 +152,7 @@ export default function Buku() {
 
   return (
     <>
+      {/* <!-- SEARCH BUKU */}
       <div className="container mt-5">
         <div className="row justify-content-center">
           <div className="input-group mb-3 w-75 mt-3">
@@ -196,6 +268,111 @@ export default function Buku() {
             </div>
           </div>
         </div>
+      </div>
+
+      {/*  BUKU  */}
+
+      <div className="container mt-5 pt-3">
+        <div className="row">
+          <h3 className="text-center fw-bold text-lg-start">Selamat Datang</h3>
+        </div>
+        {/* handle ketika pengguna searching */}
+        {searchResult.length > 0 && (
+          <div className="row mt-3" id="hasil-pencarian">
+            <div className="col-md-6 col-12">
+              <h5 className="text-center text-md-start">
+                Berdasarkan Pencarianmu
+              </h5>
+            </div>
+            <div
+              className="scroll-buku row row-cols-1 row-cols-md-5 g-lg-4 overflow-x-auto d-flex flex-nowrap mt-2 mt-lg-0 mb-5"
+              id="buku-container"
+            >
+              {searchResult.map((book) => (
+                <CardBuku key={book.id} book={book} />
+              ))}
+            </div>
+          </div>
+        )}
+        {/* handle ketika tidak ada inputan atau tidak melakukan search */}
+        {searchResult.length === 0 && searchInput === "" && (
+          <>
+            <div className="row mt-3 kategori" id="direkomendasi">
+              <div className="col-md-6 col-12">
+                <h5 className="text-center text-md-start">
+                  Direkomendasikan untuk mu
+                </h5>
+              </div>
+              <div className="col-md-6 text-md-end text-end col-12">
+                <p>Selengkapnya</p>
+              </div>
+              <div
+                className="scroll-buku row row-cols-1 row-cols-lg-5 row-cols-md-3 g-lg-4 overflow-x-auto d-flex flex-nowrap mt-2 mt-lg-0 mb-5"
+                id="direkomendasikan-buku"
+              >
+                {data.dataRandom.map((book) => (
+                  <CardBuku key={book.id} book={book} />
+                ))}
+              </div>
+            </div>
+            <div className="row mt-3 kategori" id="terpopuler">
+              <div className="col-md-6 col-12">
+                <h5 className="text-center text-md-start">Terpopuler</h5>
+              </div>
+              <div className="col-md-6 text-md-end text-end col-12">
+                <p>Selengkapnya</p>
+              </div>
+              <div
+                className="scroll-buku row row-cols-1 row-cols-lg-5 row-cols-md-3 g-lg-4 overflow-x-auto d-flex flex-nowrap mt-2 mt-lg-0 mb-5"
+                id="terpopuler-buku"
+              >
+                {data.dataPopuler.map((book) => (
+                  <CardBuku key={book.id} book={book} />
+                ))}
+              </div>
+            </div>
+            <div className="row mt-3 kategori" id="akademik">
+              <div className="col-md-6 col-12">
+                <h5 className="text-center text-md-start">Buku Akademik</h5>
+              </div>
+              <div className="col-md-6 text-md-end text-end col-12">
+                <p>Selengkapnya</p>
+              </div>
+              <div
+                className="scroll-buku row row-cols-1 row-cols-lg-5 row-cols-md-3 g-lg-4 overflow-x-auto d-flex flex-nowrap mt-2 mt-lg-0 mb-5"
+                id="akademik-buku"
+              >
+                {data.dataAkademik.map((book) => (
+                  <CardBuku key={book.id} book={book} />
+                ))}
+              </div>
+            </div>
+            <div className="row mt-3 kategori" id="lainnya">
+              <div className="col-md-6 col-12">
+                <h5 className="text-center text-md-start">Lainnya</h5>
+              </div>
+              <div className="col-md-6 text-md-end text-end col-12">
+                <p>Selengkapnya</p>
+              </div>
+              <div
+                className="scroll-buku row row-cols-1 row-cols-lg-5 row-cols-md-3 g-4 overflow-x-auto d-flex flex-nowrap mt-1 mt-lg-0 mb-5"
+                id="lainnya-buku"
+              >
+                {data.dataLainnya.map((book) => (
+                  <CardBuku key={book.id} book={book} />
+                ))}
+              </div>
+            </div>
+          </>
+        )}
+        {/* saat lagi search pertama kali  */}
+        {searchResult.length === 0 && searchInput !== "" && (
+          <div className="row mt-3" id="hasil-pencarian">
+            <div className="col">
+              <p className="text-center">Sedang mencari data...</p>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
