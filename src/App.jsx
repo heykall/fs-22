@@ -53,8 +53,8 @@ function App() {
           <Route path="/" exact element={<Homepage/>} />
           {/* <Route path="/tim-literasi-kita" element={TimLiterasiKita} /> */}
           <Route path="/halaman-buku" element={<Buku/>} />
-          <Route path="/halaman-buku/:id" element={<DetailBuku/>} />
-          <Route path="/baca-buku/:id" element={<BacaBuku/>} />
+          <Route path="/halaman-buku/detail-buku/:id" element={<DetailBuku/>} />
+          <Route path="/halaman-buku/baca-buku/:id" element={<BacaBuku/>} />
           {/* <Route path="/halaman-video" exact element={<Video />} />
           <Route path="/halaman-video/:id" element={<DetailVideo />} />
           <Route path="/tonton-video/:id" element={<TontonVideo />} /> */}

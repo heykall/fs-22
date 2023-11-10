@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import styles from "../pages/Halaman-Buku/buku.module.css";
 import { useNavigate } from "react-router-dom";
-export default function CardBuku({ book }) {
+export default function CardBuku({book}) {
   const navigate = useNavigate();
   const handleClick = () => {
     // console.log(book.id);
