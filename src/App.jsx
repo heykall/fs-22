@@ -55,10 +55,10 @@ function App() {
           <Route path="/halaman-buku" element={<Buku/>} />
           <Route path="/halaman-buku/:id" element={<DetailBuku/>} />
           <Route path="/baca-buku/:id" element={<BacaBuku/>} />
-          {/* <Route path="/halaman-video" exact element={Video} />
-          <Route path="/halaman-video/:id" element={DetailVideo} />
-          <Route path="/tonton-video/:id" element={TontonVideo} />
-          <Route path="/halaman-donasi" exact element={Donasi} />
+          {/* <Route path="/halaman-video" exact element={<Video />} />
+          <Route path="/halaman-video/:id" element={<DetailVideo />} />
+          <Route path="/tonton-video/:id" element={<TontonVideo />} /> */}
+          {/* <Route path="/halaman-donasi" exact element={Donasi} />
           <Route path="/halaman-donasi/donasi-uang" exact element={DonasiUang} />
           <Route path="/halaman-donasi/donasi-uang/:id" element={DetailDonasiUang} />
           <Route path="/halaman-donasi/donasi-uang/:id/payment" element={Payment} />

@@ -8,6 +8,7 @@ final-project-fullstack-web-development/
 │ ├── components/
 │ │ ├── Navbar.jsx
 │ │ ├── Footer.jsx
+│ │ ├── CardBuku.jsx
 │ │ └── ...
 │ ├── pages/
 │ │ ├── Homepage.jsx
