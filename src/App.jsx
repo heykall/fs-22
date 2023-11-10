@@ -65,12 +65,12 @@ function App() {
           <Route path="/halaman-donasi/donasi-barang" exact element={DonasiBarang} />
           <Route path="/halaman-donasi/donasi-barang/:id" element={DetailDonasiBarang} />
           <Route path="/halaman-donasi/donasi-barang/:id/upload" element={UploadBarang} />
-          <Route path="/auth/profile" element={ProfileUser} />
-          <Route path="/auth/login" element={Login} />
-          <Route path="/auth/register" element={Register} />
-          <Route path="/auth/reset-password" element={ResetPassword} />
-          <Route path="/auth/lupa-password" element={LupaPassword} />
-          <Route path="/admin/dashboard" element={DashboardAdmin} /> */}
+          <Route path="/profile" element={ProfileUser} />
+          <Route path="/login" element={Login} />
+          <Route path="/register" element={Register} />
+          <Route path="/profile/reset-password" element={ResetPassword} />
+          <Route path="/profile/lupa-password" element={LupaPassword} />
+          <Route path="/profile/admin/dashboard" element={DashboardAdmin} /> */}
          </Routes>
         {/* {isFooterVisible && (<Footer userType={isLoggedIn} setIsLoggedIn={setIsLoggedIn} /> )} */}
       </div>
