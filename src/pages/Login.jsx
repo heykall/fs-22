@@ -1,10 +1,10 @@
-import React from 'react';
-import { Container, Row, Col, Image, Form, Button, Nav } from 'react-bootstrap';
-import ellipseBackground from '../assets/svg/ellipse-background.svg';
-import Google from '../assets/svg/Google.svg';
-import Apple from '../assets/svg/Apple.svg';
-import Facebook from '../assets/svg/Facebook.svg';
-import Character from '../assets/svg/Character.svg';
+import React from "react";
+import { Container, Row, Col, Image, Form, Button, Nav } from "react-bootstrap";
+import ellipseBackground from "../assets/svg/ellipse-background.svg";
+import Google from "../assets/svg/Google.svg";
+import Apple from "../assets/svg/Apple.svg";
+import Facebook from "../assets/svg/Facebook.svg";
+import Character from "../assets/svg/Character.svg";
 
 function Login() {
   return (
@@ -25,17 +25,17 @@ function Login() {
             jika Anda belum memiliki akun,
             <br />
             Anda dapat
-            <Nav.Link
+            <a
               href="#"
               className="btn btn-link text-decoration-none text-warna fw-bold font-20 position-relative z-index-1"
             >
               Login di sini!
-            </Nav.Link>
+            </a>
           </p>
         </Col>
         <Col lg={4} md={12} className="align-self-center align-items-center">
           <Image
-          src= {Character}
+            src={Character}
             alt=""
             fluid
             width="80%"
@@ -46,7 +46,11 @@ function Login() {
           <Form id="login-form">
             <Form.Group className="mb-3">
               <Form.Label>Email address</Form.Label>
-              <Form.Control type="email" id="email" aria-describedby="emailHelp" />
+              <Form.Control
+                type="email"
+                id="email"
+                aria-describedby="emailHelp"
+              />
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Password</Form.Label>
@@ -58,7 +62,10 @@ function Login() {
               </Nav.Link>
             </div>
             <div className="mb-3">
-              <Button type="submit" className="btn btn-light bg-warna text-white w-100">
+              <Button
+                type="submit"
+                className="btn btn-light bg-warna text-white w-100"
+              >
                 Submit
               </Button>
             </div>
