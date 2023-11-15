@@ -9,6 +9,7 @@ import TontonVideo from "./pages/Halaman-Video/TontonVideo";
 import Footer from "./components/Footer";
 import Navbar from "react-bootstrap";
 
+
 function App() {
   return (
     <>
@@ -28,7 +29,7 @@ function App() {
             path="/halaman-video/detail-video/tonton-video/:id"
             element={<TontonVideo />}
           />
-        </Routes>
+        <Routes />
       <Footer />
     </>
   );
