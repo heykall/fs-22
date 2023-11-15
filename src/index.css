@@ -1,0 +1,29 @@
+/* FONT POPINS DITERAPKAN KE SEMUA HALAMAN */
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+:root {
+  /* color */
+  --primaryColor: #1ea7d1;
+  --secondaryColor: #29ab92;
+  --thirdColor: #454040;
+
+  /* font */
+  --font-family: "Poppins", sans-serif;
+}
+
+* {
+  font-family: var(--font-family);
+}
+.font-footer {
+  font-size: 12px;
+}
+footer {
+  /* padding: 50px 30px 30px 30px; */
+  background: rgb(25, 155, 213);
+  background: linear-gradient(
+    129deg,
+    rgba(25, 155, 213, 1) 31%,
+    rgba(163, 225, 198, 1) 70%
+  );
+}
