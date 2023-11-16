@@ -9,15 +9,15 @@ import Character from "../assets/svg/Character.svg";
 function Login() {
   return (
     <Container className="mt-5">
-      <Row className="align-items-center">
-        <Col lg={5} md={12} className="mt-5 mb-lg-5">
-          <Image
+      <Image
             src={ellipseBackground}
             fluid
-            className="position-absolute img2 top-0"
-            width="40%"
+            className="position-absolute img2 top-1"
+            width="35%"
             alt="Ellipse Background"
           />
+      <Row className="align-items-center">
+        <Col lg={5} md={12} className="">
           <h1 className="text-center text-lg-start fw-bold">
             Masuk untuk Menikmati fitur kami
           </h1>
@@ -64,7 +64,7 @@ function Login() {
             <div className="mb-3">
               <Button
                 type="submit"
-                className="btn btn-light bg-warna text-white w-100"
+                className="btn btn-light  text-white w-100"
               >
                 Submit
               </Button>
