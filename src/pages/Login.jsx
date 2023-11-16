@@ -5,6 +5,7 @@ import Google from "../assets/svg/Google.svg";
 import Apple from "../assets/svg/Apple.svg";
 import Facebook from "../assets/svg/Facebook.svg";
 import Character from "../assets/svg/Character.svg";
+import "./Login.css";
 
 function Login() {
   return (
@@ -64,7 +65,7 @@ function Login() {
             <div className="mb-3">
               <Button
                 type="submit"
-                className="btn btn-light  text-white w-100"
+                className="btn btn-light bg-warna text-white w-100"
               >
                 Submit
               </Button>
