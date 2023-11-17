@@ -8,7 +8,7 @@ import user1 from "../assets/svg/user-1.svg";
 import user2 from "../assets/svg/user-2.svg";
 import user3 from "../assets/svg/user-3.svg";
 
-export default function Homepage() {
+function Homepage() {
   return (
     <>
       <section id="hero" className="mb-5">
