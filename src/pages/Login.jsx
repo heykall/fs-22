@@ -1,22 +1,24 @@
 import React from "react";
 import { Container, Row, Col, Image, Form, Button, Nav } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import ellipseBackground from "../assets/svg/ellipse-background.svg";
 import Google from "../assets/svg/Google.svg";
 import Apple from "../assets/svg/Apple.svg";
 import Facebook from "../assets/svg/Facebook.svg";
 import Character from "../assets/svg/Character.svg";
-import "./Login.css";
+import styles from "./Login.module.css";
+
 
 function Login() {
   return (
     <Container className="mt-5">
       <Image
-            src={ellipseBackground}
-            fluid
-            className="position-absolute img2 top-1"
-            width="35%"
-            alt="Ellipse Background"
-          />
+        src={ellipseBackground}
+        fluid
+        className="position-absolute img2 top-1"
+        width="35%"
+        alt="Ellipse Background"
+      />
       <Row className="align-items-center">
         <Col lg={5} md={12} className="">
           <h1 className="text-center text-lg-start fw-bold">
@@ -26,12 +28,13 @@ function Login() {
             jika Anda belum memiliki akun,
             <br />
             Anda dapat
-            <a
-              href="#"
-              className="btn btn-link text-decoration-none text-warna fw-bold font-20 position-relative z-index-1"
+            <Link
+              to="/register"
+              className="btn btn-link text-decoration-none fw-bold font-20 position-relative z-index-1" 
+              id={styles.textWarna}
             >
-              Login di sini!
-            </a>
+              Daftar di sini!
+            </Link>
           </p>
         </Col>
         <Col lg={4} md={12} className="align-self-center align-items-center">
@@ -65,7 +68,8 @@ function Login() {
             <div className="mb-3">
               <Button
                 type="submit"
-                className="btn btn-light bg-warna text-white w-100"
+                className="btn btn-light text-white w-100"
+                id={styles.bgWarna}
               >
                 Submit
               </Button>
@@ -76,7 +80,7 @@ function Login() {
               <hr />
             </Col>
             <Col xs={8}>
-              <p className="text-center fw-light">Or continue with</p>
+              <p className="text-center fw-light">Atau lanjutkan dengan</p>
             </Col>
             <Col xs={2}>
               <hr />

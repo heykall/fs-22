@@ -1,14 +1,17 @@
-import React from 'react';
-import Login from './pages/Login';
-import NavbarComponent from './components/Navbar';
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 function App() {
   return (
-    <>
-      <NavbarComponent />
-      <Login />
-    </>
+    <Router>
+      <Routes>
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+    </Router>
   );
 }
 
-export default App
+export default App;
