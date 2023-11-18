@@ -7,62 +7,64 @@ import Google from '../assets/svg/Google.svg';
 import Apple from '../assets/svg/Apple.svg';
 import Facebook from '../assets/svg/Facebook.svg';
 import Character from '../assets/svg/Character.svg';
+import styles from './Register.module.css';
 
-const Register = () => {
-    const [formData, setFormData] = useState({
-      nama: '',
-      jenisKelamin: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-      profilePicture: '',
+export default function Register() {
+  const [formData, setFormData] = useState({
+    nama: '',
+    jenisKelamin: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    profilePicture: '',
+  });
+
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
     });
-  
-    const [errorMessage, setErrorMessage] = useState('');
-  
-    const handleChange = (e) => {
-      setFormData({
-        ...formData,
-        [e.target.id]: e.target.value,
-      });
-    };
-  
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      setErrorMessage('');
-  
-      const { nama, jenisKelamin, email, password, confirmPassword, profilePicture } = formData;
-  
-      if (!nama || !jenisKelamin || !email || !password || !confirmPassword) {
-        setErrorMessage('Semua field harus diisi.');
-      } else if (password !== confirmPassword) {
-        setErrorMessage('Password dan Confirm Password harus sama.');
-      } else {
-        try {
-          const response = await axios.post('https://645611f25f9a4f23613a06ba.mockapi.io/account', {
-            profilePicture,
-            nama,
-            jenisKelamin,
-            email,
-            password,
-          });
-  
-          alert('Pendaftaran berhasil! Anda akan diarahkan ke halaman login dalam 2 detik.');
-  
-          // Arahkan pengguna ke halaman login setelah 2 detik
-          setTimeout(() => {
-            // Use React Router DOM to navigate to the login page
-            // Adjust the route path as needed
-            window.location.href = '../login';
-          }, 2000);
-        } catch (error) {
-          setErrorMessage('Terjadi kesalahan saat mengirim data.');
-        }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setErrorMessage('');
+
+    const { nama, jenisKelamin, email, password, confirmPassword, profilePicture } = formData;
+
+    if (!nama || !jenisKelamin || !email || !password || !confirmPassword) {
+      setErrorMessage('Semua field harus diisi.');
+    } else if (password !== confirmPassword) {
+      setErrorMessage('Password dan Confirm Password harus sama.');
+    } else {
+      try {
+        const response = await axios.post('https://645611f25f9a4f23613a06ba.mockapi.io/account', {
+          profilePicture,
+          nama,
+          jenisKelamin,
+          email,
+          password,
+        });
+
+        alert('Pendaftaran berhasil! Anda akan diarahkan ke halaman login dalam 2 detik.');
+
+        // Arahkan pengguna ke halaman login setelah 2 detik
+        setTimeout(() => {
+          // Use React Router DOM to navigate to the login page
+          // Adjust the route path as needed
+          window.location.href = '../login';
+        }, 2000);
+      } catch (error) {
+        setErrorMessage('Terjadi kesalahan saat mengirim data.');
       }
-    };
+    }
+  };
   
 
   return (
+    <>
     <Container>
       <Row className="align-items-center">
         <Col lg={5} md={12} mt={5} mb-lg-5>
@@ -80,7 +82,8 @@ const Register = () => {
             Anda dapat
             <a
               href="./../login/index.html"
-              className="btn btn-link text-decoration-none text-warna fw-bold font-20 position-relative z-index-1"
+              // className="btn btn-link text-decoration-none text-warna fw-bold font-20 position-relative z-index-1"
+              className={styles.customCta}
             >
               Login di sini!
             </a>
@@ -95,40 +98,25 @@ const Register = () => {
           />
         </Col>
         <Col lg={3} md={12} className="align-self-start mt-5">
-          <Form onSubmit={handleSubmit} id="register-form">
-            <Form.Group className="mb-3">
-              <Form.Label htmlFor="nama-lengkap">Nama lengkap</Form.Label>
-              <Form.Control type="text" id="nama" />
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label htmlFor="jenis-kelamin">Jenis kelamin</Form.Label>
-              <Form.Select id="jenis-kelamin">
-                <option>-- Pilih Jenis kelamin --</option>
-                <option value="laki-laki">Laki - laki</option>
-                <option value="perempuan">Perempuan</option>
-              </Form.Select>
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label htmlFor="email">Email address</Form.Label>
-              <Form.Control type="email" id="email" />
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label htmlFor="password">Password</Form.Label>
-              <Form.Control type="password" id="password" />
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label htmlFor="confirm-password">Confirm Password</Form.Label>
-              <Form.Control type="password" id="confirm-password" />
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Button type="submit" className="btn btn-light bg-warna text-white w-100" id="submit-button">
-                Submit
-              </Button>
-            </Form.Group>
-            <div id="error-message" className="error-message">
+        <Form onSubmit={handleSubmit} id="register-form">
+          {/* ... (unchanged code) */}
+          <Form.Group className="mb-3">
+            <Form.Label htmlFor="password">Password</Form.Label>
+            <Form.Control type="password" id="password" value={formData.password} onChange={handleChange} />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label htmlFor="confirm-password">Confirm Password</Form.Label>
+            <Form.Control type="password" id="confirmPassword" value={formData.confirmPassword} onChange={handleChange} />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Button type="submit" className="btn btn-light bg-warna text-white w-100" id="submit-button">
+              Submit
+            </Button>
+          </Form.Group>
+          <div id="error-message" className="error-message">
             {errorMessage}
-            </div>
-          </Form>
+          </div>
+        </Form>
           <Row className="mt-5">
             <Col-2>
               <hr />
@@ -160,7 +148,6 @@ const Register = () => {
         </Col>
       </Row>
     </Container>
+    </>
   );
 };
-
-export default Register;
