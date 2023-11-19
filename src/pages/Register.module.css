@@ -1,4 +1,4 @@
-.customCta{
+/* .customCta{
   display: inline-block;
   padding: 0.5rem 1rem;
   margin: 0; 
@@ -12,13 +12,13 @@
   font-size: 20px;
   position: relative;
   z-index: 1;
-  }
+  } */
 
 
 .text-warna {
-    color: #1EA7D1 !important;
+    color: #1EA7D1;
 }
 
 .bg-warna {
-    background-color: #1EA7D1 !important;
+    background-color: #1EA7D1;
 }
