@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Form, Button, Image } from "react-bootstrap";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import ellipseBackground from "../assets/svg/ellipse-background.svg";
 import Google from "../assets/svg/Google.svg";
@@ -58,19 +58,22 @@ export default function Register() {
           }
         );
 
-        alert("Pendaftaran berhasil! Anda akan diarahkan ke halaman login dalam 2 detik.");
+        alert(
+          "Pendaftaran berhasil! Anda akan diarahkan ke halaman login dalam 2 detik."
+        );
 
-        // Gunakan useHistory untuk melakukan navigasi
-        const history = useHistory();
+        // Arahkan pengguna ke halaman login setelah 2 detik
         setTimeout(() => {
-          // Navigasi ke halaman login
-          history.push("/login");
+          // Use React Router DOM to navigate to the login page
+          // Adjust the route path as needed
+          window.location.href = "/login";
         }, 2000);
-      } catch (error) {````
+      } catch (error) {
         setErrorMessage("Terjadi kesalahan saat mengirim data.");
       }
     }
   };
+
 
   return (
     <>

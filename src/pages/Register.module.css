@@ -15,10 +15,10 @@
   } */
 
 
-.text-warna {
+#textWarna {
     color: #1EA7D1;
 }
 
-.bg-warna {
+#bgWarna {
     background-color: #1EA7D1;
 }
