@@ -19,11 +19,9 @@ export default function Video() {
 
   // ngambil data dari api
   const getDataApi = async () => {
-    const response = await axios(
-      `https://652d3ffcf9afa8ef4b271ed7.mockapi.io/Video`
-    );
+    const response = await axios(`http://localhost:3000/videos`);
     // hasil response
-    const data = response.data;
+    const data = response.data.data;
     // data ditambahkan data diambil dari 2 paling belakang
     setDitambahkan(data.slice(data.length - 2));
     // Video Rekomendasi
@@ -359,7 +357,7 @@ export default function Video() {
                 id="direkomendasikan-videos"
               >
                 {data.dataRandom.map((item) => (
-                  <CardVideo key={item.id} item={item} />
+                  <CardVideo key={item._id} item={item} />
                 ))}
               </div>
             </div>

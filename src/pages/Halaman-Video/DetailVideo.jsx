@@ -8,21 +8,17 @@ export default function DetailVideo() {
   const [dataById, setDataById] = useState([]);
   const [dataRandom, setDataRandom] = useState([]);
   const getDataApiById = async () => {
-    const response = await axios(
-      `https://652d3ffcf9afa8ef4b271ed7.mockapi.io/Video/${id}`
-    );
-    const data = response.data;
+    const response = await axios(`http://localhost:3000/videos/${id}`);
+    const data = response.data.data;
 
     setDataById(data);
   };
 
   // ngambil data dari api
   const getDataApi = async () => {
-    const response = await axios(
-      `https://652d3ffcf9afa8ef4b271ed7.mockapi.io/Video`
-    );
+    const response = await axios(`http://localhost:3000/videos`);
     // hasil response
-    const data = response.data;
+    const data = response.data.data;
     // Video Rekomendasi
     const randomData = randomVideos(data, 6);
     // Memasukan data diatas kedalam state
