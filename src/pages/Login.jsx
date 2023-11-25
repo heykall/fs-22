@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Container, Row, Col, Image, Form, Button, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ellipseBackground from "../assets/svg/ellipse-background.svg";
@@ -8,11 +6,47 @@ import Apple from "../assets/svg/Apple.svg";
 import Facebook from "../assets/svg/Facebook.svg";
 import Character from "../assets/svg/Character.svg";
 import styles from "./Login.module.css";
-
-
+import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 function Login() {
+  const navigate = useNavigate(); // to navigate to different pages
+  const [login, setLogin] = useState({
+    email: "",
+    password: "",
+  });
+  const handleChange = (e) => {
+    setLogin({
+      ...login,
+      [e.target.id]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // console.log(login);
+    const { email, password } = login;
+    if (!email || !password) {
+      alert("Silahkan isi email dan password");
+    }
+
+    try {
+      const { data } = await axios.post(`http://localhost:3000/auth/login`, {
+        email,
+        password,
+      });
+      const { token, role } = data;
+      const userData = { token, role };
+      localStorage.setItem("data", JSON.stringify(userData));
+      alert("Anda berhasil login");
+      // Redirect the user to another page (you can replace '/dashboard' with the desired path)
+      navigate("/");
+    } catch (error) {
+      alert("Login gagal. Periksa kembali email dan password");
+    }
+  };
   return (
-    <Container className="mt-5">
+    <Container className="mt-5 mb-5">
       <Image
         src={ellipseBackground}
         fluid
@@ -31,7 +65,7 @@ function Login() {
             Anda dapat
             <Link
               to="/register"
-              className="btn btn-link text-decoration-none fw-bold font-20 position-relative z-index-1" 
+              className="btn btn-link text-decoration-none fw-bold font-20 position-relative z-index-1"
               id={styles.textWarna}
             >
               Daftar di sini!
@@ -48,18 +82,25 @@ function Login() {
           />
         </Col>
         <Col lg={3} md={12} className="align-self-start mt-5">
-          <Form id="login-form">
+          <Form id="login-form" onSubmit={handleSubmit}>
             <Form.Group className="mb-3">
               <Form.Label>Email address</Form.Label>
               <Form.Control
                 type="email"
                 id="email"
                 aria-describedby="emailHelp"
+                onChange={handleChange}
+                value={login.email}
               />
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" id="password" />
+              <Form.Control
+                type="password"
+                id="password"
+                onChange={handleChange}
+                value={login.password}
+              />
             </Form.Group>
             <div className="mb-3 justify-content-end text-end">
               <Nav.Link href="#" className="text-decoration-none text-black-50">
