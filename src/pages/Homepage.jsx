@@ -122,7 +122,7 @@ function Homepage() {
                   <a
                     style={{ backgroundColor: " #29AB92" }}
                     className="btn  border-0 text-white rounded-pill shadow px-3 py-2"
-                    href="halaman-video"
+                    href="halaman-buku"
                     role="button"
                   >
                     Selengkapnya &rarr;
@@ -356,6 +356,3 @@ function Homepage() {
     </>
   );
 }
-
-
-export default Homepage;
