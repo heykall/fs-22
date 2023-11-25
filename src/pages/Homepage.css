@@ -1,0 +1,111 @@
+/* .bg-warna {
+    background-color: #1EA7D1;
+} */
+/* .bg-btnwarna{
+    background-color: #29AB92;
+} */
+
+.custom-button {
+  background-color: #29ab92; /* Gaya khusus Anda */
+  color: #fff;
+}
+
+#font-general {
+  font-size: 14px;
+}
+
+.bg-gradasi {
+  background: rgb(166, 226, 198);
+  background: linear-gradient(
+    180deg,
+    rgba(166, 226, 198, 1) 0%,
+    rgba(24, 154, 212, 1) 100%,
+    rgba(24, 154, 212, 1) 100%
+  );
+}
+
+.text-justify {
+  text-align: justify;
+}
+.text-paragraph {
+  text-align: justify;
+  text-indent: 50px;
+}
+.text-warna {
+  color: #1ea7d1;
+}
+
+.text-28 {
+  font-size: 28px;
+}
+
+.text-warna-third {
+  color: #454040;
+}
+
+.font-general {
+  font-size: 14px;
+}
+
+#hero {
+  background: rgb(166, 226, 198);
+  background: linear-gradient(
+    180deg,
+    rgba(166, 226, 198, 1) 0%,
+    rgba(24, 154, 212, 1) 100%,
+    rgba(24, 154, 212, 1) 100%
+  );
+}
+
+#hero h1 {
+  font-weight: bold;
+  line-height: 70px;
+}
+
+#hero p {
+  font-weight: 500;
+  line-height: 40px;
+}
+
+.city p {
+  font-size: 12px;
+}
+
+.font-rating {
+  font-size: 12px;
+}
+
+.scroll-btn {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  z-index: 999;
+  transform: rotate(90deg);
+  position: relative;
+  bottom: -40px;
+}
+
+.scroll-btn a {
+  text-decoration: none;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+
+.circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #13688d;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.icon {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  font-size: 50px;
+  color: #fff;
+}
