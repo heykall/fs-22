@@ -1,17 +1,18 @@
-.text-light.link-dark.dropdown-item:hover, .text-light.link-dark.dropdown-item:focus {
-  background-color: #1ea7d1; 
+.text-light.link-dark.dropdown-item:hover,
+.text-light.link-dark.dropdown-item:focus {
+  background-color: #1ea7d1;
 }
 
 .custom-dropdown .dropdown-menu {
   background-color: #1ea7d1;
 }
 
-#register{
+#register {
   height: 40px;
   width: 80px;
 }
 
-.text-regis{
+.text-regis {
   color: white;
   align-items: center;
   text-align: center;
