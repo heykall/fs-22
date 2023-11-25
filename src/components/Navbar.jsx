@@ -6,7 +6,7 @@ function NavbarComponent() {
   return (
     <Navbar expand="lg">
       <div className="container-fluid mx-lg-5 mt-lg-4 ">
-        <Navbar.Brand href="#">
+        <Navbar.Brand href="/">
           <img src={logo} alt="logo" className="w-75" />
         </Navbar.Brand>
         <button
