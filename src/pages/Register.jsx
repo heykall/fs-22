@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Container, Row, Col, Form, Button, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -10,58 +10,74 @@ import Character from "../assets/svg/Character.svg";
 import styles from "./Register.module.css";
 
 export default function Register() {
+  // state yang di kirim
   const [formData, setFormData] = useState({
     nama: "",
     jenisKelamin: "",
     email: "",
     password: "",
     confirmPassword: "",
-    profilePicture: "",
+    noHp: "",
+    bio: "",
   });
-
+  // error message
   const [errorMessage, setErrorMessage] = useState("");
-
+  // handle ketikan inputan
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.id]: e.target.value,
     });
   };
-
+  // handle ketika di klik submit
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage("");
+    // console.log(formData);
+    // ambil data dari state form data
+    const { nama, jenisKelamin, email, password, confirmPassword, noHp, bio } =
+      formData;
 
-    const {
-      nama,
-      jenisKelamin,
-      email,
-      password,
-      confirmPassword,
-      profilePicture,
-    } = formData;
-
+    // ngecek setiap inputan user
     if (!nama || !jenisKelamin || !email || !password || !confirmPassword) {
       setErrorMessage("Semua field harus diisi.");
-    } else if (password !== confirmPassword) {
+    }
+    // ngecek password dan confirm password
+    else if (password !== confirmPassword) {
       setErrorMessage("Password dan Confirm Password harus sama.");
     } else {
+      // console.log(
+      //   nama,
+      //   jenisKelamin,
+      //   email,
+      //   password,
+      //   confirmPassword,
+      //   noHp,
+      //   bio
+      // );
+      // kalo semua inputan sudah oke maka
       try {
-        const response = await axios.post(
-          "https://645611f25f9a4f23613a06ba.mockapi.io/account",
+        //
+        const data = await axios.post(
+          "http://localhost:3000/auth/register",
           {
-            profilePicture,
             nama,
             jenisKelamin,
             email,
             password,
+            confirmPassword,
+            noHp,
+            bio,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
           }
         );
-
         alert(
           "Pendaftaran berhasil! Anda akan diarahkan ke halaman login dalam 2 detik."
         );
-
         // Arahkan pengguna ke halaman login setelah 2 detik
         setTimeout(() => {
           // Use React Router DOM to navigate to the login page
@@ -74,12 +90,11 @@ export default function Register() {
     }
   };
 
-
   return (
     <>
-      <Container>
+      <Container className="mb-5">
         <Row className="align-items-center">
-          <Col lg={5} md={12} mt={5} mb-lg-5>
+          <Col lg={5} md={12} mt={5} style={{ marginBottom: "5rem" }}>
             <img
               src={ellipseBackground}
               className="img-fluid position-absolute img2 top-0"
@@ -118,14 +133,20 @@ export default function Register() {
                   type="text"
                   id="nama"
                   aria-describedby="namaHelp"
+                  onChange={handleChange} // Tambahkan ini
+                  value={formData.nama} // Tambahkan ini
                 />
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label htmlFor="jenis-kelamin">Jenis kelamin</Form.Label>
-                <Form.Select id="jenis-kelamin">
+                <Form.Select
+                  id="jenisKelamin"
+                  onChange={handleChange} // Tambahkan ini
+                  value={formData.jenisKelamin} // Tambahkan ini
+                >
                   <option>-- Pilih Jenis kelamin --</option>
-                  <option value="laki-laki">Laki - laki</option>
-                  <option value="perempuan">Perempuan</option>
+                  <option value="pria">Pria</option>
+                  <option value="wanita">Wanita</option>
                 </Form.Select>
               </Form.Group>
               <Form.Group className="mb-3">
@@ -134,17 +155,31 @@ export default function Register() {
                   type="email"
                   id="email"
                   aria-describedby="emailHelp"
+                  onChange={handleChange} // Tambahkan ini
+                  value={formData.email} // Tambahkan ini
                 />
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label htmlFor="password">Password</Form.Label>
-                <Form.Control type="password" id="password" />
+                <Form.Control
+                  type="password"
+                  id="password"
+                  onChange={handleChange} // Tambahkan ini
+                  value={formData.password} // Tambahkan ini
+                  placeholder="Password (minimal 8 karakter)"
+                />
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label htmlFor="confirm-password">
                   Confirm Password
                 </Form.Label>
-                <Form.Control type="password" id="confirm-password" />
+                <Form.Control
+                  type="password"
+                  id="confirmPassword"
+                  onChange={handleChange} // Tambahkan ini
+                  value={formData.confirmPassword} // Tambahkan ini
+                  placeholder="Confirm Password (minimal 8 karakter)"
+                />
               </Form.Group>
               <Form.Group className="mb-3">
                 <Button
@@ -155,10 +190,8 @@ export default function Register() {
                   Submit
                 </Button>
               </Form.Group>
-              <div id="error-message" className="error-message">
-              {errorMessage && <p>{errorMessage}</p>}
-              </div>
             </Form>
+
             <Row className="mt-5">
               <Col xs={2}>
                 <hr />

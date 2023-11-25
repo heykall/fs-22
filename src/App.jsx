@@ -1,9 +1,8 @@
-import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Homepage from "./pages/Homepage";
 import Buku from "./pages/Halaman-Buku/Buku";
-import BacaBuku from "./pages/Halaman-Buku/BacaBuku"
+import BacaBuku from "./pages/Halaman-Buku/BacaBuku";
 import DetailBuku from "./pages/Halaman-Buku/DetailBuku";
 import Video from "./pages/Halaman-Video/Video";
 import DetailVideo from "./pages/Halaman-Video/DetailVideo";
@@ -31,8 +30,8 @@ function App() {
           path="/halaman-video/detail-video/tonton-video/:id"
           element={<TontonVideo />}
         />
-            <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
       <Footer />
     </>
