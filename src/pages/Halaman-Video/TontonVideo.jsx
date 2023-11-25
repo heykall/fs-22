@@ -6,10 +6,8 @@ export default function TontonVideo() {
   const { id } = useParams();
   const [dataById, setDataById] = useState([]);
   const getDataApiById = async () => {
-    const response = await axios(
-      `https://652d3ffcf9afa8ef4b271ed7.mockapi.io/Video/${id}`
-    );
-    const data = response.data;
+    const response = await axios(`http://localhost:3000/videos/${id}`);
+    const data = response.data.data;
     setDataById(data);
   };
 

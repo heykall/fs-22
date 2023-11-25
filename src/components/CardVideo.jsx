@@ -4,7 +4,7 @@ export default function CardVideo({ item }) {
   const navigate = useNavigate();
   const handleClick = () => {
     // console.log(item.id);
-    navigate(`/halaman-video/detail-video/${item.id}`);
+    navigate(`/halaman-video/detail-video/${item._id}`);
     window.location.reload();
   };
 
