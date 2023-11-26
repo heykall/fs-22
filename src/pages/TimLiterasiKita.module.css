@@ -1,0 +1,123 @@
+.bgSection1 {
+  background: linear-gradient(to bottom, #D8ECF2, #ffffff, #ffffff, #ffffff);
+}
+
+.bgSection2 {
+  background: linear-gradient(to bottom, #ffffff, #D8ECF2, #D8ECF2, #ffffff);
+  border-radius: 10%;
+}
+
+.misiList{
+  list-style: none;
+  padding: 0;
+}
+
+.textJustify{
+    text-align: justify;
+}
+
+.socialShare,
+.teamThumb .socialShare {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.socialIcon,
+.teamThumb .socialIcon {
+  opacity: 0;
+  transition: all 0.3s ease;
+  transform: translateX(0);
+  padding-right: 20px;
+  padding-left: 20px;
+  justify-content: center; 
+  align-items: center; 
+}
+
+.owlCarousel .socialIcon,
+.teamThumb:hover .socialIcon {
+  transform: translateY(-100%);
+  opacity: 1;
+}
+
+.socialIconItem,
+.socialIconLink,
+.teamThumb .socialIconItem,
+.teamThumb .socialIconLink {
+  display: block;
+  margin-bottom: 10px;
+  margin-left: auto;
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
+}
+
+.socialIconLink {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.aboutImage {
+    border-radius: 20px;
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .teamThumb {
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .teamInfo {
+    background-color: #fff;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    padding: 30px;
+  }
+  
+  .socialShare{
+    text-align: center;
+  }
+
+  .socialIcon {
+    list-style: none; 
+    padding: 0;
+    display: block;
+    justify-content: center; 
+  }
+  
+  .socialIconItem {
+    list-style: none;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 10px;
+  }
+  
+  .socialIconLink {
+    background: #1EA7D1;
+    border-radius: 100px;
+    color: #fff;
+    font-size: 16px;
+    display: block;
+    margin-right: 10px;
+    justify-content: center; 
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .socialIconLink img {
+    width: 25px;
+    height: 25px;
+}
+  
+  .socialIconLink:hover {
+    background: #81CDE5;
+    color: #fff;
+  }
