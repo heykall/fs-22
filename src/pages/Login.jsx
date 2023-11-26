@@ -35,8 +35,28 @@ function Login() {
         email,
         password,
       });
-      const { token, role } = data;
-      const userData = { token, role };
+      const {
+        token,
+        role,
+        nama,
+        jenisKelamin,
+        id,
+        email: userEmail,
+        profileImage,
+        bio,
+        noHp,
+      } = data;
+      const userData = {
+        token,
+        role,
+        nama,
+        jenisKelamin,
+        email: userEmail,
+        profileImage,
+        bio,
+        noHp,
+        id,
+      };
       localStorage.setItem("data", JSON.stringify(userData));
       alert("Anda berhasil login");
       // Redirect the user to another page (you can replace '/dashboard' with the desired path)
