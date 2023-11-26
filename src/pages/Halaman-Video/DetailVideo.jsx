@@ -131,7 +131,7 @@ export default function DetailVideo() {
             id="direkomendasikan-video"
           >
             {dataRandom.map((item) => (
-              <CardVideo key={item.id} item={item} />
+              <CardVideo key={item._id} item={item} />
             ))}
           </div>
         </div>
