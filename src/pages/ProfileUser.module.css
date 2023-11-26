@@ -1,0 +1,44 @@
+#textWarna {
+  color: #1ea7d1;
+}
+
+#bgReadings {
+  background-color: #1ea7d1;
+}
+
+#bgContributions {
+  background-color: #1ea7d1;
+}
+
+#bgupdatePhoto {
+  background-color: #1ea7d1;
+}
+
+#bgupdateProfile {
+  background-color: #1ea7d1;
+}
+
+#bgBookmarks {
+  background-color: #1ea7d1;
+}
+
+.photoContainer {
+  text-align: center;
+}
+
+.roundedPhoto {
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  border-radius: 50%;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.previewPhoto {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
