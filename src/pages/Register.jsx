@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Container, Row, Col, Form, Button, Image } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import ellipseBackground from "../assets/svg/ellipse-background.svg";
 import Google from "../assets/svg/Google.svg";
@@ -8,8 +8,13 @@ import Apple from "../assets/svg/Apple.svg";
 import Facebook from "../assets/svg/Facebook.svg";
 import Character from "../assets/svg/Character.svg";
 import styles from "./Register.module.css";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export default function Register() {
+  const dataLocalStorage = localStorage.getItem("data");
+  const userData = JSON.parse(dataLocalStorage);
+  const navigate = useNavigate(); // to navigate to different pages
+  const [isLoading, setIsLoading] = useState(false);
   // state yang di kirim
   const [formData, setFormData] = useState({
     nama: "",
@@ -20,8 +25,6 @@ export default function Register() {
     noHp: "",
     bio: "",
   });
-  // error message
-  const [errorMessage, setErrorMessage] = useState("");
   // handle ketikan inputan
   const handleChange = (e) => {
     setFormData({
@@ -32,29 +35,21 @@ export default function Register() {
   // handle ketika di klik submit
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrorMessage("");
-    // console.log(formData);
-    // ambil data dari state form data
+    // Mengatur state isLoading menjadi true saat proses pengiriman dimulai
+    setIsLoading(true);
     const { nama, jenisKelamin, email, password, confirmPassword, noHp, bio } =
       formData;
 
     // ngecek setiap inputan user
     if (!nama || !jenisKelamin || !email || !password || !confirmPassword) {
-      setErrorMessage("Semua field harus diisi.");
+      toast.error("Semua field harus diisi.");
+      setIsLoading(false); // Mengatur state isLoading menjadi false setelah menampilkan pesan kesalahan
     }
     // ngecek password dan confirm password
     else if (password !== confirmPassword) {
-      setErrorMessage("Password dan Confirm Password harus sama.");
+      toast.error("Password dan Confirm Password harus sama.");
+      setIsLoading(false); // Mengatur state isLoading menjadi false setelah menampilkan pesan kesalahan
     } else {
-      // console.log(
-      //   nama,
-      //   jenisKelamin,
-      //   email,
-      //   password,
-      //   confirmPassword,
-      //   noHp,
-      //   bio
-      // );
       // kalo semua inputan sudah oke maka
       try {
         //
@@ -75,7 +70,7 @@ export default function Register() {
             },
           }
         );
-        alert(
+        toast.success(
           "Pendaftaran berhasil! Anda akan diarahkan ke halaman login dalam 2 detik."
         );
         // Arahkan pengguna ke halaman login setelah 2 detik
@@ -85,13 +80,21 @@ export default function Register() {
           window.location.href = "/login";
         }, 2000);
       } catch (error) {
-        setErrorMessage("Terjadi kesalahan saat mengirim data.");
+        toast.error("Periksa Kembali Inputan Anda");
+      } finally {
+        // Mengatur state isLoading menjadi false setelah permintaan HTTP selesai
+        setIsLoading(false);
       }
     }
   };
-
+  useEffect(() => {
+    if (userData) {
+      navigate("/");
+    }
+  }, [userData]);
   return (
     <>
+      <ToastContainer />
       <Container className="mb-5">
         <Row className="align-items-center">
           <Col lg={5} md={12} mt={5} style={{ marginBottom: "5rem" }}>
@@ -181,15 +184,24 @@ export default function Register() {
                   placeholder="Confirm Password (minimal 8 karakter)"
                 />
               </Form.Group>
-              <Form.Group className="mb-3">
-                <Button
-                  type="submit"
-                  className="btn btn-light bg-warna text-white w-100"
-                  id={styles.bgWarna}
-                >
-                  Submit
-                </Button>
-              </Form.Group>
+              {isLoading ? (
+                <div className="text-center mt-3">
+                  <div className="spinner-border text-warna" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
+                </div>
+              ) : (
+                <Form.Group className="mb-3">
+                  <Button
+                    type="submit"
+                    className="btn btn-light bg-warna text-white w-100"
+                    id={styles.bgWarna}
+                    disabled={isLoading}
+                  >
+                    Submit
+                  </Button>
+                </Form.Group>
+              )}
             </Form>
 
             <Row className="mt-5">

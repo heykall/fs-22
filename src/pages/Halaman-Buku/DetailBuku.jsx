@@ -1,9 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import styles from "./Buku.module.css";
 import CardBuku from "../../components/CardBuku";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export default function DetailBuku() {
+  const dataLocalStorage = localStorage.getItem("data");
+  const userData = JSON.parse(dataLocalStorage);
+  const navigate = useNavigate();
   const { id } = useParams();
   const [book, setBook] = useState([]);
   const [bookRandom, setBookRandom] = useState([]);
@@ -37,7 +42,7 @@ export default function DetailBuku() {
     for (let i = dataRandom.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [dataRandom[i], dataRandom[j]] = [dataRandom[j], dataRandom[i]];
-  }
+    }
     return dataRandom.slice(0, numBook);
   };
   useEffect(() => {
@@ -47,9 +52,17 @@ export default function DetailBuku() {
   useEffect(() => {
     getDataApi();
   }, []);
-
+  useEffect(() => {
+    if (!userData) {
+      toast.info("Anda Perlu Login Terlebih Dahulu !");
+      setTimeout(() => {
+        navigate("/login");
+      }, 5000);
+    }
+  }, [userData]);
   return (
     <>
+      <ToastContainer />
       <div className="container mt-5">
         <div className="card mb-3" id={styles.detailBuku}>
           <div className="card-body">
@@ -94,10 +107,7 @@ export default function DetailBuku() {
                 <p className="mt-3 fw-medium">Deskripsi Buku :</p>
                 <p className="mt-0">{book.description}</p>
                 <div className="d-flex justify-content-center justify-content-md-start">
-                  <Link
-                    to={`/halaman-buku/baca-buku/${id}`}
-                    className="me-3"
-                  >
+                  <Link to={`/halaman-buku/baca-buku/${id}`} className="me-3">
                     <button
                       type="button"
                       className="btn text-white rounded-5 px-3 py-2 shadow-sm fw-semibold"

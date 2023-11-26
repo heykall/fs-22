@@ -1,9 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import "./video.css";
 import CardVideo from "../../components/CardVideo";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export default function DetailVideo() {
+  const dataLocalStorage = localStorage.getItem("data");
+  const userData = JSON.parse(dataLocalStorage);
+  const navigate = useNavigate();
   const { id } = useParams();
   const [dataById, setDataById] = useState([]);
   const [dataRandom, setDataRandom] = useState([]);
@@ -41,9 +46,17 @@ export default function DetailVideo() {
   useEffect(() => {
     getDataApi();
   }, []);
-
+  useEffect(() => {
+    if (!userData) {
+      toast.info("Anda Perlu Login Terlebih Dahulu !");
+      setTimeout(() => {
+        navigate("/login");
+      }, 5000);
+    }
+  }, [userData]);
   return (
     <>
+      <ToastContainer />
       <div className="container mt-5">
         <div className="card mb-3" id="card-detail-video">
           <div className="card-body">

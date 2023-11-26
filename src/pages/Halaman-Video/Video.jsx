@@ -335,7 +335,7 @@ export default function Video() {
               id="videos-container"
             >
               {searchResult.map((item) => (
-                <CardVideo key={item.id} item={item} />
+                <CardVideo key={item._id} item={item} />
               ))}
             </div>
           </div>
