@@ -1,8 +1,25 @@
 import logo from "../assets/logo.svg";
-import { Navbar, Nav, NavDropdown } from "react-bootstrap";
+import { Navbar, Nav, NavDropdown, Button } from "react-bootstrap";
 import "./navbar.css";
+import { useEffect } from "react";
+import { BsCaretDownFill } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 
 function NavbarComponent() {
+  const navigate = useNavigate();
+
+  const handleProfile = () => {
+    navigate("/profile");
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("data");
+    navigate("/login");
+  };
+  const dataLocalStorage = localStorage.getItem("data");
+  const userData = JSON.parse(dataLocalStorage);
+
+  useEffect(() => {}, [userData]);
   return (
     <Navbar expand="lg">
       <div className="container-fluid mx-lg-5 mt-lg-4 ">
@@ -56,83 +73,74 @@ function NavbarComponent() {
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
-          <Nav className="d-flex navbar-nav">
-            <NavDropdown
-              className="nav-item dropdown mx-lg-5 mt-lg-3 text-center custom-dropdown fw-semibold"
-              id="font-general"
-              title="Bahasa Indonesia"
-            >
-              <NavDropdown.Item
-                className="dropdown-item text-white bg-transparent fw-semibold"
-                id="font-general"
-                href="#"
+          <Nav className=" ms-auto d-flex navbar-nav">
+            {userData ? (
+              <Nav.Item
+                className="nav-item rounded-5 text-center font-general custom-dropdown"
+                id="profil-dropdown"
               >
-                Bahasa Indonesia
-              </NavDropdown.Item>
-              <NavDropdown.Item
-                className="dropdown-item text-white bg-transparent fw-semibold"
-                id="font-general"
-                href="#"
-              >
-                English
-              </NavDropdown.Item>
-            </NavDropdown>
-            <Nav.Item
-              className="nav-item mt-3 text-center font-general"
-              id="login"
-            >
-              <Nav.Link
-                className="btn btn-link text-decoration-none text-primary fw-bold"
-                href="/login"
-              >
-                Login
-              </Nav.Link>
-            </Nav.Item>
-            <Nav.Item
-              className="nav-item mt-3 text-center font-general btn btn-sm btn-primary"
-              id="register"
-            >
-              <Nav.Link
-                className="btn btn-primary text-center text-light fs-6 fw-bold position-absolute top-50"
-                href="/register"
-                role="button"
-              >
-                Daftar
-              </Nav.Link>
-            </Nav.Item>
-            <Nav.Item
-              className="nav-item dropdown rounded-5 text-center"
-              id="profil-dropdown"
-              style={{ display: "none" }}
-            >
-              <Nav.Link
-                className="nav-link fw-semibold active dropdown-toggle text-white"
-                role="button"
-                id="font-general"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                <img
-                  id="user-avatar"
-                  className="img-fluid border border-white border-2 rounded-circle"
-                  src=""
-                  alt="user"
-                />
-                <span id="user-name"></span>
-              </Nav.Link>
-              <NavDropdown title="Profil" id="profil-menu">
-                <NavDropdown.Item className="text-center text-white bg-transparent">
-                  Profile
-                </NavDropdown.Item>
-                <NavDropdown.Divider className="border border-white my-lg-1" />
-                <NavDropdown.Item
-                  id="logout-button"
-                  className="text-center text-white bg-transparent"
+                <div className="dropdown">
+                  <Nav.Link
+                    className="nav-link fw-semibold active text-white "
+                    role="button"
+                    id="font-general"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <img
+                      id="user-avatar"
+                      className="img-fluid border border-white border-2 rounded-circle"
+                      style={{ width: "30px", height: "30px" }}
+                      src={userData.profileImage}
+                      alt="user"
+                    />
+                    <span id="user-name">{userData.nama}</span>
+                    <BsCaretDownFill className="ms-1" />{" "}
+                    {/* Icon panah ke bawah */}
+                  </Nav.Link>
+                  <div className="dropdown-menu text-center">
+                    <div
+                      className="dropdown-item text-light link-dark fw-semibold text-center"
+                      onClick={handleProfile}
+                    >
+                      Profile
+                    </div>
+                    <div className="dropdown-divider"></div>
+                    <div
+                      className="dropdown-item text-light link-dark fw-semibold text-center"
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </div>
+                  </div>
+                </div>
+              </Nav.Item>
+            ) : (
+              <>
+                <Nav.Item
+                  className="nav-item mt-3 text-center font-general"
+                  id="login"
                 >
-                  Logout
-                </NavDropdown.Item>
-              </NavDropdown>
-            </Nav.Item>
+                  <Nav.Link
+                    className="btn btn-link text-decoration-none text-primary fw-bold"
+                    href="/login"
+                  >
+                    Login
+                  </Nav.Link>
+                </Nav.Item>
+                <Nav.Item
+                  className="nav-item mt-2 text-center font-general"
+                  id="regsiter"
+                >
+                  <Nav.Link
+                    className="btn btn-link text-decoration-none text-primary fw-bold"
+                    href="/register"
+                  >
+                    <Button className="fw-bold">Daftar</Button>
+                  </Nav.Link>
+                </Nav.Item>
+              </>
+            )}
           </Nav>
         </Navbar.Collapse>
       </div>
