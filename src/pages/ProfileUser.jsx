@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import readings from "../assets/svg/asset-readings.svg";
 import contributions from "../assets/svg/asset-contribution.svg";
 import styles from "./ProfileUser.module.css";
+import axios from "axios";
 export default function ProfileUser() {
+  const fileInputRef = useRef(null);
   const [data, setData] = useState({
     nama: "",
     jenisKelamin: "",
@@ -17,7 +19,61 @@ export default function ProfileUser() {
   const dataLocalStorage = localStorage.getItem("data");
   const userData = JSON.parse(dataLocalStorage);
 
-  const handleSubmit = () => {};
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setData((prevData) => ({
+      ...prevData,
+      [id]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const formData = new FormData();
+
+      formData.append("profileImage", fileInputRef.current.files[0]);
+      formData.append("nama", data.nama);
+      formData.append("jenisKelamin", data.jenisKelamin);
+      formData.append("email", data.email);
+      formData.append("noHp", data.noHp);
+      formData.append("bio", data.bio);
+
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${userData.token}`,
+        },
+      };
+
+      const dataEdit = await axios.put(
+        `http://localhost:3000/users/edit-profile/${userData._id}`,
+        formData,
+        config
+      );
+
+      const { role, nama, jenisKelamin, _id, email, profileImage, bio, noHp } =
+        dataEdit.data;
+
+      const userUpdateData = {
+        role,
+        nama,
+        jenisKelamin,
+        email,
+        profileImage,
+        bio,
+        noHp,
+        _id,
+      };
+
+      localStorage.setItem("data", JSON.stringify(userUpdateData));
+      window.location.reload();
+      alert("data berhasil di update");
+    } catch (error) {
+      alert("data gagal di update");
+    }
+  };
 
   useEffect(() => {
     if (!userData) {
@@ -40,7 +96,7 @@ export default function ProfileUser() {
         <h2 className="text-center">Profile</h2>
       </Row>
 
-      <Row className="justify-content-center mt-5 mb-5">
+      <Row className="justify-content-center mt-5">
         <Col md={6} className="d-flex justify-content-center">
           <div className={styles.photoContainer}>
             <div className={styles.roundedPhoto}>
@@ -52,6 +108,24 @@ export default function ProfileUser() {
               />
             </div>
           </div>
+        </Col>
+      </Row>
+      <Row className="justify-content-center mt-1 mb-5">
+        <Col md={6} className="d-flex justify-content-center">
+          <Form.Group className="mb-3">
+            <Form.Label
+              htmlFor="upload-button"
+              className={styles.customfileupload}
+            >
+              Upload Foto
+            </Form.Label>
+            <Form.Control
+              type="file"
+              id="upload-button"
+              ref={fileInputRef}
+              style={{ display: "none" }}
+            />
+          </Form.Group>
         </Col>
       </Row>
 
@@ -94,6 +168,7 @@ export default function ProfileUser() {
                   id="nama"
                   value={data.nama}
                   placeholder="Masukkan nama lengkap Anda"
+                  onChange={handleChange}
                 />
               </Form.Group>
             </Col>
@@ -105,6 +180,7 @@ export default function ProfileUser() {
                   id="email"
                   value={data.email}
                   placeholder="Masukkan email Anda"
+                  onChange={handleChange}
                 />
               </Form.Group>
             </Col>
@@ -113,7 +189,11 @@ export default function ProfileUser() {
             <Col lg={6} md={12} sm={12}>
               <Form.Group className="mb-3">
                 <Form.Label htmlFor="jenis-kelamin">Jenis kelamin</Form.Label>
-                <Form.Select id="jenis-kelamin" value={data.jenisKelamin}>
+                <Form.Select
+                  id="jenisKelamin"
+                  value={data.jenisKelamin}
+                  onChange={handleChange}
+                >
                   <option value="pria">Pria</option>
                   <option value="wanita">Wanita</option>
                 </Form.Select>
@@ -124,9 +204,10 @@ export default function ProfileUser() {
                 <Form.Label htmlFor="no-tlp">No telepon</Form.Label>
                 <Form.Control
                   type="text"
-                  id="no-tlp"
+                  id="noHp"
                   value={data.noHp}
                   placeholder="Masukkan no telepon Anda"
+                  onChange={handleChange}
                 />
               </Form.Group>
             </Col>
@@ -141,6 +222,7 @@ export default function ProfileUser() {
                   id="bio"
                   placeholder="Tuliskan bio Anda"
                   value={data.bio}
+                  onChange={handleChange}
                 />
               </Form.Group>
             </Col>
