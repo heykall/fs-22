@@ -40,7 +40,7 @@ function Login() {
         role,
         nama,
         jenisKelamin,
-        id,
+        _id,
         email: userEmail,
         profileImage,
         bio,
@@ -55,7 +55,7 @@ function Login() {
         profileImage,
         bio,
         noHp,
-        id,
+        _id,
       };
       localStorage.setItem("data", JSON.stringify(userData));
       alert("Anda berhasil login");
