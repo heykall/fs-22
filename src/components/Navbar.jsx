@@ -42,18 +42,9 @@ function NavbarComponent() {
             <Nav.Item className="nav-item mx-lg-3 text-center fw-semibold">
               <Nav.Link href="/">Beranda</Nav.Link>
             </Nav.Item>
-            <NavDropdown
-              title="Tentang Kami"
-              id="about-us-dropdown font-general"
-              className="text-decoration-none text-center text-dark fw-semibold custom-dropdown"
-            >
-              <NavDropdown.Item className="text-light link-dark fw-semibold text-center">
-                Visi dan Misi
-              </NavDropdown.Item>
-              <NavDropdown.Item className="text-light link-dark fw-semibold text-center">
-                Tim LiterasiKita
-              </NavDropdown.Item>
-            </NavDropdown>
+            <Nav.Item className="nav-item mx-lg-3 text-center fw-semibold">
+              <Nav.Link href="/tim-LiterasiKita">Tentang Kami</Nav.Link>
+            </Nav.Item>
             <NavDropdown
               title="Program Kami"
               id="our-programs-dropdown"

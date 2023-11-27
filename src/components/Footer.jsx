@@ -94,10 +94,10 @@ export default function Footer() {
                 Program Kami
               </p>
               <p className="font-footer opacity-75 text-center text-md-start">
-                Membaca
+                BukuPedia
               </p>
               <p className="font-footer opacity-75 text-center text-md-start">
-                Menonton
+                NontonPintar
               </p>
             </div>
             <div className="col-md-2 col-12">
@@ -134,6 +134,5 @@ export default function Footer() {
         </div>
       </footer>
     </>
-    );
+  );
 }
-
