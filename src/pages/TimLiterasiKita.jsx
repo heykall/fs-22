@@ -3,10 +3,14 @@ import { Container, Row, Col, Image, Card } from "react-bootstrap";
 import styles from "./TimLiterasiKita.module.css";
 import literasi1 from "../assets/svg/literasi1.svg";
 import literasi2 from "../assets/svg/literasi2.svg";
+import syami from "../assets/svg/syami.svg";
 import ade from "../assets/svg/ade.svg";
+import dedy from "../assets/svg/dedy.svg";
 import instagram from "../assets/svg/iconInstagram.svg";
 import github from "../assets/svg/iconGithub.svg";
 import twitter from "../assets/svg/iconTwitter.svg";
+import linkedin from "../assets/svg/iconlinkedin.svg";
+import facebook from "../assets/svg/iconFacebook.svg";
 
 const TeamLiterasiKita = () => {
   return (
@@ -21,25 +25,30 @@ const TeamLiterasiKita = () => {
             {/* Team Member 1 */}
             <Col lg={4} md={6} className="mb-4 mb-lg-0">
               <div className={styles.teamThumb}>
-                <Image src={ade} className={styles.aboutImage} alt="" />
+                <Image src={syami} className={styles.aboutImage} alt="" />
                 <did className={styles.teamInfo}>
                   <h4 className="mb-2">Muhamad Nur Syami</h4>
                   <p>Tanjungpinang, Kepulauan Riau</p>
                   <div className={styles.socialShare}>
                     <ul className={styles.socialIcon}>
                       <li className={styles.socialIconItem}>
-                        <a href="#" className={styles.socialIconLink}>
+                        <a href="https://www.instagram.com/m.nursami18/" className={styles.socialIconLink}>
                           <Image src={instagram} alt="" />
                         </a>
                       </li>
                       <li className={styles.socialIconItem}>
-                        <a href="#" className={styles.socialIconLink}>
+                        <a href="https://github.com/muhamadnursyami" className={styles.socialIconLink}>
                           <Image src={github} alt="" />
                         </a>
                       </li>
                       <li className={styles.socialIconItem}>
-                        <a href="#" className={styles.socialIconLink}>
+                        <a href="https://twitter.com/nursami18" className={styles.socialIconLink}>
                           <Image src={twitter} alt="" />
+                        </a>
+                      </li>
+                      <li className={styles.socialIconItem}>
+                        <a href="https://www.linkedin.com/in/muhamad-nur-syami-93b979221/" className={styles.socialIconLink}>
+                          <Image src={linkedin} alt="" />
                         </a>
                       </li>
                     </ul>
@@ -81,6 +90,14 @@ const TeamLiterasiKita = () => {
                           <Image src={twitter} alt="" />
                         </a>
                       </li>
+                      <li className={styles.socialIconItem}>
+                        <a
+                          href="https://www.linkedin.com/in/ade-pertiwi-319106291/"
+                          className={styles.socialIconLink}
+                        >
+                          <Image src={linkedin} alt="" />
+                        </a>
+                      </li>
                     </ul>
                   </div>
                 </div>
@@ -90,25 +107,30 @@ const TeamLiterasiKita = () => {
             {/* Team Member 3 */}
             <Col lg={4} md={6} className="mb-4 mb-lg-0">
               <div className={styles.teamThumb}>
-                <Image src={ade} className={styles.aboutImage} alt="" />
+                <Image src={dedy} className={styles.aboutImage} alt="" />
                 <div className={styles.teamInfo}>
                   <h4 className="mb-2">Dedy Lumbantobing</h4>
                   <p>Medan, Sumatera Utara</p>
                   <div className={styles.socialShare}>
                     <ul className={styles.socialIcon}>
                       <li className={styles.socialIconItem}>
-                        <a href="#" className={styles.socialIconLink}>
+                        <a href="https://instagram.com/dedytbng" className={styles.socialIconLink}>
                           <Image src={instagram} alt="" />
                         </a>
                       </li>
                       <li className={styles.socialIconItem}>
-                        <a href="#" className={styles.socialIconLink}>
+                        <a href="https://github.com/Dedytobing" className={styles.socialIconLink}>
                           <Image src={github} alt="" />
                         </a>
                       </li>
                       <li className={styles.socialIconItem}>
-                        <a href="#" className={styles.socialIconLink}>
-                          <Image src={twitter} alt="" />
+                        <a href="https://www.facebook.com/dedy.lumbantobing.7" className={styles.socialIconLink}>
+                          <Image src={facebook} alt="" />
+                        </a>
+                      </li>
+                      <li className={styles.socialIconItem}>
+                        <a href="https://www.linkedin.com/in/dedy-lumbantobing" className={styles.socialIconLink}>
+                          <Image src={linkedin} alt="" />
                         </a>
                       </li>
                     </ul>
