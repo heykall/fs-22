@@ -10,6 +10,7 @@ import TontonVideo from "./pages/Halaman-Video/TontonVideo";
 import Footer from "./components/Footer";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
+import TeamLiterasiKita from "./pages/TimLiterasiKita";
 import ProfileUser from "./pages/ProfileUser";
 import Donasi from "./pages/Halaman-Donasi/Donasi";
 import DonasiUang from "./pages/Halaman-Donasi/Donasi-Uang/DonasiUang";
@@ -36,6 +37,7 @@ function App() {
         />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/tim-LiterasiKita" element={<TeamLiterasiKita />} />
         <Route path="/profile" element={<ProfileUser />} />
         <Route path="/halaman-donasi" element={<Donasi />} />
         <Route path="/halaman-donasi/donasi-uang" element={<DonasiUang />} />
