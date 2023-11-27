@@ -301,7 +301,7 @@ export default function Video() {
             </div>
             <div className="row row-cols-2 row-cols-md-2 g-4 mb-sm-2">
               {ditambahkan.map((item) => (
-                <div className="col" key={item.id}>
+                <div className="col" key={item._id}>
                   <div className="card p-2">
                     <img
                       src={item.url_thumbnail}
@@ -335,7 +335,7 @@ export default function Video() {
               id="videos-container"
             >
               {searchResult.map((item) => (
-                <CardVideo key={item.id} item={item} />
+                <CardVideo key={item._id} item={item} />
               ))}
             </div>
           </div>
@@ -373,7 +373,7 @@ export default function Video() {
                 id="terpopuler-videos"
               >
                 {data.dataPopuler.map((item) => (
-                  <CardVideo key={item.id} item={item} />
+                  <CardVideo key={item._id} item={item} />
                 ))}
               </div>
             </div>
@@ -389,7 +389,7 @@ export default function Video() {
                 id="akademik-videos"
               >
                 {data.dataAkademik.map((item) => (
-                  <CardVideo key={item.id} item={item} />
+                  <CardVideo key={item._id} item={item} />
                 ))}
               </div>
             </div>
@@ -405,7 +405,7 @@ export default function Video() {
                 id="lainnya-videos"
               >
                 {data.dataLainnya.map((item) => (
-                  <CardVideo key={item.id} item={item} />
+                  <CardVideo key={item._id} item={item} />
                 ))}
               </div>
             </div>

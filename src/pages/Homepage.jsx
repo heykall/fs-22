@@ -217,7 +217,7 @@ export default function Homepage() {
                 <a
                   style={{ backgroundColor: " #29AB92" }}
                   className="btn  border-0 text-white rounded-pill shadow px-3 py-2"
-                  href="#"
+                  href="halaman-donasi"
                   role="button"
                 >
                   Ayo donasi &rarr;
