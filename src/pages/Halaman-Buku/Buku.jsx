@@ -15,9 +15,7 @@ export default function Buku() {
 
   // ngambil data dari api
   const getDataApi = async () => {
-    const response = await axios(
-      `https://645611f25f9a4f23613a06ba.mockapi.io/book`
-    );
+    const response = await axios(`https://rich-eel-blazer.cyclic.app/books`);
     // hasil response
     const data = response.data;
     // data ditambahkan data diambil dari 2 paling belakang
@@ -34,7 +32,6 @@ export default function Buku() {
     // duplikat dulu datanya pakai ...data
     // kemudian masukan datanya disesuaikan
     setData({
-      ...data,
       dataRandom: randomData,
       dataPopuler: populerData,
       dataAkademik: akademikData,

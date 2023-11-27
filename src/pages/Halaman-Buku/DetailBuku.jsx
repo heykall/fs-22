@@ -14,7 +14,7 @@ export default function DetailBuku() {
   const [bookRandom, setBookRandom] = useState([]);
   const getDataApiById = async () => {
     const response = await axios(
-      `https://645611f25f9a4f23613a06ba.mockapi.io/book/${id}`
+      `https://rich-eel-blazer.cyclic.app/books/${id}`
     );
     const data = response.data;
 
@@ -24,7 +24,7 @@ export default function DetailBuku() {
   // ngambil data dari api
   const getDataApi = async () => {
     const response = await axios(
-      `https://645611f25f9a4f23613a06ba.mockapi.io/book`
+      `https://rich-eel-blazer.cyclic.app/books`
     );
     // hasil response
     const data = response.data;

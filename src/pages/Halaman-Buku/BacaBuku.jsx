@@ -7,7 +7,7 @@ export default function BacaBuku() {
   const [book, setBook] = useState([]);
   const getDataApiById = async () => {
     const response = await axios(
-      `https://645611f25f9a4f23613a06ba.mockapi.io/book/${id}`
+      `https://rich-eel-blazer.cyclic.app/books/${id}`
     );
     const data = response.data;
     setBook(data);
