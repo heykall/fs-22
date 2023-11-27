@@ -50,7 +50,7 @@ export default function ProfileUser() {
       };
 
       const dataEdit = await axios.put(
-        `http://localhost:3000/users/edit-profile/${userData._id}`,
+        `https://rich-eel-blazer.cyclic.app/users/edit-profile/${userData._id}`,
         formData,
         config
       );

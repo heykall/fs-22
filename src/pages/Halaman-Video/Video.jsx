@@ -19,7 +19,7 @@ export default function Video() {
 
   // ngambil data dari api
   const getDataApi = async () => {
-    const response = await axios(`http://localhost:3000/videos`);
+    const response = await axios(`https://rich-eel-blazer.cyclic.app/videos`);
     // hasil response
     const data = response.data.data;
     // data ditambahkan data diambil dari 2 paling belakang

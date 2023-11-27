@@ -54,7 +54,7 @@ export default function Register() {
       try {
         //
         const data = await axios.post(
-          "http://localhost:3000/auth/register",
+          "https://rich-eel-blazer.cyclic.app/auth/register",
           {
             nama,
             jenisKelamin,
