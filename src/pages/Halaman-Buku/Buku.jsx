@@ -15,7 +15,7 @@ export default function Buku() {
 
   // ngambil data dari api
   const getDataApi = async () => {
-    const response = await axios(`https://rich-eel-blazer.cyclic.app/books`);
+    const response = await axios(`http://localhost:3000/books`);
     // hasil response
     const data = response.data.data;
     // data ditambahkan data diambil dari 2 paling belakang
@@ -44,8 +44,8 @@ export default function Buku() {
     // sorting secara random
     const dataRandom = [...data];
     for (let i = dataRandom.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [dataRandom[i], dataRandom[j]] = [dataRandom[j], dataRandom[i]];
+      const j = Math.floor(Math.random() * (i + 1));
+      [dataRandom[i], dataRandom[j]] = [dataRandom[j], dataRandom[i]];
     }
     // mengambil 6 data dari depan
     return dataRandom.slice(0, numBook);
@@ -223,36 +223,58 @@ export default function Buku() {
       <div className="container mt-5">
         <div className="row">
           <div className="col-lg-6 col-md-12">
-              <div className="container mt-5">
-                <div id={styles.quoteCarousel} className="col-8 carousel slide" data-bs-ride="carousel">
-                  <h3 className={styles.judulCarousel}>Motivasi Hari Ini</h3>
-                  <div className="carousel-inner">
-                    <div className="carousel-item active">
-                      <p className={styles.quote}>"Di balik kesuksesan terciptanya sebuah produk, ada sebuah tim kuat di dalamnya."</p>
-                      <p className={styles.author1}>- Itadori Yuji</p>
-                    </div>
-                    <div className="carousel-item">
-                      <p className={styles.quote}>"Kemampuan membaca adalah jendela dunia."</p>
-                      <p className={styles.author2}>- George Washington Carver</p>
-                    </div>
-                    <div className="carousel-item">
-                      <p className={styles.quote}>"Literasi membuka pintu menuju pemahaman dan pemikiran yang mendalam"</p>
-                      <p className={styles.author3}>- Barack Obama</p>
-                    </div>
+            <div className="container mt-5">
+              <div
+                id={styles.quoteCarousel}
+                className="col-8 carousel slide"
+                data-bs-ride="carousel"
+              >
+                <h3 className={styles.judulCarousel}>Motivasi Hari Ini</h3>
+                <div className="carousel-inner">
+                  <div className="carousel-item active">
+                    <p className={styles.quote}>
+                      "Di balik kesuksesan terciptanya sebuah produk, ada sebuah
+                      tim kuat di dalamnya."
+                    </p>
+                    <p className={styles.author1}>- Itadori Yuji</p>
                   </div>
-                  <ol className={styles.indikator}>
-                    <li data-bs-target="#quoteCarousel" data-bs-slide-to={0} className="active" />
-                    <li data-bs-target="#quoteCarousel" data-bs-slide-to={1} />
-                    <li data-bs-target="#quoteCarousel" data-bs-slide-to={2} />
-                  </ol>
+                  <div className="carousel-item">
+                    <p className={styles.quote}>
+                      "Kemampuan membaca adalah jendela dunia."
+                    </p>
+                    <p className={styles.author2}>- George Washington Carver</p>
+                  </div>
+                  <div className="carousel-item">
+                    <p className={styles.quote}>
+                      "Literasi membuka pintu menuju pemahaman dan pemikiran
+                      yang mendalam"
+                    </p>
+                    <p className={styles.author3}>- Barack Obama</p>
+                  </div>
                 </div>
+                <ol className={styles.indikator}>
+                  <li
+                    data-bs-target="#quoteCarousel"
+                    data-bs-slide-to={0}
+                    className="active"
+                  />
+                  <li data-bs-target="#quoteCarousel" data-bs-slide-to={1} />
+                  <li data-bs-target="#quoteCarousel" data-bs-slide-to={2} />
+                </ol>
               </div>
+            </div>
           </div>
-          <div className="col-lg-5 col-md-12 mt-lg-3 mt-5 rounded-2 border border-primary" id={styles.bukuBaru}>
+          <div
+            className="col-lg-5 col-md-12 mt-lg-3 mt-5 rounded-2 border border-primary"
+            id={styles.bukuBaru}
+          >
             <div className={styles.blueTeks}>
               <h3 className={styles.rotatedTeks}>Baru ditambahkan</h3>
             </div>
-            <div className="row row-cols-2 row-cols-md-3 mb-sm-2" id={styles.listBuku}>
+            <div
+              className="row row-cols-2 row-cols-md-3 mb-sm-2"
+              id={styles.listBuku}
+            >
               {ditambahkan.map((book) => (
                 <div className="col" key={book._id}>
                   <div className="card p-2 ">

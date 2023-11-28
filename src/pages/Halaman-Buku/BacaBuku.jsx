@@ -6,9 +6,7 @@ export default function BacaBuku() {
   const { id } = useParams();
   const [book, setBook] = useState([]);
   const getDataApiById = async () => {
-    const response = await axios(
-      `https://rich-eel-blazer.cyclic.app/books/${id}`
-    );
+    const response = await axios(`http://localhost:3000/books/${id}`);
     const data = response.data.data;
     setBook(data);
   };

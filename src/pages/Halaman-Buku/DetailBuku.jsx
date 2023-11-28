@@ -14,7 +14,7 @@ export default function DetailBuku() {
   const [bookRandom, setBookRandom] = useState([]);
   const getDataApiById = async () => {
     try {
-      const response = await axios(`https://rich-eel-blazer.cyclic.app/books/${id}`);
+      const response = await axios(`http://localhost:3000/books/${id}`);
       const data = response.data.data;
       setBook(data);
     } catch (error) {
@@ -24,10 +24,8 @@ export default function DetailBuku() {
 
   // ngambil data dari api
   const getDataApi = async () => {
-    try{
-      const response = await axios(
-        `https://rich-eel-blazer.cyclic.app/books`
-      );
+    try {
+      const response = await axios(`http://localhost:3000/books`);
       // hasil response
       const data = response.data.data;
       // Buku Rekomendasi
@@ -36,10 +34,10 @@ export default function DetailBuku() {
       // duplikat dulu datanya pakai ...data
       // kemudian masukan datanya disesuaikan
       setBookRandom(randomData);
-  } catch (error) {
-    console.error("Error fetching books:", error);
-  }
-};
+    } catch (error) {
+      console.error("Error fetching books:", error);
+    }
+  };
 
   //Logic Buku Rekomendasi
   const randomBooks = (data, numBook) => {
