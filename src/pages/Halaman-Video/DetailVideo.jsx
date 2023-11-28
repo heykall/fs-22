@@ -13,9 +13,7 @@ export default function DetailVideo() {
   const [dataById, setDataById] = useState([]);
   const [dataRandom, setDataRandom] = useState([]);
   const getDataApiById = async () => {
-    const response = await axios(
-      `https://rich-eel-blazer.cyclic.app/videos/${id}`
-    );
+    const response = await axios(`http://localhost:3000/videos/${id}`);
     const data = response.data.data;
 
     setDataById(data);
@@ -23,7 +21,7 @@ export default function DetailVideo() {
 
   // ngambil data dari api
   const getDataApi = async () => {
-    const response = await axios(`https://rich-eel-blazer.cyclic.app/videos`);
+    const response = await axios(`http://localhost:3000/videos`);
     // hasil response
     const data = response.data.data;
     // Video Rekomendasi
