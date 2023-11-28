@@ -29,15 +29,6 @@ export default function TontonVideo() {
       <Container className="d-flex justify-content-center align-items-center text-center mt-5 mb-5">
         <ReactPlayer
           controls={true}
-          url={dataById.url_video}
-          width="90%"
-          height="100%"
-          style={{ maxWidth: "100%", maxHeight: "100%" }}
-        />
-      </Container>
-      <Container className="d-flex justify-content-center align-items-center text-center mt-5 mb-5">
-        <ReactPlayer
-          controls={true}
           url={dataById.url_unduh}
           width="90%"
           height="100%"
