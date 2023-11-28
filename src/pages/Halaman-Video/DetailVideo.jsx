@@ -1,28 +1,29 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import "./video.css";
 import CardVideo from "../../components/CardVideo";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export default function DetailVideo() {
+  const dataLocalStorage = localStorage.getItem("data");
+  const userData = JSON.parse(dataLocalStorage);
+  const navigate = useNavigate();
   const { id } = useParams();
   const [dataById, setDataById] = useState([]);
   const [dataRandom, setDataRandom] = useState([]);
   const getDataApiById = async () => {
-    const response = await axios(
-      `https://652d3ffcf9afa8ef4b271ed7.mockapi.io/Video/${id}`
-    );
-    const data = response.data;
+    const response = await axios(`http://localhost:3000/videos/${id}`);
+    const data = response.data.data;
 
     setDataById(data);
   };
 
   // ngambil data dari api
   const getDataApi = async () => {
-    const response = await axios(
-      `https://652d3ffcf9afa8ef4b271ed7.mockapi.io/Video`
-    );
+    const response = await axios(`http://localhost:3000/videos`);
     // hasil response
-    const data = response.data;
+    const data = response.data.data;
     // Video Rekomendasi
     const randomData = randomVideos(data, 6);
     // Memasukan data diatas kedalam state
@@ -45,9 +46,17 @@ export default function DetailVideo() {
   useEffect(() => {
     getDataApi();
   }, []);
-
+  useEffect(() => {
+    if (!userData) {
+      toast.info("Anda Perlu Login Terlebih Dahulu !");
+      setTimeout(() => {
+        navigate("/login");
+      }, 5000);
+    }
+  }, [userData]);
   return (
     <>
+      <ToastContainer />
       <div className="container mt-5">
         <div className="card mb-3" id="card-detail-video">
           <div className="card-body">
@@ -135,7 +144,7 @@ export default function DetailVideo() {
             id="direkomendasikan-video"
           >
             {dataRandom.map((item) => (
-              <CardVideo key={item.id} item={item} />
+              <CardVideo key={item._id} item={item} />
             ))}
           </div>
         </div>

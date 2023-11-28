@@ -1,0 +1,23 @@
+/* .customCta {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  margin: 0;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  text-align: left;
+  text-decoration: none;
+  color: #1ea7d1;
+  font-weight: bold;
+  font-size: 16px;
+  position: relative;
+  z-index: 1;
+} */
+
+#textWarna {
+  color: #1ea7d1;
+}
+
+#bgWarna {
+  background-color: #1ea7d1;
+}

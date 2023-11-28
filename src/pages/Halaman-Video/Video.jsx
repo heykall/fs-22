@@ -19,11 +19,9 @@ export default function Video() {
 
   // ngambil data dari api
   const getDataApi = async () => {
-    const response = await axios(
-      `https://652d3ffcf9afa8ef4b271ed7.mockapi.io/Video`
-    );
+    const response = await axios(`http://localhost:3000/videos`);
     // hasil response
-    const data = response.data;
+    const data = response.data.data;
     // data ditambahkan data diambil dari 2 paling belakang
     setDitambahkan(data.slice(data.length - 2));
     // Video Rekomendasi
@@ -303,7 +301,7 @@ export default function Video() {
             </div>
             <div className="row row-cols-2 row-cols-md-2 g-4 mb-sm-2">
               {ditambahkan.map((item) => (
-                <div className="col" key={item.id}>
+                <div className="col" key={item._id}>
                   <div className="card p-2">
                     <img
                       src={item.url_thumbnail}
@@ -337,7 +335,7 @@ export default function Video() {
               id="videos-container"
             >
               {searchResult.map((item) => (
-                <CardVideo key={item.id} item={item} />
+                <CardVideo key={item._id} item={item} />
               ))}
             </div>
           </div>
@@ -359,7 +357,7 @@ export default function Video() {
                 id="direkomendasikan-videos"
               >
                 {data.dataRandom.map((item) => (
-                  <CardVideo key={item.id} item={item} />
+                  <CardVideo key={item._id} item={item} />
                 ))}
               </div>
             </div>
@@ -375,7 +373,7 @@ export default function Video() {
                 id="terpopuler-videos"
               >
                 {data.dataPopuler.map((item) => (
-                  <CardVideo key={item.id} item={item} />
+                  <CardVideo key={item._id} item={item} />
                 ))}
               </div>
             </div>
@@ -391,7 +389,7 @@ export default function Video() {
                 id="akademik-videos"
               >
                 {data.dataAkademik.map((item) => (
-                  <CardVideo key={item.id} item={item} />
+                  <CardVideo key={item._id} item={item} />
                 ))}
               </div>
             </div>
@@ -407,7 +405,7 @@ export default function Video() {
                 id="lainnya-videos"
               >
                 {data.dataLainnya.map((item) => (
-                  <CardVideo key={item.id} item={item} />
+                  <CardVideo key={item._id} item={item} />
                 ))}
               </div>
             </div>
