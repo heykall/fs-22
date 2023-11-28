@@ -5,7 +5,7 @@ export default function CardBuku({book}) {
   const navigate = useNavigate();
   const handleClick = () => {
     // console.log(book.id);
-    navigate(`/halaman-buku/detail-buku/${book.id}`);
+    navigate(`/halaman-buku/detail-buku/${book._id}`);
     window.location.reload();
   };
 

@@ -1,10 +1,12 @@
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
+import { format } from "date-fns";
 export default function CardVideo({ item }) {
+  const formattedDate = format(new Date(item.tanggal_upload), "MMM dd, yyyy");
   const navigate = useNavigate();
   const handleClick = () => {
     // console.log(item.id);
-    navigate(`/halaman-video/detail-video/${item.id}`);
+    navigate(`/halaman-video/detail-video/${item._id}`);
     window.location.reload();
   };
 
@@ -24,7 +26,7 @@ export default function CardVideo({ item }) {
           <div className="card-body">
             <h6 className="card-title">{item.title}</h6>
             <p id="font-card-detail" className="opacity-50 mb-1">
-              {item.tanggal_upload}
+              {formattedDate}
             </p>
             <div className="d-flex align-items-baseline" id="font-card-detail">
               <svg
