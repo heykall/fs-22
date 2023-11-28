@@ -6,10 +6,8 @@ export default function BacaBuku() {
   const { id } = useParams();
   const [book, setBook] = useState([]);
   const getDataApiById = async () => {
-    const response = await axios(
-      `https://645611f25f9a4f23613a06ba.mockapi.io/book/${id}`
-    );
-    const data = response.data;
+    const response = await axios(`http://localhost:3000/books/${id}`);
+    const data = response.data.data;
     setBook(data);
   };
 
@@ -32,9 +30,9 @@ export default function BacaBuku() {
           <iframe
             src={book.book_url}
             title="Baca Buku"
-            style={{ width: "100%", height: "500px", border: "none" }}
-            allowfullscreen
-          ></iframe>
+            style={{ width: "80%", height: "500px", border: "none" }}
+            allowFullScreen
+          />
         </div>
       </div>
     </>

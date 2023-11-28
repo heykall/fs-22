@@ -13,27 +13,30 @@ export default function DetailBuku() {
   const [book, setBook] = useState([]);
   const [bookRandom, setBookRandom] = useState([]);
   const getDataApiById = async () => {
-    const response = await axios(
-      `https://645611f25f9a4f23613a06ba.mockapi.io/book/${id}`
-    );
-    const data = response.data;
-
-    setBook(data);
+    try {
+      const response = await axios(`http://localhost:3000/books/${id}`);
+      const data = response.data.data;
+      setBook(data);
+    } catch (error) {
+      console.error("Error fetching book by ID:", error.response);
+    }
   };
 
   // ngambil data dari api
   const getDataApi = async () => {
-    const response = await axios(
-      `https://645611f25f9a4f23613a06ba.mockapi.io/book`
-    );
-    // hasil response
-    const data = response.data;
-    // Buku Rekomendasi
-    const randomData = randomBooks(data, 6);
-    // Memasukan data diatas kedalam state
-    // duplikat dulu datanya pakai ...data
-    // kemudian masukan datanya disesuaikan
-    setBookRandom(randomData);
+    try {
+      const response = await axios(`http://localhost:3000/books`);
+      // hasil response
+      const data = response.data.data;
+      // Buku Rekomendasi
+      const randomData = randomBooks(data, 6);
+      // Memasukan data diatas kedalam state
+      // duplikat dulu datanya pakai ...data
+      // kemudian masukan datanya disesuaikan
+      setBookRandom(randomData);
+    } catch (error) {
+      console.error("Error fetching books:", error);
+    }
   };
 
   //Logic Buku Rekomendasi
@@ -117,7 +120,7 @@ export default function DetailBuku() {
                     </button>
                   </Link>
 
-                  <a href={book.url_unduh} target="_blank" rel="noreferrer">
+                  <a href={book.download_url} target="_blank" rel="noreferrer">
                     <button
                       type="button"
                       className="btn rounded-5 px-3 py-2 shadow-sm fw-semibold"
@@ -147,7 +150,7 @@ export default function DetailBuku() {
             id="direkomendasikan-buku"
           >
             {bookRandom.map((book) => (
-              <CardBuku key={book.id} book={book} />
+              <CardBuku key={book._id} book={book} />
             ))}
           </div>
         </div>
