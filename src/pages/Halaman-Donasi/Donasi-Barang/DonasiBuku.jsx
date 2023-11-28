@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 
 export default function DonasiBuku() {
@@ -21,12 +20,17 @@ export default function DonasiBuku() {
                   <Form.Control type="text" id="penerbit_buku" />
                 </Form.Group>
                 <Form.Group className="mb-3">
-                  <Form.Label htmlFor="deskripsi_buku">Deskripsi Buku</Form.Label>
+                  <Form.Label htmlFor="deskripsi_buku">
+                    Deskripsi Buku
+                  </Form.Label>
                   <Form.Control as="textarea" id="deskripsi_buku" />
                 </Form.Group>
                 <Form.Group className="mb-3">
                   <Form.Label htmlFor="kategori_buku">Kategori Buku</Form.Label>
-                  <Form.Select id="kategori_buku" defaultValue="-- Pilih kategori --">
+                  <Form.Select
+                    id="kategori_buku"
+                    defaultValue="-- Pilih kategori --"
+                  >
                     <option disabled>-- Pilih kategori --</option>
                     <option>Akademik</option>
                     <option>Seni dan Budaya</option>
@@ -39,7 +43,11 @@ export default function DonasiBuku() {
               <Col lg={6}>
                 <Form.Group className="mb-3">
                   <Form.Label htmlFor="upload-buku">Upload Buku</Form.Label>
-                  <Form.Control id="upload-buku" type="file" onChange={handleFileChange} />
+                  <Form.Control
+                    id="upload-buku"
+                    type="file"
+                    onChange={handleFileChange}
+                  />
                 </Form.Group>
               </Col>
             </Row>
