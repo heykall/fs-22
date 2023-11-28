@@ -17,7 +17,7 @@ export default function Buku() {
   const getDataApi = async () => {
     const response = await axios(`https://rich-eel-blazer.cyclic.app/books`);
     // hasil response
-    const data = response.data;
+    const data = response.data.data;
     // data ditambahkan data diambil dari 2 paling belakang
     setDitambahkan(data.slice(data.length - 3));
     // Buku Rekomendasi
@@ -32,6 +32,7 @@ export default function Buku() {
     // duplikat dulu datanya pakai ...data
     // kemudian masukan datanya disesuaikan
     setData({
+      ...data,
       dataRandom: randomData,
       dataPopuler: populerData,
       dataAkademik: akademikData,
@@ -253,7 +254,7 @@ export default function Buku() {
             </div>
             <div className="row row-cols-2 row-cols-md-3 mb-sm-2" id={styles.listBuku}>
               {ditambahkan.map((book) => (
-                <div className="col" key={book.id}>
+                <div className="col" key={book._id}>
                   <div className="card p-2 ">
                     <img
                       src={book.img_url}
@@ -287,7 +288,7 @@ export default function Buku() {
               id="buku-container"
             >
               {searchResult.map((book) => (
-                <CardBuku key={book.id} book={book} />
+                <CardBuku key={book._id} book={book} />
               ))}
             </div>
           </div>
@@ -309,7 +310,7 @@ export default function Buku() {
                 id="direkomendasikan-buku"
               >
                 {data.dataRandom.map((book) => (
-                  <CardBuku key={book.id} book={book} />
+                  <CardBuku key={book._id} book={book} />
                 ))}
               </div>
             </div>
@@ -325,7 +326,7 @@ export default function Buku() {
                 id="terpopuler-buku"
               >
                 {data.dataPopuler.map((book) => (
-                  <CardBuku key={book.id} book={book} />
+                  <CardBuku key={book._id} book={book} />
                 ))}
               </div>
             </div>
@@ -341,7 +342,7 @@ export default function Buku() {
                 id="akademik-buku"
               >
                 {data.dataAkademik.map((book) => (
-                  <CardBuku key={book.id} book={book} />
+                  <CardBuku key={book._id} book={book} />
                 ))}
               </div>
             </div>
@@ -357,7 +358,7 @@ export default function Buku() {
                 id="lainnya-buku"
               >
                 {data.dataLainnya.map((book) => (
-                  <CardBuku key={book.id} book={book} />
+                  <CardBuku key={book._id} book={book} />
                 ))}
               </div>
             </div>

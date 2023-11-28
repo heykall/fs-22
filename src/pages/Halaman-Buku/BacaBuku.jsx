@@ -9,7 +9,7 @@ export default function BacaBuku() {
     const response = await axios(
       `https://rich-eel-blazer.cyclic.app/books/${id}`
     );
-    const data = response.data;
+    const data = response.data.data;
     setBook(data);
   };
 
@@ -32,9 +32,9 @@ export default function BacaBuku() {
           <iframe
             src={book.book_url}
             title="Baca Buku"
-            style={{ width: "100%", height: "500px", border: "none" }}
-            allowfullscreen
-          ></iframe>
+            style={{ width: "80%", height: "500px", border: "none" }}
+            allowFullScreen
+          />
         </div>
       </div>
     </>
