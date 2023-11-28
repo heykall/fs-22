@@ -15,6 +15,8 @@ import ProfileUser from "./pages/ProfileUser";
 import Donasi from "./pages/Halaman-Donasi/Donasi";
 import DonasiUang from "./pages/Halaman-Donasi/Donasi-Uang/DonasiUang";
 import DonasiBarang from "./pages/Halaman-Donasi/Donasi-Barang/DonasiBarang";
+import DonasiBuku from "./pages/Halaman-Donasi/Donasi-Barang/DonasiBuku";
+import DonasiVideo from "./pages/Halaman-Donasi/Donasi-Barang/DonasiVideo";
 
 function App() {
   return (
@@ -45,6 +47,8 @@ function App() {
           path="/halaman-donasi/donasi-barang"
           element={<DonasiBarang />}
         />
+        <Route path="/halaman-donasi-buku" element={<DonasiBuku />} />
+        <Route path="/halaman-donasi-video" element={<DonasiVideo />} />
       </Routes>
       <Footer />
     </>
