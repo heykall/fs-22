@@ -54,7 +54,7 @@ export default function Register() {
       try {
         //
         const data = await axios.post(
-          "https://rich-eel-blazer.cyclic.app/auth/register",
+          "http://localhost:3000/auth/register",
           {
             nama,
             jenisKelamin,
@@ -80,6 +80,7 @@ export default function Register() {
           window.location.href = "/login";
         }, 2000);
       } catch (error) {
+        console.log(error);
         toast.error("Periksa Kembali Inputan Anda");
       } finally {
         // Mengatur state isLoading menjadi false setelah permintaan HTTP selesai
