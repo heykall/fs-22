@@ -27,13 +27,18 @@ const Payment = () => {
 
     // Validasi jumlah donasi minimal
     if (parseInt(formData.donation_amount, 10) < 10000) {
-      alert("Maaf, minimal donasi adalah Rp 10,000. Mohon ditambah ya, terima kasih. 😊");
+      alert(
+        "Maaf, minimal donasi adalah Rp 10,000. Mohon ditambah ya, terima kasih. 😊"
+      );
       return;
     }
 
     try {
       // Kirim permintaan ke server untuk memulai transaksi Midtrans
-      const response = await axios.post("http://localhost:3000/transactions", formData);
+      const response = await axios.post(
+        "https://rich-eel-blazer.cyclic.app/transactions",
+        formData
+      );
       console.log("Midtrans Response:", response.data);
 
       // Redirect ke halaman pembayaran Midtrans

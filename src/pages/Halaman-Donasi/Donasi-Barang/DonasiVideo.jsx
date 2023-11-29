@@ -40,22 +40,16 @@ export default function DonasiVideo() {
       const config = {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${userData.token}`,
+          "Access-Control-Allow-Origin": "*",
         },
-        withCredentials: true,
       };
-
-      // const response = await axios.post(
-      //   `http://localhost:3000/donasi/donasivideo/${userData._id}`,
-      //   formData,
-      //   config
-      // );
+      console.log(formData);
       const response = await axios.post(
-        `http://localhost:3000/donasi/donasivideo/${userData._id}`,
+        `https://rich-eel-blazer.cyclic.app/donasi/donasivideo/${userData._id}`,
         formData,
         config
       );
-
+      console.log(response.data);
       toast.success("Donasi berhasil!");
 
       // Reset form setelah donasi berhasil
@@ -66,6 +60,9 @@ export default function DonasiVideo() {
         category: "",
         file: null,
       });
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
     } catch (error) {
       console.error("Error:", error);
       toast.error("Gagal donasi");

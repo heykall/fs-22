@@ -35,10 +35,13 @@ function Login() {
     }
 
     try {
-      const { data } = await axios.post(`http://localhost:3000/auth/login`, {
-        email,
-        password,
-      });
+      const { data } = await axios.post(
+        `https://rich-eel-blazer.cyclic.app/auth/login`,
+        {
+          email,
+          password,
+        }
+      );
       const {
         token,
         role,

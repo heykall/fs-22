@@ -51,7 +51,7 @@ export default function ProfileUser() {
       };
 
       const dataEdit = await axios.put(
-        `http://localhost:3000/users/edit-profile/${userData._id}`,
+        `https://rich-eel-blazer.cyclic.app/users/edit-profile/${userData._id}`,
         formData,
         config
       );
@@ -83,7 +83,7 @@ export default function ProfileUser() {
   const getTotalDonasiByUser = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:3000/donasi/total-donasi/${userData._id}`
+        `https://rich-eel-blazer.cyclic.app/donasi/total-donasi/${userData._id}`
       );
       // console.log(data[0].total_donasi);
       setDonasi(data[0].total_donasi);

@@ -55,7 +55,7 @@ export default function DonasiBarang() {
             <Link
               className="btn btn-light w-100 border-0 text-white rounded-pill shadow px-3 py-2 mb-5"
               style={{ backgroundColor: " #29AB92" }}
-              to={`/halaman-donasi-video`}
+              to={`/halaman-donasi/donasi-barang/donasi-video`}
             >
               Donasi Video
             </Link>

@@ -15,7 +15,9 @@ const BacaBuku = () => {
 
   const getDataApiById = async () => {
     try {
-      const response = await axios(`http://localhost:3000/books/${id}`);
+      const response = await axios(
+        `https://rich-eel-blazer.cyclic.app/books/${id}`
+      );
       const data = response.data.data;
       setBook(data);
     } catch (error) {
@@ -48,9 +50,15 @@ const BacaBuku = () => {
   const minScale = 0.5;
 
   return (
-    <div className="container my-5 py-5 d-flex flex-column align-items-center" id="baca-buku">
+    <div
+      className="container my-5 py-5 d-flex flex-column align-items-center"
+      id="baca-buku"
+    >
       <h5 className="fw-semibold mt-md-0 mt-3">{book.title}</h5>
-      <div className="ratio ratio-16x9" style={{ width: "35%", height: "500px" }}>
+      <div
+        className="ratio ratio-16x9"
+        style={{ width: "35%", height: "500px" }}
+      >
         <Document
           file={book.book_url}
           onLoadSuccess={onDocumentLoadSuccess}
@@ -66,10 +74,18 @@ const BacaBuku = () => {
         </Document>
       </div>
       <div className="d-flex mt-3">
-        <button className="btn btn-primary me-2" onClick={prevPage} disabled={pageNumber <= 1}>
+        <button
+          className="btn btn-primary me-2"
+          onClick={prevPage}
+          disabled={pageNumber <= 1}
+        >
           Previous Page
         </button>
-        <button className="btn btn-primary" onClick={nextPage} disabled={pageNumber >= numPages}>
+        <button
+          className="btn btn-primary"
+          onClick={nextPage}
+          disabled={pageNumber >= numPages}
+        >
           Next Page
         </button>
       </div>

@@ -14,7 +14,9 @@ export default function DetailBuku() {
   const [bookRandom, setBookRandom] = useState([]);
   const getDataApiById = async () => {
     try {
-      const response = await axios(`http://localhost:3000/books/${id}`);
+      const response = await axios(
+        `https://rich-eel-blazer.cyclic.app/books/${id}`
+      );
       const data = response.data.data;
       setBook(data);
     } catch (error) {
@@ -25,7 +27,7 @@ export default function DetailBuku() {
   // ngambil data dari api
   const getDataApi = async () => {
     try {
-      const response = await axios(`http://localhost:3000/books`);
+      const response = await axios(`https://rich-eel-blazer.cyclic.app/books`);
       // hasil response
       const data = response.data.data;
       // Buku Rekomendasi
