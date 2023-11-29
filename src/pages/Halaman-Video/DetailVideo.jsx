@@ -12,6 +12,7 @@ export default function DetailVideo() {
   const { id } = useParams();
   const [dataById, setDataById] = useState([]);
   const [dataRandom, setDataRandom] = useState([]);
+  const [isBookmarked, setIsBookmarked] = useState(false);
   const getDataApiById = async () => {
     const response = await axios(
       `https://rich-eel-blazer.cyclic.app/videos/${id}`
@@ -41,21 +42,64 @@ export default function DetailVideo() {
     // mengambil 6 data dari depan
     return dataRandom.slice(0, numItem);
   };
+  const getBookmarkStatus = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/bookmark/user/${userData._id}/${id}`
+      );
+      setIsBookmarked(response.data.isBookmarked);
+    } catch (error) {
+      console.error("Error fetching bookmark status:", error.response);
+    }
+  };
+  const toggleBookmark = async () => {
+    try {
+      // Lakukan permintaan ke API untuk menambah atau menghapus bookmark
+      const response = await axios.post(
+        `http://localhost:3000/bookmark/user/${userData._id}`,
+        {
+          videoID: id, // Gantilah dengan bukuID jika ini adalah halaman buku
+        }
+      );
+
+      setIsBookmarked(response.data.success);
+      // Save the updated bookmark status in local storage
+      if (isBookmarked) {
+        // Remove the bookmark status and clear the local storage
+        setIsBookmarked(false);
+        localStorage.removeItem(`bookmark_status_${id}`);
+        toast.success("Video berhasil di-unbookmark!");
+      } else {
+        // Set the bookmark status and store it in local storage
+        setIsBookmarked(true);
+        localStorage.setItem(`bookmark_status_${id}`, "true");
+        toast.success("Video berhasil di-bookmark!");
+      }
+    } catch (error) {
+      console.error("Error:", error.response);
+      toast.error("Terjadi kesalahan server");
+    }
+  };
   useEffect(() => {
     getDataApiById();
+    getBookmarkStatus();
   }, []);
 
   useEffect(() => {
     getDataApi();
   }, []);
+
   useEffect(() => {
+    // Retrieve the bookmark status from local storage on component mount
+    const storedBookmarkStatus = localStorage.getItem(`bookmark_status_${id}`);
+    setIsBookmarked(storedBookmarkStatus === "true");
     if (!userData) {
       toast.info("Anda Perlu Login Terlebih Dahulu !");
       setTimeout(() => {
         navigate("/login");
       }, 5000);
     }
-  }, [userData]);
+  }, [userData, id, navigate]);
   return (
     <>
       <ToastContainer />
@@ -82,12 +126,12 @@ export default function DetailVideo() {
                       <path d="M8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.920 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.060.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
                     </svg>
                   </a>
-                  <a href="#">
+                  <a href="#" onClick={toggleBookmark}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"
                       height="16"
-                      fill="white"
+                      fill={isBookmarked ? "red" : "white"} // Ganti warna ikon sesuai dengan status bookmark
                       className="bi bi-bookmark"
                       viewBox="0 0 16 16"
                     >
