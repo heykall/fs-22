@@ -42,7 +42,7 @@ export default function DonasiUang() {
             <Link
               className="btn btn-light w-100 border-0 text-white rounded-pill shadow px-3 py-2 mb-5"
               style={{ backgroundColor: " #29AB92" }}
-              to={``}
+              to={`/halaman-donasi/donasi-uang/payment`}
             >
               Donasi Sekarang
             </Link>

@@ -14,6 +14,7 @@ import TeamLiterasiKita from "./pages/TimLiterasiKita";
 import ProfileUser from "./pages/ProfileUser";
 import Donasi from "./pages/Halaman-Donasi/Donasi";
 import DonasiUang from "./pages/Halaman-Donasi/Donasi-Uang/DonasiUang";
+import Payment from "./pages/Halaman-Donasi/Donasi-Uang/Payment";
 import DonasiBarang from "./pages/Halaman-Donasi/Donasi-Barang/DonasiBarang";
 import DonasiBuku from "./pages/Halaman-Donasi/Donasi-Barang/DonasiBuku";
 import DonasiVideo from "./pages/Halaman-Donasi/Donasi-Barang/DonasiVideo";
@@ -43,10 +44,8 @@ function App() {
         <Route path="/profile" element={<ProfileUser />} />
         <Route path="/halaman-donasi" element={<Donasi />} />
         <Route path="/halaman-donasi/donasi-uang" element={<DonasiUang />} />
-        <Route
-          path="/halaman-donasi/donasi-barang"
-          element={<DonasiBarang />}
-        />
+        <Route path="/halaman-donasi/donasi-uang/payment" element={<Payment />} />
+        <Route  path="/halaman-donasi/donasi-barang" element={<DonasiBarang />} />
         <Route path="/halaman-donasi-buku" element={<DonasiBuku />} />
         <Route path="/halaman-donasi-video" element={<DonasiVideo />} />
       </Routes>
