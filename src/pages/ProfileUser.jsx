@@ -8,6 +8,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 export default function ProfileUser() {
+  const [donasi, setDonasi] = useState("0");
   const fileInputRef = useRef(null);
   const [data, setData] = useState({
     nama: "",
@@ -79,6 +80,17 @@ export default function ProfileUser() {
     }
   };
 
+  const getTotalDonasiByUser = async () => {
+    try {
+      const { data } = await axios.get(
+        `http://localhost:3000/donasi/total-donasi/${userData._id}`
+      );
+      // console.log(data[0].total_donasi);
+      setDonasi(data[0].total_donasi);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
     if (!userData) {
       navigate("/login");
@@ -93,6 +105,10 @@ export default function ProfileUser() {
       });
     }
   }, [navigate]);
+
+  useEffect(() => {
+    getTotalDonasiByUser();
+  });
 
   return (
     <>
@@ -154,7 +170,7 @@ export default function ProfileUser() {
                 id={styles.bgContributions}
               >
                 <img className="img-fluid w-25" src={contributions} alt="" />
-                <div className="text-white fs-2 mt-3">10</div>
+                <div className="text-white fs-2 mt-3">{donasi}</div>
                 <div className="text-white fs-2">Contribution</div>
               </div>
             </Col>
