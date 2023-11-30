@@ -7,6 +7,10 @@ import donasiImage from "../assets/svg/donasi-image.svg";
 import user1 from "../assets/svg/user-1.svg";
 import user2 from "../assets/svg/user-2.svg";
 import user3 from "../assets/svg/user-3.svg";
+import cardDonasi1 from "../assets/svg/cardDonasi1.svg";
+import cardDonasi2 from "../assets/svg/cardDonasi2.svg";
+import cardDonasi3 from "../assets/svg/cardDonasi3.svg";
+import tujuanDonasi from "../assets/svg/tujuanDonasi.svg";
 
 export default function Homepage() {
   return (
@@ -238,6 +242,77 @@ export default function Homepage() {
           </div>
         </div>
       </section>
+
+      <section>
+      <br />
+      <div className="container mb-5">
+        <div className="row justify-content-center">
+          <div className="col-12">
+            <div className="text-center">
+              {/* <h1 className="text-center mb-4">Tujuan Donasi</h1> */}
+              <h3 className="text-center fw-bold">Penyaluran Donasi</h3>
+              <p>
+                Donasimu bukan sekadar uang, tapi kunci untuk mengembangkan
+                potensi anak-anak.<br />
+                Tujuannya sederhana: membentuk dunia yang lebih cerdas dan penuh
+                warna. Ayo, mari bersama-sama menciptakan peluang.
+              </p>
+            </div>
+          </div>
+          {/* <img
+            src={tujuanDonasi}
+            alt=""
+            className="img-fluid w-25 mb-3 rounded-4"
+          /> */}
+        </div>
+
+        {/* <div className="row mb-5 text text-center">
+          <div className="col-1"></div>
+          <div className="col-5">
+            <h5>
+              Total Donasi <br />
+              <span style="color: #1EA7D1">Rp. 100.000.000</span>
+            </h5>
+          </div>
+          <div className="col-5">
+            <h5>
+              Total Tersalurkan <br />
+              <span style="color: #1EA7D1">Rp. 80.000.000</span>
+            </h5>
+          </div>
+          <div className="col-1"></div>
+        </div> */}
+
+        <br />
+
+        <div className="row mb-5">
+          {/* <h2 className="text-center mb-5">Penyaluran Donasi</h2> */}
+          <div className="col-lg-4 col-12 mb-4">
+            <div className="customCard d-flex">
+              <img src={cardDonasi1} className="customCardImage" />
+            </div>
+          </div>
+
+          <div className="col-lg-4 col-12 mb-4">
+            <div className="customCard d-flex">
+              <img
+                src={cardDonasi2}
+                className="customCardImage"
+              />
+            </div>
+          </div>
+
+          <div className="col-lg-4 col-12 mb-4">
+            <div className="customCard d-flex">
+              <img
+                src={cardDonasi3}
+                className="customCardImage"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
       <section>
         <div className="container mt-5 mb-5">
