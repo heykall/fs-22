@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import ReactPlayer from "react-player";
 import { Container } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchApiVideoById } from "../redux/reducers/videoReducer";
+import { fetchApiVideoById } from "../../redux/reducers/videoReducer";
 
 export default function TontonVideo() {
   const { id } = useParams();

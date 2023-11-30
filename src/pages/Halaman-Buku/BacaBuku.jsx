@@ -5,7 +5,7 @@ import axios from "axios";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchApiBookById } from "../redux/reducers/bukuReducer";
+import { fetchApiBookById } from "../../redux/reducers/bukuReducer";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
