@@ -79,9 +79,9 @@ export default function ProfileUser() {
 
       localStorage.setItem("data", JSON.stringify(userUpdateData));
       toast.success("Update berhasil!");
-      // setTimeout(() => {
-      //   window.location.reload();
-      // }, 3000);
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
     } catch (error) {
       toast.error("Update gagal");
     }
