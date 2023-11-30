@@ -5,12 +5,18 @@ import readings from "../assets/svg/asset-readings.svg";
 import contributions from "../assets/svg/asset-contribution.svg";
 import styles from "./ProfileUser.module.css";
 import axios from "axios";
+import CardBuku from "../components/CardBuku";
+import CardVideo from "../components/CardVideo";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 export default function ProfileUser() {
   const [totalBookmarks, setTotalBookmarks] = useState(0);
   const [donasi, setDonasi] = useState("0");
   const fileInputRef = useRef(null);
+  const [videoIds, setVideoIds] = useState([]);
+  const [bookIds, setBookIds] = useState([]);
+  const [dataBooks, setDataBooks] = useState([]);
+  const [dataVideos, setDataVideos] = useState([]);
   const [data, setData] = useState({
     nama: "",
     jenisKelamin: "",
@@ -52,7 +58,7 @@ export default function ProfileUser() {
       };
 
       const dataEdit = await axios.put(
-        `https://rich-eel-blazer.cyclic.app/users/edit-profile/${userData._id}`,
+        `http://localhost:3000/users/edit-profile/${userData._id}`,
         formData,
         config
       );
@@ -73,9 +79,9 @@ export default function ProfileUser() {
 
       localStorage.setItem("data", JSON.stringify(userUpdateData));
       toast.success("Update berhasil!");
-      setTimeout(() => {
-        window.location.reload();
-      }, 3000);
+      // setTimeout(() => {
+      //   window.location.reload();
+      // }, 3000);
     } catch (error) {
       toast.error("Update gagal");
     }
@@ -84,7 +90,7 @@ export default function ProfileUser() {
   const getTotalDonasiByUser = async () => {
     try {
       const { data } = await axios.get(
-        `https://rich-eel-blazer.cyclic.app/donasi/total-donasi/${userData._id}`
+        `http://localhost:3000/donasi/total-donasi/${userData._id}`
       );
       // console.log(data[0].total_donasi);
       setDonasi(data[0].total_donasi);
@@ -102,6 +108,32 @@ export default function ProfileUser() {
       console.error("Error fetching total bookmarks:", error.response);
     }
   };
+
+  const getBookmarkByUser = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/bookmark/user/data-bookmark/${userData._id}`
+      );
+      const videoIds = [];
+      const bookIds = [];
+      response.data.forEach((bookmark) => {
+        if (bookmark.videoID) {
+          videoIds.push(bookmark.videoID);
+        }
+
+        if (bookmark.bookID) {
+          bookIds.push(bookmark.bookID);
+        }
+      });
+
+      setVideoIds(videoIds);
+      setBookIds(bookIds);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  // console.log(dataBooks);
+  // console.log(dataVideos);
   useEffect(() => {
     if (!userData) {
       navigate("/login");
@@ -115,15 +147,47 @@ export default function ProfileUser() {
         bio: userData.bio,
       });
     }
-  }, [navigate]);
+  }, []);
 
   useEffect(() => {
-    if (userData) {
-      getTotalBookmarks();
-      getTotalDonasiByUser();
-    }
-  });
+    getBookmarkByUser();
+    getTotalBookmarks();
+    getTotalDonasiByUser();
+  }, []);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const videoData = [];
+      const bookData = [];
+
+      for (const videoId of videoIds) {
+        try {
+          const response = await axios.get(
+            `http://localhost:3000/videos/${videoId}`
+          );
+          videoData.push(response.data);
+        } catch (error) {
+          console.error("Error fetching video data:", error);
+        }
+      }
+
+      for (const bookId of bookIds) {
+        try {
+          const response = await axios.get(
+            `http://localhost:3000/books/${bookId}`
+          );
+          bookData.push(response.data);
+        } catch (error) {
+          console.error("Error fetching book data:", error);
+        }
+      }
+
+      setDataVideos(videoData);
+      setDataBooks(bookData);
+    };
+
+    fetchData();
+  }, [videoIds, bookIds]);
   return (
     <>
       <ToastContainer />
@@ -278,6 +342,31 @@ export default function ProfileUser() {
               </Col>
             </Row>
           </Form>
+        </Container>
+        <h3 className="text-center mt-5 mb-3">Bookmark Buku</h3>
+        {/* {console.log(dataBooks[0].data)} */}
+
+        <Container
+          className="mt-5 px-5 py-2"
+          style={{ backgroundColor: "#81CDE5" }}
+        >
+          <div className="scroll-video row row-cols-1 row-cols-lg-4 row-cols-md-3 g-lg-4 overflow-x-auto d-flex flex-nowrap mt-2 mt-lg-0 mb-5">
+            {dataBooks.map((item) => (
+              <CardBuku key={item.data._id} book={item.data} />
+              // console.log(item.data), console.log(item.data._id)
+            ))}
+          </div>
+        </Container>
+        <h3 className="text-center mt-5 mb-3">Bookmark Video</h3>
+        <Container
+          className="mt-5 px-5 py-2"
+          style={{ backgroundColor: "#81CDE5" }}
+        >
+          <div className="scroll-video row row-cols-1 row-cols-lg-4 row-cols-md-3 g-lg-4 overflow-x-auto d-flex flex-nowrap mt-2 mt-lg-0 mb-5">
+            {dataVideos.map((item) => (
+              <CardVideo key={item.data._id} item={item.data} />
+            ))}
+          </div>
         </Container>
         <br />
         <br />

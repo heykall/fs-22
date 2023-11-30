@@ -45,7 +45,7 @@ export default function DonasiVideo() {
       };
       console.log(formData);
       const response = await axios.post(
-        `https://rich-eel-blazer.cyclic.app/donasi/donasivideo/${userData._id}`,
+        `http://localhost:3000/donasi/donasivideo/${userData._id}`,
         formData,
         config
       );
