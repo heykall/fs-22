@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 export default function DonasiBarang() {
   const [donasiVideo, setDonasiVideo] = useState(0);
+  const [donasiBuku, setDonasiBuku] = useState(0);
   const getTotalDonasiVideo = async () => {
     const response = await axios.get(
       `http://localhost:3000/donasi/all-donasi-videos`
@@ -12,10 +13,18 @@ export default function DonasiBarang() {
     // console.log(response.data[0].total_donasi_video);
     setDonasiVideo(response.data[0].total_donasi_video);
   };
+  const getTotalDonasiBuku = async () => {
+    const response = await axios.get(
+      `http://localhost:3000/donasi/all-donasi-buku`
+    );
+    // console.log(response.data[0].total_donasi_video);
+    setDonasiBuku(response.data[0].total_donasi_book);
+  };
 
   // console.log(donasiVideo);
   useEffect(() => {
     getTotalDonasiVideo();
+    getTotalDonasiBuku();
   }, []);
 
   return (
@@ -49,7 +58,7 @@ export default function DonasiBarang() {
           <div className="col-12 col-md-5"></div>
           <div className="col-12 col-md-2">
             <p>Total Donasi Buku</p>
-            <h4 className="fw-bold">21 Buku</h4>
+            <h4 className="fw-bold">{donasiBuku} Buku</h4>
           </div>
           <div className="col-12 col-md-2">
             <p>Total Donasi Video</p>
