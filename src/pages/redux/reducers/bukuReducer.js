@@ -1,21 +1,21 @@
 import axios from "axios";
 
 const initialValue = {
-  dataById: [],
+  book: {},
   isLoading: false,
 };
 
-export default function videoReducer(state = initialValue, action) {
+export default function bookReducer(state = initialValue, action) {
   switch (action.type) {
     case "START_FETCHING":
       return {
         ...state,
         isLoading: true,
       };
-    case "GET_VIDEOBYID":
+    case "GET_BOOKBYID":
       return {
         ...state,
-        dataById: action.payload,
+        book: action.payload,
         isLoading: false,
       };
 
@@ -31,15 +31,15 @@ export function startFetching() {
 
 export function successGetApi(data) {
   return {
-    type: "GET_VIDEOBYID",
+    type: "GET_BOOKBYID",
     payload: data,
   };
 }
-export function fetchApiVideoById(id) {
+export function fetchApiBookById(id) {
   return async function (dispatch) {
     dispatch(startFetching());
 
-    const response = await axios.get(`http://localhost:3000/videos/${id}`);
+    const response = await axios.get(`http://localhost:3000/books/${id}`);
     const data = response.data.data;
     dispatch(successGetApi(data));
   };

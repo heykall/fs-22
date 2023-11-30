@@ -4,28 +4,33 @@ import { Document, Page, pdfjs } from "react-pdf";
 import axios from "axios";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchApiBookById } from "../redux/reducers/bukuReducer";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 const BacaBuku = () => {
   const { id } = useParams();
-  const [book, setBook] = useState({});
+  const dispatch = useDispatch();
+  const { book } = useSelector((state) => state.book);
+  // const [book, setBook] = useState({});
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
 
-  const getDataApiById = async () => {
-    try {
-      const response = await axios(`http://localhost:3000/books/${id}`);
-      const data = response.data.data;
-      setBook(data);
-    } catch (error) {
-      console.error("Error fetching book data:", error);
-    }
-  };
+  // const getDataApiById = async () => {
+  //   try {
+  //     const response = await axios(`http://localhost:3000/books/${id}`);
+  //     const data = response.data.data;
+  //     setBook(data);
+  //   } catch (error) {
+  //     console.error("Error fetching book data:", error);
+  //   }
+  // };
 
   useEffect(() => {
-    getDataApiById();
-  }, [id]); // Include 'id' as a dependency to fetch data when the ID changes
+    // getDataApiById();
+    dispatch(fetchApiBookById(id));
+  }, [dispatch]); // Include 'id' as a dependency to fetch data when the ID changes
 
   const onDocumentLoadSuccess = ({ numPages }) => {
     setNumPages(numPages);
