@@ -1,7 +1,23 @@
+import axios from "axios";
 import donasiBarang from "../../../assets/svg/donasi-barang.svg";
 import donasiTerkumpul from "../../../assets/svg/donasi-terkumpul.svg";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 export default function DonasiBarang() {
+  const [donasiVideo, setDonasiVideo] = useState(0);
+  const getTotalDonasiVideo = async () => {
+    const response = await axios.get(
+      `http://localhost:3000/donasi/all-donasi-videos`
+    );
+    // console.log(response.data[0].total_donasi_video);
+    setDonasiVideo(response.data[0].total_donasi_video);
+  };
+
+  // console.log(donasiVideo);
+  useEffect(() => {
+    getTotalDonasiVideo();
+  }, []);
+
   return (
     <section>
       <div className="container mt-5 mb-5 text-center text-md-start">
@@ -37,7 +53,7 @@ export default function DonasiBarang() {
           </div>
           <div className="col-12 col-md-2">
             <p>Total Donasi Video</p>
-            <h4 className="fw-bold">21 Video</h4>
+            <h4 className="fw-bold">{donasiVideo} Video</h4>
           </div>
         </div>
         <div className="row align-items-center mt-5 text-center">
