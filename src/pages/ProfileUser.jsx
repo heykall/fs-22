@@ -8,6 +8,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 export default function ProfileUser() {
+  const [totalBookmarks, setTotalBookmarks] = useState(0);
   const [donasi, setDonasi] = useState("0");
   const fileInputRef = useRef(null);
   const [data, setData] = useState({
@@ -51,7 +52,7 @@ export default function ProfileUser() {
       };
 
       const dataEdit = await axios.put(
-        `https://rich-eel-blazer.cyclic.app/users/edit-profile/${userData._id}`,
+        `http://localhost:3000/users/edit-profile/${userData._id}`,
         formData,
         config
       );
@@ -83,12 +84,22 @@ export default function ProfileUser() {
   const getTotalDonasiByUser = async () => {
     try {
       const { data } = await axios.get(
-        `https://rich-eel-blazer.cyclic.app/donasi/total-donasi/${userData._id}`
+        `http://localhost:3000/donasi/total-donasi/${userData._id}`
       );
       // console.log(data[0].total_donasi);
       setDonasi(data[0].total_donasi);
     } catch (error) {
       console.log(error);
+    }
+  };
+  const getTotalBookmarks = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/bookmark/user/total-bookmark/${userData._id}`
+      );
+      setTotalBookmarks(response.data.totalBookmarks);
+    } catch (error) {
+      console.error("Error fetching total bookmarks:", error.response);
     }
   };
   useEffect(() => {
@@ -107,7 +118,10 @@ export default function ProfileUser() {
   }, [navigate]);
 
   useEffect(() => {
-    getTotalDonasiByUser();
+    if (userData) {
+      getTotalBookmarks();
+      getTotalDonasiByUser();
+    }
   });
 
   return (
@@ -159,7 +173,7 @@ export default function ProfileUser() {
                 id={styles.bgReadings}
               >
                 <img className="img-fluid w-25" src={readings} alt="" />
-                <div className="text-white fs-2 mt-3">120</div>
+                <div className="text-white fs-2 mt-3">{totalBookmarks}</div>
                 <div className="text-white fs-2">Readings</div>
               </div>
             </Col>

@@ -44,10 +44,22 @@ function App() {
         <Route path="/profile" element={<ProfileUser />} />
         <Route path="/halaman-donasi" element={<Donasi />} />
         <Route path="/halaman-donasi/donasi-uang" element={<DonasiUang />} />
-        <Route path="/halaman-donasi/donasi-uang/payment" element={<Payment />} />
-        <Route  path="/halaman-donasi/donasi-barang" element={<DonasiBarang />} />
-        <Route path="/halaman-donasi-buku" element={<DonasiBuku />} />
-        <Route path="/halaman-donasi-video" element={<DonasiVideo />} />
+        <Route
+          path="/halaman-donasi/donasi-uang/payment"
+          element={<Payment />}
+        />
+        <Route
+          path="/halaman-donasi/donasi-barang"
+          element={<DonasiBarang />}
+        />
+        <Route
+          path="/halaman-donasi/donasi-barang/donasi-buku"
+          element={<DonasiBuku />}
+        />
+        <Route
+          path="/halaman-donasi/donasi-barang/donasi-video"
+          element={<DonasiVideo />}
+        />
       </Routes>
       <Footer />
     </>

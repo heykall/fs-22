@@ -30,17 +30,17 @@ export default function DonasiBuku() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const formData = new FormData();
+      const data = new FormData();
 
-      formData.append("title", formData.title);
-      formData.append("description", formData.description);
-      formData.append("author", formData.author);
-      formData.append("tahun_terbit", formData.tahun_terbit);
-      formData.append("rating", formData.rating);
-      formData.append("star", formData.star);
-      formData.append("category", formData.category);
-      formData.append("book_url", formData.bookFile);
-      formData.append("img_url", formData.imageFile);
+      data.append("title", formData.title);
+      data.append("description", formData.description);
+      data.append("author", formData.author);
+      data.append("tahun_terbit", formData.tahun_terbit);
+      data.append("rating", formData.rating);
+      data.append("star", formData.star);
+      data.append("category", formData.category);
+      data.append("book_url", formData.bookFile);
+      data.append("img_url", formData.imageFile);
 
       const config = {
         headers: {
@@ -52,10 +52,10 @@ export default function DonasiBuku() {
 
       const response = await axios.post(
         `http://localhost:3000/donasi/donasibuku/${userData._id}`,
-        formData,
+        data,
         config
       );
-
+      console.log(response.data);
       toast.success("Donasi buku berhasil!");
 
       // Reset form after successful donation
@@ -88,7 +88,7 @@ export default function DonasiBuku() {
             <Row>
               <Col lg={6}>
                 <Form.Group className="mb-3">
-                  <Form.Label htmlFor="judul_buku">Judul Buku</Form.Label>
+                  <Form.Label htmlFor="title">Judul Buku</Form.Label>
                   <Form.Control
                     type="text"
                     id="title"
@@ -99,33 +99,50 @@ export default function DonasiBuku() {
                   />
                 </Form.Group>
                 <Form.Group className="mb-3">
-                  <Form.Label htmlFor="penerbit_buku">Penerbit Buku</Form.Label>
-                  <Form.Control type="text" id="penerbit_buku" />
+                  <Form.Label htmlFor="author">Penerbit Buku</Form.Label>
+                  <Form.Control
+                    type="text"
+                    id="author"
+                    onChange={(e) =>
+                      setFormData({ ...formData, author: e.target.value })
+                    }
+                    value={formData.author}
+                  />
                 </Form.Group>
                 <Form.Group className="mb-3">
-                  <Form.Label htmlFor="deskripsi_buku">
-                    Deskripsi Buku
-                  </Form.Label>
-                  <Form.Control as="textarea" id="deskripsi_buku" />
+                  <Form.Label htmlFor="description">Deskripsi Buku</Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    id="description"
+                    onChange={(e) =>
+                      setFormData({ ...formData, description: e.target.value })
+                    }
+                    value={formData.description}
+                  />
                 </Form.Group>
                 <Form.Group className="mb-3">
-                  <Form.Label htmlFor="kategori_buku">Kategori Buku</Form.Label>
-                  <Form.Select
-                    id="kategori_buku"
-                    defaultValue="-- Pilih kategori --"
-                  >
-                    <option disabled>-- Pilih kategori --</option>
-                    <option>Akademik</option>
-                    <option>Seni dan Budaya</option>
-                    <option>Anak - anak</option>
-                    <option>Sains dan Teknologi</option>
-                    <option>Bahasa</option>
-                  </Form.Select>
-                </Form.Group>
+  <Form.Label htmlFor="category">Kategori Buku</Form.Label>
+  <Form.Select
+    id="category"
+    value={formData.category}
+    onChange={(e) =>
+      setFormData({ ...formData, category: e.target.value })
+    }
+  >
+    <option disabled value="">
+      -- Pilih kategori --
+    </option>
+    <option>Akademik</option>
+    <option>Seni dan Budaya</option>
+    <option>Anak - anak</option>
+    <option>Sains dan Teknologi</option>
+    <option>Bahasa</option>
+  </Form.Select>
+</Form.Group>
               </Col>
               <Col lg={6}>
                 <Form.Group className="mb-3">
-                  <Form.Label htmlFor="upload-buku">Upload Buku</Form.Label>
+                  <Form.Label htmlFor="bookFile">Upload Buku</Form.Label>
                   <Form.Control
                     id="bookFile"
                     type="file"
@@ -133,7 +150,7 @@ export default function DonasiBuku() {
                   />
                 </Form.Group>
                 <Form.Group className="mb-3">
-                  <Form.Label htmlFor="upload-img">Upload Gambar</Form.Label>
+                  <Form.Label htmlFor="imageFile">Upload Gambar</Form.Label>
                   <Form.Control
                     id="imageFile"
                     type="file"

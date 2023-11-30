@@ -36,7 +36,7 @@ const Payment = () => {
     try {
       // Kirim permintaan ke server untuk memulai transaksi Midtrans
       const response = await axios.post(
-        "https://rich-eel-blazer.cyclic.apptransactions",
+        "http://localhost:3000/transactions",
         formData
       );
       console.log("Midtrans Response:", response.data);
