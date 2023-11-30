@@ -13,6 +13,7 @@ export default function DetailVideo() {
   const [dataById, setDataById] = useState([]);
   const [dataRandom, setDataRandom] = useState([]);
   const [isBookmarked, setIsBookmarked] = useState(false);
+  const [isLikes, setIsLikes] = useState(false);
   const getDataApiById = async () => {
     const response = await axios(`http://localhost:3000/videos/${id}`);
     const data = response.data.data;
@@ -49,6 +50,19 @@ export default function DetailVideo() {
     } catch (error) {
       console.error("Error fetching bookmark status:", error.response);
     }
+  };
+
+  const toggleLikes = () => {
+    // Invert the current value of isBookmarked and update the state
+    setIsLikes((prevIsLikes) => !prevIsLikes);
+
+    // Display a toast message based on the updated state
+    const toastMessage = isLikes
+      ? "Video batal di Likes"
+      : "Video berhasil di Likes";
+    toast.success(toastMessage);
+    // Save the updated like status in local storage
+    localStorage.setItem(`like_status_${id}`, String(!isLikes));
   };
   const toggleBookmark = async () => {
     try {
@@ -98,6 +112,13 @@ export default function DetailVideo() {
       }, 5000);
     }
   }, [userData, id, navigate]);
+
+  useEffect(() => {
+    // Retrieve the like status from local storage on component mount
+    const storedLikeStatus = localStorage.getItem(`like_status_${id}`);
+    setIsLikes(storedLikeStatus === "true");
+    getBookmarkStatus();
+  }, [id]);
   return (
     <>
       <ToastContainer />
@@ -112,12 +133,12 @@ export default function DetailVideo() {
                   alt="detail-video"
                 />
                 <div className="d-flex justify-content-end me-2">
-                  <a href="#" className="mx-3">
+                  <a href="#" className="mx-3" onClick={toggleLikes}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"
                       height="16"
-                      fill="white"
+                      fill={isLikes ? "red" : "white"}
                       className="bi bi-heart"
                       viewBox="0 0 16 16"
                     >
