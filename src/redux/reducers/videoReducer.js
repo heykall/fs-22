@@ -39,7 +39,9 @@ export function fetchApiVideoById(id) {
   return async function (dispatch) {
     dispatch(startFetching());
 
-    const response = await axios.get(`http://localhost:3000/videos/${id}`);
+    const response = await axios.get(
+      `https://charming-cloak-boa.cyclic.app/videos/${id}`
+    );
     const data = response.data.data;
     dispatch(successGetApi(data));
   };

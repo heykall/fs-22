@@ -15,7 +15,9 @@ export default function DetailVideo() {
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [isLikes, setIsLikes] = useState(false);
   const getDataApiById = async () => {
-    const response = await axios(`http://localhost:3000/videos/${id}`);
+    const response = await axios(
+      `https://charming-cloak-boa.cyclic.app/videos/${id}`
+    );
     const data = response.data.data;
 
     setDataById(data);
@@ -23,7 +25,9 @@ export default function DetailVideo() {
 
   // ngambil data dari api
   const getDataApi = async () => {
-    const response = await axios(`http://localhost:3000/videos`);
+    const response = await axios(
+      `https://charming-cloak-boa.cyclic.app/videos`
+    );
     // hasil response
     const data = response.data.data;
     // Video Rekomendasi
@@ -44,7 +48,7 @@ export default function DetailVideo() {
   const getBookmarkStatus = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/bookmark/user/${userData._id}/${id}`
+        `https://charming-cloak-boa.cyclic.app/bookmark/user/${userData._id}/${id}`
       );
       setIsBookmarked(response.data.isBookmarked);
     } catch (error) {
@@ -68,7 +72,7 @@ export default function DetailVideo() {
     try {
       // Lakukan permintaan ke API untuk menambah atau menghapus bookmark
       const response = await axios.post(
-        `http://localhost:3000/bookmark/user/${userData._id}`,
+        `https://charming-cloak-boa.cyclic.app/bookmark/user/${userData._id}`,
         {
           videoID: id, // Gantilah dengan bukuID jika ini adalah halaman buku
         }

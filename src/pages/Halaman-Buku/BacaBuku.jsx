@@ -19,7 +19,7 @@ const BacaBuku = () => {
 
   // const getDataApiById = async () => {
   //   try {
-  //     const response = await axios(`http://localhost:3000/books/${id}`);
+  //     const response = await axios(`https://charming-cloak-boa.cyclic.app/books/${id}`);
   //     const data = response.data.data;
   //     setBook(data);
   //   } catch (error) {

@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Homepage from "./pages/Homepage";
 import Buku from "./pages/Halaman-Buku/Buku";
@@ -10,6 +10,7 @@ import TontonVideo from "./pages/Halaman-Video/TontonVideo";
 import Footer from "./components/Footer";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
+import ResetPassword from "./pages/ResetPassword";
 import TeamLiterasiKita from "./pages/TimLiterasiKita";
 import ProfileUser from "./pages/ProfileUser";
 import Donasi from "./pages/Halaman-Donasi/Donasi";
@@ -20,6 +21,9 @@ import DonasiBuku from "./pages/Halaman-Donasi/Donasi-Barang/DonasiBuku";
 import DonasiVideo from "./pages/Halaman-Donasi/Donasi-Barang/DonasiVideo";
 
 function App() {
+  const location = useLocation();
+  const hideFooter = ["/login", "/register"].includes(location.pathname);
+
   return (
     <>
       <Navbar />
@@ -40,6 +44,7 @@ function App() {
         />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/tim-LiterasiKita" element={<TeamLiterasiKita />} />
         <Route path="/profile" element={<ProfileUser />} />
         <Route path="/halaman-donasi" element={<Donasi />} />
@@ -61,7 +66,7 @@ function App() {
           element={<DonasiVideo />}
         />
       </Routes>
-      <Footer />
+      {!hideFooter && <Footer />}
     </>
   );
 }

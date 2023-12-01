@@ -39,7 +39,9 @@ export function fetchApiBookById(id) {
   return async function (dispatch) {
     dispatch(startFetching());
 
-    const response = await axios.get(`http://localhost:3000/books/${id}`);
+    const response = await axios.get(
+      `https://charming-cloak-boa.cyclic.app/books/${id}`
+    );
     const data = response.data.data;
     dispatch(successGetApi(data));
   };

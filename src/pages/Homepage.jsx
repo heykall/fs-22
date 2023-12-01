@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
 import "./Homepage.css";
 import heroImage from "../assets/svg/hero-image.svg";
 import literasiKita from "../assets/svg/LiterasiKita-image.svg";
@@ -13,6 +15,30 @@ import cardDonasi3 from "../assets/svg/cardDonasi3.svg";
 import tujuanDonasi from "../assets/svg/tujuanDonasi.svg";
 
 export default function Homepage() {
+  const [totalDonasiUang, setTotalDonasiUang] = useState(0);
+
+  const getTotalDonasiUang = async () => {
+    try {
+      const response = await axios.get(
+        `https://charming-cloak-boa.cyclic.app/donasi/all-donasi-uang`
+      );
+      setTotalDonasiUang(response.data[0]?.total_nominal_donasi_uang || 0);
+    } catch (error) {
+      console.error("Error fetching total donasi uang:", error.message);
+    }
+  };
+
+  useEffect(() => {
+    getTotalDonasiUang();
+  }, []);
+
+  const formatToRupiah = (amount) => {
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+    }).format(amount);
+  };
+
   return (
     <>
       <div className="homepage">
@@ -230,14 +256,18 @@ export default function Homepage() {
                   </a>
                 </div>
 
-                <div className="col-lg-3 col-12 text-center text-md-center text-lg-start">
+                <div className="col-lg-3 col-10 text-center text-md-center text-lg-start">
                   <h6 className="text-warna">
-                    Target : <span className="text-danger">Rp 150.000.000</span>
+                    Donasi Tersalurkan :{" "}
+                    <span className="text-danger">Rp 150.000.000</span>
                   </h6>
                 </div>
-                <div className="col-lg-2 col-12 text-center text-lg-start">
+                <div className="col-lg-4 col-12 text-center text-lg-start">
                   <h6 className="text-warna">
-                    Terkumpul : <span className="text-danger">Rp 15.000</span>
+                    Donasi Terkumpul :{" "}
+                    <span className="text-danger">
+                      {formatToRupiah(totalDonasiUang)}
+                    </span>
                   </h6>
                 </div>
               </div>
@@ -410,12 +440,13 @@ export default function Homepage() {
 
               <div className="col-lg-3 col-12 text-center text-md-center text-lg-start">
                 <h6 className="text-warna">
-                  Target : <span className="text-danger">Rp 150.000.000</span>
+                  Donasi Tersalurkan :{" "}
+                  <span className="text-danger">Rp 150.000.000</span>
                 </h6>
               </div>
               <div className="col-lg-2 col-12 text-center text-lg-start">
                 <h6 className="text-warna">
-                  Terkumpul : <span className="text-danger">Rp 15.000</span>
+                  Total Donasi : <span className="text-danger">Rp 15.000</span>
                 </h6>
               </div>
             </div>

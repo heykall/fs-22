@@ -15,7 +15,7 @@ export default function Buku() {
 
   // ngambil data dari api
   const getDataApi = async () => {
-    const response = await axios(`http://localhost:3000/books`);
+    const response = await axios(`https://charming-cloak-boa.cyclic.app/books`);
     // hasil response
     const data = response.data.data;
     // data ditambahkan data diambil dari 2 paling belakang

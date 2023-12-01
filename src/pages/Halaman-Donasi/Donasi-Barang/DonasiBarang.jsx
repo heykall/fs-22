@@ -8,14 +8,14 @@ export default function DonasiBarang() {
   const [donasiBuku, setDonasiBuku] = useState(0);
   const getTotalDonasiVideo = async () => {
     const response = await axios.get(
-      `http://localhost:3000/donasi/all-donasi-videos`
+      `https://charming-cloak-boa.cyclic.app/donasi/all-donasi-videos`
     );
     // console.log(response.data[0].total_donasi_video);
     setDonasiVideo(response.data[0].total_donasi_video);
   };
   const getTotalDonasiBuku = async () => {
     const response = await axios.get(
-      `http://localhost:3000/donasi/all-donasi-buku`
+      `https://charming-cloak-boa.cyclic.app/donasi/all-donasi-buku`
     );
     // console.log(response.data[0].total_donasi_video);
     setDonasiBuku(response.data[0].total_donasi_book);
@@ -72,7 +72,7 @@ export default function DonasiBarang() {
               <Link
                 className="btn btn-light w-100 border-0 text-white rounded-pill shadow px-3 py-2 mb-5"
                 style={{ backgroundColor: " #29AB92" }}
-                to={`/halaman-donasi-buku`}
+                to={`/halaman-donasi/donasi-barang/donasi-buku`}
               >
                 Donasi Buku
               </Link>

@@ -16,7 +16,9 @@ export default function DetailBuku() {
   const [isLikes, setIsLikes] = useState(false);
   const getDataApiById = async () => {
     try {
-      const response = await axios(`http://localhost:3000/books/${id}`);
+      const response = await axios(
+        `https://charming-cloak-boa.cyclic.app/books/${id}`
+      );
       const data = response.data.data;
       setBook(data);
     } catch (error) {
@@ -27,7 +29,9 @@ export default function DetailBuku() {
   // ngambil data dari api
   const getDataApi = async () => {
     try {
-      const response = await axios(`http://localhost:3000/books`);
+      const response = await axios(
+        `https://charming-cloak-boa.cyclic.app/books`
+      );
       // hasil response
       const data = response.data.data;
       // Buku Rekomendasi
@@ -53,7 +57,7 @@ export default function DetailBuku() {
   const getBookmarkStatus = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/bookmark/user/${userData._id}/${id}`
+        `https://charming-cloak-boa.cyclic.app/bookmark/user/${userData._id}/${id}`
       );
       setIsBookmarked(response.data.isBookmarked);
     } catch (error) {
@@ -77,7 +81,7 @@ export default function DetailBuku() {
   const toggleBookmark = async () => {
     try {
       const response = await axios.post(
-        `http://localhost:3000/bookmark/user/${userData._id}`,
+        `https://charming-cloak-boa.cyclic.app/bookmark/user/${userData._id}`,
         {
           bookID: id,
         }

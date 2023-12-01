@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Form, Button, Spinner } from "react-bootstrap";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
 const Payment = () => {
   const dataLocalStorage = localStorage.getItem("data");
+  const navigate = useNavigate();
   const userData = JSON.parse(dataLocalStorage);
   const [formData, setFormData] = useState({
     full_name: "",
@@ -14,6 +18,8 @@ const Payment = () => {
   });
 
   const [isLoading, setIsLoading] = useState(false);
+
+  const predefinedAmounts = [10000, 20000, 50000, 100000, 200000, 500000];
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -26,16 +32,27 @@ const Payment = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Check if the user is logged in
+    if (!userData) {
+      toast.info("Anda Perlu Login Terlebih Dahulu !");
+      setTimeout(() => {
+        navigate("/login");
+      }, 5000);
+      return; // Add this line to stop the function execution
+    }
+
     if (parseInt(formData.donation_amount, 10) < 10000) {
-      alert(
-        "Maaf, minimal donasi adalah Rp 10,000. Mohon ditambah ya, terima kasih. 😊"
+      toast.error(
+        "Minimal donasi adalah Rp 10.000. Mohon ditambah ya, terima kasih. 😊"
       );
       return;
     }
 
+    setIsLoading(true);
+
     try {
       const response = await axios.post(
-        `http://localhost:3000/donasi/donasiuang/${userData._id}`,
+        `https://charming-cloak-boa.cyclic.app/donasi/donasiuang/${userData._id}`,
         {
           full_name: formData.full_name,
           email: formData.email,
@@ -50,15 +67,17 @@ const Payment = () => {
       if (window.snap && window.snap.pay) {
         window.snap.pay(response.data.data.token);
       } else {
-        alert(
+        console.error(
           "Maaf, terjadi kesalahan saat mencoba melakukan transaksi. Silakan coba lagi nanti."
         );
       }
     } catch (error) {
       console.error("Error initiating Midtrans transaction:", error.message);
-      alert(
+      toast.error(
         "Maaf, terjadi kesalahan saat mencoba melakukan transaksi. Silakan coba lagi nanti."
       );
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -66,7 +85,7 @@ const Payment = () => {
     const fetchConfig = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3000/transactions/config"
+          "https://charming-cloak-boa.cyclic.app/transactions/config"
         );
         const script = document.createElement("script");
         script.src = "https://app.sandbox.midtrans.com/snap/snap.js";
@@ -88,6 +107,7 @@ const Payment = () => {
 
   return (
     <div className="payment">
+      <ToastContainer />
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-md-6">

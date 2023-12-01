@@ -35,10 +35,13 @@ function Login() {
     }
 
     try {
-      const { data } = await axios.post(`http://localhost:3000/auth/login`, {
-        email,
-        password,
-      });
+      const { data } = await axios.post(
+        `https://charming-cloak-boa.cyclic.app/auth/login`,
+        {
+          email,
+          password,
+        }
+      );
       const {
         token,
         role,
@@ -144,7 +147,7 @@ function Login() {
                 </Form.Group>
                 <div className="mb-3 justify-content-end text-end">
                   <Nav.Link
-                    href="#"
+                    href="/reset-password"
                     className="text-decoration-none text-black-50"
                   >
                     Pulihkan kata sandi?
