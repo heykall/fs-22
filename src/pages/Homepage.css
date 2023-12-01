@@ -109,3 +109,27 @@
   font-size: 50px;
   color: #fff;
 }
+
+.customCard {
+  border: 2px solid #1EA7D1;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+  background-color: #1EA7D1;
+  transition: all 0.3s ease;
+}
+
+.customCard:hover {
+  background: #FFFFFF;
+  box-shadow: 0 1rem 3rem rgba(0,0,0,.175);
+  border-color: transparent;
+  transform: translateY(-3px);
+}
+
+.customCardImage {
+  border-radius: 8px;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

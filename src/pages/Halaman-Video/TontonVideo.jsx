@@ -1,28 +1,30 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import ReactPlayer from "react-player";
 import { Container } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchApiVideoById } from "../../redux/reducers/videoReducer";
 
 export default function TontonVideo() {
   const { id } = useParams();
-  const [dataById, setDataById] = useState([]);
+  const dispatch = useDispatch();
+  const { dataById } = useSelector((state) => state.video);
+  // const [dataById, setDataById] = useState([]);
 
-  const getDataApiById = async () => {
-    try {
-      const response = await axios.get(
-        `https://charming-cloak-boa.cyclic.app/videos/${id}`
-      );
-      const data = response.data.data;
-      setDataById(data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
+  // const getDataApiById = async () => {
+  //   try {
+  //     const response = await axios.get(`http://localhost:3000/videos/${id}`);
+  //     const data = response.data.data;
+  //     setDataById(data);
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //   }
+  // };
 
   useEffect(() => {
-    getDataApiById();
-  }, []);
+    // getDataApiById();
+    dispatch(fetchApiVideoById(id));
+  }, [dispatch]);
 
   return (
     <>

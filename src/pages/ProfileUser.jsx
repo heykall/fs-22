@@ -58,7 +58,7 @@ export default function ProfileUser() {
       };
 
       const dataEdit = await axios.put(
-        `https://charming-cloak-boa.cyclic.app/users/edit-profile/${userData._id}`,
+        `http://localhost:3000/users/edit-profile/${userData._id}`,
         formData,
         config
       );
@@ -90,7 +90,7 @@ export default function ProfileUser() {
   const getTotalDonasiByUser = async () => {
     try {
       const { data } = await axios.get(
-        `https://charming-cloak-boa.cyclic.app/donasi/total-donasi/${userData._id}`
+        `http://localhost:3000/donasi/total-donasi/${userData._id}`
       );
       // console.log(data[0].total_donasi);
       setDonasi(data[0].total_donasi);
@@ -101,7 +101,7 @@ export default function ProfileUser() {
   const getTotalBookmarks = async () => {
     try {
       const response = await axios.get(
-        `https://charming-cloak-boa.cyclic.app/bookmark/user/total-bookmark/${userData._id}`
+        `http://localhost:3000/bookmark/user/total-bookmark/${userData._id}`
       );
       setTotalBookmarks(response.data.totalBookmarks);
     } catch (error) {
@@ -112,7 +112,7 @@ export default function ProfileUser() {
   const getBookmarkByUser = async () => {
     try {
       const response = await axios.get(
-        `https://charming-cloak-boa.cyclic.app/bookmark/user/data-bookmark/${userData._id}`
+        `http://localhost:3000/bookmark/user/data-bookmark/${userData._id}`
       );
       const videoIds = [];
       const bookIds = [];
@@ -163,7 +163,7 @@ export default function ProfileUser() {
       for (const videoId of videoIds) {
         try {
           const response = await axios.get(
-            `https://charming-cloak-boa.cyclic.app/videos/${videoId}`
+            `http://localhost:3000/videos/${videoId}`
           );
           videoData.push(response.data);
         } catch (error) {
@@ -174,7 +174,7 @@ export default function ProfileUser() {
       for (const bookId of bookIds) {
         try {
           const response = await axios.get(
-            `https://charming-cloak-boa.cyclic.app/books/${bookId}`
+            `http://localhost:3000/books/${bookId}`
           );
           bookData.push(response.data);
         } catch (error) {

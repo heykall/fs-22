@@ -5,17 +5,26 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 export default function DonasiBarang() {
   const [donasiVideo, setDonasiVideo] = useState(0);
+  const [donasiBuku, setDonasiBuku] = useState(0);
   const getTotalDonasiVideo = async () => {
     const response = await axios.get(
-      `https://charming-cloak-boa.cyclic.app/donasi/all-donasi-videos`
+      `http://localhost:3000/donasi/all-donasi-videos`
     );
     // console.log(response.data[0].total_donasi_video);
     setDonasiVideo(response.data[0].total_donasi_video);
+  };
+  const getTotalDonasiBuku = async () => {
+    const response = await axios.get(
+      `http://localhost:3000/donasi/all-donasi-buku`
+    );
+    // console.log(response.data[0].total_donasi_video);
+    setDonasiBuku(response.data[0].total_donasi_book);
   };
 
   // console.log(donasiVideo);
   useEffect(() => {
     getTotalDonasiVideo();
+    getTotalDonasiBuku();
   }, []);
 
   return (
@@ -50,7 +59,7 @@ export default function DonasiBarang() {
             <div className="col-12 col-md-5"></div>
             <div className="col-12 col-md-2">
               <p>Total Donasi Buku</p>
-              <h4 className="fw-bold">21 Buku</h4>
+              <h4 className="fw-bold">{donasiBuku} Buku</h4>
             </div>
             <div className="col-12 col-md-2">
               <p>Total Donasi Video</p>
@@ -63,7 +72,7 @@ export default function DonasiBarang() {
               <Link
                 className="btn btn-light w-100 border-0 text-white rounded-pill shadow px-3 py-2 mb-5"
                 style={{ backgroundColor: " #29AB92" }}
-                to={`/halaman-donasi/donasi-barang/donasi-buku`}
+                to={`/halaman-donasi-buku`}
               >
                 Donasi Buku
               </Link>

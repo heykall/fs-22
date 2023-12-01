@@ -54,7 +54,7 @@ export default function Register() {
       try {
         //
         const data = await axios.post(
-          "https://charming-cloak-boa.cyclic.app/auth/register",
+          "http://localhost:3000/auth/register",
           {
             nama,
             jenisKelamin,
