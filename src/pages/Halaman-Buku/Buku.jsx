@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import CardBuku from "../../components/CardBuku";
-import styles from "./Buku.module.css";
+import styles from "./BukyStyle.module.css";
 
 export default function Buku() {
   // handle card ditambahkan, dari api, data dari 2 paling belakang
