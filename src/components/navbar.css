@@ -1,3 +1,54 @@
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+:root {
+  --primary-color: #f6f8fd;
+  --secondary-color: #005fa2;
+  --color-text: #231942;
+  --navbar-color: #ffffff;
+  --navbar-color-text: #000000;
+}
+
+.navbar {
+  position: fixed;
+  padding: 15px 0 15px 0;
+  width: 100%;
+  transition: all 0.2s ease;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  z-index: 9999;
+  animation-name: fadeInDown;
+  animation-duration: 1s;
+}
+
+.navbar.color-active {
+  background-color: var(--navbar-color);
+  padding: 20px 0 20px 0;
+  border-bottom: 2px solid #77bdef;
+}
+
+.navbar .nav-link a {
+  padding: 5px 10px 5px 10px;
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--navbar-color-text);
+}
+
+.navbar .nav-link a:hover {
+  color: var(--secondary-color);
+}
+
+.navbar .nav-link .active {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+}
+
+.navbar .nav-link .active:hover {
+  color: var(--navbar-color);
+}
+
 .text-light.link-dark.dropdown-item:hover,
 .text-light.link-dark.dropdown-item:focus {
   background-color: #1ea7d1;

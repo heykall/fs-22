@@ -3,6 +3,8 @@ import donasiBarang from "../../assets/svg/donasi-barang.svg";
 import { Link } from "react-router-dom";
 export default function Donasi() {
   return (
+    <div className="halaman-donasi">
+
     <section>
       <div className="container  mt-5 mb-5 text-center text-md-start">
         <div className="row align-items-center">
@@ -47,5 +49,6 @@ export default function Donasi() {
         </Link>
       </div>
     </section>
+    </div>
   );
 }

@@ -58,7 +58,7 @@ export default function ProfileUser() {
       };
 
       const dataEdit = await axios.put(
-        `http://localhost:3000/users/edit-profile/${userData._id}`,
+        `https://charming-cloak-boa.cyclic.app/users/edit-profile/${userData._id}`,
         formData,
         config
       );
@@ -90,7 +90,7 @@ export default function ProfileUser() {
   const getTotalDonasiByUser = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:3000/donasi/total-donasi/${userData._id}`
+        `https://charming-cloak-boa.cyclic.app/donasi/total-donasi/${userData._id}`
       );
       // console.log(data[0].total_donasi);
       setDonasi(data[0].total_donasi);
@@ -101,7 +101,7 @@ export default function ProfileUser() {
   const getTotalBookmarks = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/bookmark/user/total-bookmark/${userData._id}`
+        `https://charming-cloak-boa.cyclic.app/bookmark/user/total-bookmark/${userData._id}`
       );
       setTotalBookmarks(response.data.totalBookmarks);
     } catch (error) {
@@ -112,7 +112,7 @@ export default function ProfileUser() {
   const getBookmarkByUser = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/bookmark/user/data-bookmark/${userData._id}`
+        `https://charming-cloak-boa.cyclic.app/bookmark/user/data-bookmark/${userData._id}`
       );
       const videoIds = [];
       const bookIds = [];
@@ -163,7 +163,7 @@ export default function ProfileUser() {
       for (const videoId of videoIds) {
         try {
           const response = await axios.get(
-            `http://localhost:3000/videos/${videoId}`
+            `https://charming-cloak-boa.cyclic.app/videos/${videoId}`
           );
           videoData.push(response.data);
         } catch (error) {
@@ -174,7 +174,7 @@ export default function ProfileUser() {
       for (const bookId of bookIds) {
         try {
           const response = await axios.get(
-            `http://localhost:3000/books/${bookId}`
+            `https://charming-cloak-boa.cyclic.app/books/${bookId}`
           );
           bookData.push(response.data);
         } catch (error) {
@@ -190,190 +190,194 @@ export default function ProfileUser() {
   }, [videoIds, bookIds]);
   return (
     <>
-      <ToastContainer />
-      <Container className="mt-5">
-        <Row>
-          <h2 className="text-center">Profile</h2>
-        </Row>
+      <div className="halaman-profile">
+        <ToastContainer />
+        <Container className="mt-5">
+          <Row>
+            <h2 className="text-center">Profile</h2>
+          </Row>
 
-        <Row className="justify-content-center mt-5">
-          <Col md={6} className="d-flex justify-content-center">
-            <div className={styles.photoContainer}>
-              <div className={styles.roundedPhoto}>
-                <img
-                  id="previewPhoto"
-                  src={data.profileImage}
-                  alt="Preview"
-                  className={styles.previewPhoto}
-                />
-              </div>
-            </div>
-          </Col>
-        </Row>
-        <Row className="justify-content-center mt-1 mb-5">
-          <Col md={6} className="d-flex justify-content-center">
-            <Form.Group className="mb-3">
-              <Form.Label
-                htmlFor="upload-button"
-                className={styles.customfileupload}
-              >
-                Upload Foto
-              </Form.Label>
-              <Form.Control
-                type="file"
-                id="upload-button"
-                ref={fileInputRef}
-                style={{ display: "none" }}
-              />
-            </Form.Group>
-          </Col>
-        </Row>
-
-        <Container>
-          <Row className="justify-content-center align-items-center">
-            <Col lg={4} md={4} sm={12}>
-              <div
-                className="bgWarna rounded p-3 text-center"
-                id={styles.bgReadings}
-              >
-                <img className="img-fluid w-25" src={readings} alt="" />
-                <div className="text-white fs-2 mt-3">{totalBookmarks}</div>
-                <div className="text-white fs-2">Readings</div>
-              </div>
-            </Col>
-            <Col lg={1} md={1} sm={3} className="col12 mt-2"></Col>
-            <Col lg={4} md={4} sm={12}>
-              <div
-                className="bgWarna rounded p-3 text-center"
-                id={styles.bgContributions}
-              >
-                <img className="img-fluid w-25" src={contributions} alt="" />
-                <div className="text-white fs-2 mt-3">{donasi}</div>
-                <div className="text-white fs-2">Contribution</div>
+          <Row className="justify-content-center mt-5">
+            <Col md={6} className="d-flex justify-content-center">
+              <div className={styles.photoContainer}>
+                <div className={styles.roundedPhoto}>
+                  <img
+                    id="previewPhoto"
+                    src={data.profileImage}
+                    alt="Preview"
+                    className={styles.previewPhoto}
+                  />
+                </div>
               </div>
             </Col>
           </Row>
-        </Container>
-        <br />
-        <br />
-        <br />
-        <Container className="mt-5">
-          <Form onSubmit={handleSubmit}>
-            <Row>
-              <Col lg={6} md={12} sm={12}>
-                <Form.Group className="mb-3">
-                  <Form.Label htmlFor="nama-lengkap">Nama lengkap</Form.Label>
-                  <Form.Control
-                    type="text"
-                    id="nama"
-                    value={data.nama}
-                    placeholder="Masukkan nama lengkap Anda"
-                    onChange={handleChange}
-                  />
-                </Form.Group>
-              </Col>
-              <Col lg={6} md={12} sm={12}>
-                <Form.Group className="mb-3">
-                  <Form.Label htmlFor="email">Email address</Form.Label>
-                  <Form.Control
-                    type="email"
-                    id="email"
-                    value={data.email}
-                    placeholder="Masukkan email Anda"
-                    onChange={handleChange}
-                  />
-                </Form.Group>
-              </Col>
-            </Row>
-            <Row>
-              <Col lg={6} md={12} sm={12}>
-                <Form.Group className="mb-3">
-                  <Form.Label htmlFor="jenis-kelamin">Jenis kelamin</Form.Label>
-                  <Form.Select
-                    id="jenisKelamin"
-                    value={data.jenisKelamin}
-                    onChange={handleChange}
-                  >
-                    <option value="pria">Pria</option>
-                    <option value="wanita">Wanita</option>
-                  </Form.Select>
-                </Form.Group>
-              </Col>
-              <Col lg={6} md={12} sm={12}>
-                <Form.Group className="mb-3">
-                  <Form.Label htmlFor="no-tlp">No telepon</Form.Label>
-                  <Form.Control
-                    type="text"
-                    id="noHp"
-                    value={data.noHp}
-                    placeholder="Masukkan no telepon Anda"
-                    onChange={handleChange}
-                  />
-                </Form.Group>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <Form.Group className="mb-3">
-                  <Form.Label htmlFor="bio">Bio</Form.Label>
-                  <Form.Control
-                    as="textarea"
-                    rows={3}
-                    id="bio"
-                    placeholder="Tuliskan bio Anda"
-                    value={data.bio}
-                    onChange={handleChange}
-                  />
-                </Form.Group>
-              </Col>
-            </Row>
+          <Row className="justify-content-center mt-1 mb-5">
+            <Col md={6} className="d-flex justify-content-center">
+              <Form.Group className="mb-3">
+                <Form.Label
+                  htmlFor="upload-button"
+                  className={styles.customfileupload}
+                >
+                  Upload Foto
+                </Form.Label>
+                <Form.Control
+                  type="file"
+                  id="upload-button"
+                  ref={fileInputRef}
+                  style={{ display: "none" }}
+                />
+              </Form.Group>
+            </Col>
+          </Row>
 
-            <Row className="justify-content-center">
-              <Col>
-                <div className="d-flex justify-content-center">
-                  <Button
-                    type="submit"
-                    className="btn btn-light bgWarna text-white"
-                    id={styles.bgupdateProfile}
-                  >
-                    Update Profile
-                  </Button>
+          <Container>
+            <Row className="justify-content-center align-items-center">
+              <Col lg={4} md={4} sm={12}>
+                <div
+                  className="bgWarna rounded p-3 text-center"
+                  id={styles.bgReadings}
+                >
+                  <img className="img-fluid w-25" src={readings} alt="" />
+                  <div className="text-white fs-2 mt-3">{totalBookmarks}</div>
+                  <div className="text-white fs-2">Readings</div>
+                </div>
+              </Col>
+              <Col lg={1} md={1} sm={3} className="col12 mt-2"></Col>
+              <Col lg={4} md={4} sm={12}>
+                <div
+                  className="bgWarna rounded p-3 text-center"
+                  id={styles.bgContributions}
+                >
+                  <img className="img-fluid w-25" src={contributions} alt="" />
+                  <div className="text-white fs-2 mt-3">{donasi}</div>
+                  <div className="text-white fs-2">Contribution</div>
                 </div>
               </Col>
             </Row>
-          </Form>
-        </Container>
-        <h3 className="text-center mt-5 mb-3">Bookmark Buku</h3>
-        {/* {console.log(dataBooks[0].data)} */}
+          </Container>
+          <br />
+          <br />
+          <br />
+          <Container className="mt-5">
+            <Form onSubmit={handleSubmit}>
+              <Row>
+                <Col lg={6} md={12} sm={12}>
+                  <Form.Group className="mb-3">
+                    <Form.Label htmlFor="nama-lengkap">Nama lengkap</Form.Label>
+                    <Form.Control
+                      type="text"
+                      id="nama"
+                      value={data.nama}
+                      placeholder="Masukkan nama lengkap Anda"
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col lg={6} md={12} sm={12}>
+                  <Form.Group className="mb-3">
+                    <Form.Label htmlFor="email">Email address</Form.Label>
+                    <Form.Control
+                      type="email"
+                      id="email"
+                      value={data.email}
+                      placeholder="Masukkan email Anda"
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row>
+                <Col lg={6} md={12} sm={12}>
+                  <Form.Group className="mb-3">
+                    <Form.Label htmlFor="jenis-kelamin">
+                      Jenis kelamin
+                    </Form.Label>
+                    <Form.Select
+                      id="jenisKelamin"
+                      value={data.jenisKelamin}
+                      onChange={handleChange}
+                    >
+                      <option value="pria">Pria</option>
+                      <option value="wanita">Wanita</option>
+                    </Form.Select>
+                  </Form.Group>
+                </Col>
+                <Col lg={6} md={12} sm={12}>
+                  <Form.Group className="mb-3">
+                    <Form.Label htmlFor="no-tlp">No telepon</Form.Label>
+                    <Form.Control
+                      type="text"
+                      id="noHp"
+                      value={data.noHp}
+                      placeholder="Masukkan no telepon Anda"
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <Form.Group className="mb-3">
+                    <Form.Label htmlFor="bio">Bio</Form.Label>
+                    <Form.Control
+                      as="textarea"
+                      rows={3}
+                      id="bio"
+                      placeholder="Tuliskan bio Anda"
+                      value={data.bio}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
 
-        <Container
-          className="mt-5 px-5 py-2"
-          style={{ backgroundColor: "#81CDE5" }}
-        >
-          <div className="scroll-video row row-cols-1 row-cols-lg-4 row-cols-md-3 g-lg-4 overflow-x-auto d-flex flex-nowrap mt-2 mt-lg-0 mb-5">
-            {dataBooks.map((item) => (
-              <CardBuku key={item.data._id} book={item.data} />
-              // console.log(item.data), console.log(item.data._id)
-            ))}
-          </div>
+              <Row className="justify-content-center">
+                <Col>
+                  <div className="d-flex justify-content-center">
+                    <Button
+                      type="submit"
+                      className="btn btn-light bgWarna text-white"
+                      id={styles.bgupdateProfile}
+                    >
+                      Update Profile
+                    </Button>
+                  </div>
+                </Col>
+              </Row>
+            </Form>
+          </Container>
+          <h3 className="text-center mt-5 mb-3">Bookmark Buku</h3>
+          {/* {console.log(dataBooks[0].data)} */}
+
+          <Container
+            className="mt-5 px-5 py-2"
+            style={{ backgroundColor: "#81CDE5" }}
+          >
+            <div className="scroll-video row row-cols-1 row-cols-lg-4 row-cols-md-3 g-lg-4 overflow-x-auto d-flex flex-nowrap mt-2 mt-lg-0 mb-5">
+              {dataBooks.map((item) => (
+                <CardBuku key={item.data._id} book={item.data} />
+                // console.log(item.data), console.log(item.data._id)
+              ))}
+            </div>
+          </Container>
+          <h3 className="text-center mt-5 mb-3">Bookmark Video</h3>
+          <Container
+            className="mt-5 px-5 py-2"
+            style={{ backgroundColor: "#81CDE5" }}
+          >
+            <div className="scroll-video row row-cols-1 row-cols-lg-4 row-cols-md-3 g-lg-4 overflow-x-auto d-flex flex-nowrap mt-2 mt-lg-0 mb-5">
+              {dataVideos.map((item) => (
+                <CardVideo key={item.data._id} item={item.data} />
+              ))}
+            </div>
+          </Container>
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
         </Container>
-        <h3 className="text-center mt-5 mb-3">Bookmark Video</h3>
-        <Container
-          className="mt-5 px-5 py-2"
-          style={{ backgroundColor: "#81CDE5" }}
-        >
-          <div className="scroll-video row row-cols-1 row-cols-lg-4 row-cols-md-3 g-lg-4 overflow-x-auto d-flex flex-nowrap mt-2 mt-lg-0 mb-5">
-            {dataVideos.map((item) => (
-              <CardVideo key={item.data._id} item={item.data} />
-            ))}
-          </div>
-        </Container>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-      </Container>
+      </div>
     </>
   );
 }

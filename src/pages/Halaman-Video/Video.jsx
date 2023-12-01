@@ -19,7 +19,9 @@ export default function Video() {
 
   // ngambil data dari api
   const getDataApi = async () => {
-    const response = await axios(`http://localhost:3000/videos`);
+    const response = await axios(
+      `https://charming-cloak-boa.cyclic.app/videos`
+    );
     // hasil response
     const data = response.data.data;
     // data ditambahkan data diambil dari 2 paling belakang
@@ -151,6 +153,8 @@ export default function Video() {
 
   return (
     <>
+        <div className="halaman-video">
+
       {/* <!-- SEARCH VIDEO */}
       <div className="container mt-5">
         <div className="row justify-content-center">
@@ -420,6 +424,7 @@ export default function Video() {
           </div>
         )}
       </div>
+        </div>
     </>
   );
 }

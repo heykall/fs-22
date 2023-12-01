@@ -15,7 +15,7 @@ export default function Buku() {
 
   // ngambil data dari api
   const getDataApi = async () => {
-    const response = await axios(`http://localhost:3000/books`);
+    const response = await axios(`https://charming-cloak-boa.cyclic.app/books`);
     // hasil response
     const data = response.data.data;
     // data ditambahkan data diambil dari 2 paling belakang
@@ -151,249 +151,255 @@ export default function Buku() {
 
   return (
     <>
-      {/* <!-- SEARCH BUKU */}
-      <div className="container mt-5">
-        <div className="row justify-content-center">
-          <div className="input-group mb-3 w-75 mt-3">
-            <button
-              className="btn btn-outline-dark dropdown-toggle rounded-start-5 border border-black shadow-sm"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-              id="filter-button"
-            >
-              {searchType}
-            </button>
-            <ul className="dropdown-menu">
-              <li>
-                <button
-                  className="dropdown-item"
-                  onClick={() => setSearchType("All")}
-                >
-                  All
-                </button>
-              </li>
-              <li>
-                <button
-                  className="dropdown-item"
-                  onClick={() => setSearchType("Title")}
-                >
-                  Title
-                </button>
-              </li>
-              <li>
-                <button
-                  className="dropdown-item"
-                  onClick={() => setSearchType("Author")}
-                >
-                  Author
-                </button>
-              </li>
-            </ul>
-            <input
-              type="text"
-              className="form-control border border-black border-end-0"
-              aria-label="Text input with dropdown button"
-              id="search-input"
-              value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)}
-            />
-            <button
-              className="btn btn-outline-secondary border border-black rounded-end-5"
-              type="button"
-              id="search-button"
-              onClick={handleSearch}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                className="bi bi-search"
-                viewBox="0 0 16 16"
+      <div className="halaman-buku">
+        {/* <!-- SEARCH BUKU */}
+        <div className="container mt-5">
+          <div className="row justify-content-center">
+            <div className="input-group mb-3 w-75 mt-3">
+              <button
+                className="btn btn-outline-dark dropdown-toggle rounded-start-5 border border-black shadow-sm"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                id="filter-button"
               >
-                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
-              </svg>
-            </button>
+                {searchType}
+              </button>
+              <ul className="dropdown-menu">
+                <li>
+                  <button
+                    className="dropdown-item"
+                    onClick={() => setSearchType("All")}
+                  >
+                    All
+                  </button>
+                </li>
+                <li>
+                  <button
+                    className="dropdown-item"
+                    onClick={() => setSearchType("Title")}
+                  >
+                    Title
+                  </button>
+                </li>
+                <li>
+                  <button
+                    className="dropdown-item"
+                    onClick={() => setSearchType("Author")}
+                  >
+                    Author
+                  </button>
+                </li>
+              </ul>
+              <input
+                type="text"
+                className="form-control border border-black border-end-0"
+                aria-label="Text input with dropdown button"
+                id="search-input"
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+              />
+              <button
+                className="btn btn-outline-secondary border border-black rounded-end-5"
+                type="button"
+                id="search-button"
+                onClick={handleSearch}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  className="bi bi-search"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* MOTIVASI */}
-      <div className="container mt-5">
-        <div className="row">
-          <div className="col-lg-6 col-md-12">
-            <div className="container mt-5">
-              <div
-                id={styles.quoteCarousel}
-                className="col-8 carousel slide"
-                data-bs-ride="carousel"
-              >
-                <h3 className={styles.judulCarousel}>Motivasi Hari Ini</h3>
-                <div className="carousel-inner">
-                  <div className="carousel-item active">
-                    <p className={styles.quote}>
-                      "Di balik kesuksesan terciptanya sebuah produk, ada sebuah
-                      tim kuat di dalamnya."
-                    </p>
-                    <p className={styles.author1}>- Itadori Yuji</p>
+        {/* MOTIVASI */}
+        <div className="container mt-5">
+          <div className="row">
+            <div className="col-lg-6 col-md-12">
+              <div className="container mt-5">
+                <div
+                  id={styles.quoteCarousel}
+                  className="col-8 carousel slide"
+                  data-bs-ride="carousel"
+                >
+                  <h3 className={styles.judulCarousel}>Motivasi Hari Ini</h3>
+                  <div className="carousel-inner">
+                    <div className="carousel-item active">
+                      <p className={styles.quote}>
+                        "Di balik kesuksesan terciptanya sebuah produk, ada
+                        sebuah tim kuat di dalamnya."
+                      </p>
+                      <p className={styles.author1}>- Itadori Yuji</p>
+                    </div>
+                    <div className="carousel-item">
+                      <p className={styles.quote}>
+                        "Kemampuan membaca adalah jendela dunia."
+                      </p>
+                      <p className={styles.author2}>
+                        - George Washington Carver
+                      </p>
+                    </div>
+                    <div className="carousel-item">
+                      <p className={styles.quote}>
+                        "Literasi membuka pintu menuju pemahaman dan pemikiran
+                        yang mendalam"
+                      </p>
+                      <p className={styles.author3}>- Barack Obama</p>
+                    </div>
                   </div>
-                  <div className="carousel-item">
-                    <p className={styles.quote}>
-                      "Kemampuan membaca adalah jendela dunia."
-                    </p>
-                    <p className={styles.author2}>- George Washington Carver</p>
-                  </div>
-                  <div className="carousel-item">
-                    <p className={styles.quote}>
-                      "Literasi membuka pintu menuju pemahaman dan pemikiran
-                      yang mendalam"
-                    </p>
-                    <p className={styles.author3}>- Barack Obama</p>
-                  </div>
+                  <ol className={styles.indikator}>
+                    <li
+                      data-bs-target="#quoteCarousel"
+                      data-bs-slide-to={0}
+                      className="active"
+                    />
+                    <li data-bs-target="#quoteCarousel" data-bs-slide-to={1} />
+                    <li data-bs-target="#quoteCarousel" data-bs-slide-to={2} />
+                  </ol>
                 </div>
-                <ol className={styles.indikator}>
-                  <li
-                    data-bs-target="#quoteCarousel"
-                    data-bs-slide-to={0}
-                    className="active"
-                  />
-                  <li data-bs-target="#quoteCarousel" data-bs-slide-to={1} />
-                  <li data-bs-target="#quoteCarousel" data-bs-slide-to={2} />
-                </ol>
+              </div>
+            </div>
+            <div
+              className="col-lg-5 col-md-12 mt-lg-3 mt-5 rounded-2 border border-primary"
+              id={styles.bukuBaru}
+            >
+              <div className={styles.blueTeks}>
+                <h3 className={styles.rotatedTeks}>Baru ditambahkan</h3>
+              </div>
+              <div
+                className="row row-cols-2 row-cols-md-3 mb-sm-2"
+                id={styles.listBuku}
+              >
+                {ditambahkan.map((book) => (
+                  <div className="col" key={book._id}>
+                    <div className="card p-2 ">
+                      <img
+                        src={book.img_url}
+                        className={styles.cardImg}
+                        alt="ditambahkan-1"
+                      />
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
-          <div
-            className="col-lg-5 col-md-12 mt-lg-3 mt-5 rounded-2 border border-primary"
-            id={styles.bukuBaru}
-          >
-            <div className={styles.blueTeks}>
-              <h3 className={styles.rotatedTeks}>Baru ditambahkan</h3>
-            </div>
-            <div
-              className="row row-cols-2 row-cols-md-3 mb-sm-2"
-              id={styles.listBuku}
-            >
-              {ditambahkan.map((book) => (
-                <div className="col" key={book._id}>
-                  <div className="card p-2 ">
-                    <img
-                      src={book.img_url}
-                      className={styles.cardImg}
-                      alt="ditambahkan-1"
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
-      </div>
 
-      {/*  BUKU  */}
+        {/*  BUKU  */}
 
-      <div className="container mt-5 pt-3">
-        <div className="row">
-          <h3 className="text-center fw-bold text-lg-start">Selamat Datang</h3>
-        </div>
-        {/* handle ketika pengguna searching */}
-        {searchResult.length > 0 && (
-          <div className="row mt-3" id="hasil-pencarian">
-            <div className="col-md-6 col-12">
-              <h5 className="text-center text-md-start">
-                Berdasarkan Pencarianmu
-              </h5>
-            </div>
-            <div
-              className="scroll-buku row row-cols-1 row-cols-md-5 g-lg-4 overflow-x-auto d-flex flex-nowrap mt-2 mt-lg-0 mb-5"
-              id="buku-container"
-            >
-              {searchResult.map((book) => (
-                <CardBuku key={book._id} book={book} />
-              ))}
-            </div>
+        <div className="container mt-5 pt-3">
+          <div className="row">
+            <h3 className="text-center fw-bold text-lg-start">
+              Selamat Datang
+            </h3>
           </div>
-        )}
-        {/* handle ketika tidak ada inputan atau tidak melakukan search */}
-        {searchResult.length === 0 && searchInput === "" && (
-          <>
-            <div className="row mt-3 kategori" id="direkomendasi">
+          {/* handle ketika pengguna searching */}
+          {searchResult.length > 0 && (
+            <div className="row mt-3" id="hasil-pencarian">
               <div className="col-md-6 col-12">
                 <h5 className="text-center text-md-start">
-                  Direkomendasikan untuk mu
+                  Berdasarkan Pencarianmu
                 </h5>
               </div>
-              <div className="col-md-6 text-md-end text-end col-12">
-                <p>Selengkapnya</p>
-              </div>
               <div
-                className="scroll-buku row row-cols-1 row-cols-lg-5 row-cols-md-3 g-lg-4 overflow-x-auto d-flex flex-nowrap mt-2 mt-lg-0 mb-5"
-                id="direkomendasikan-buku"
+                className="scroll-buku row row-cols-1 row-cols-md-5 g-lg-4 overflow-x-auto d-flex flex-nowrap mt-2 mt-lg-0 mb-5"
+                id="buku-container"
               >
-                {data.dataRandom.map((book) => (
+                {searchResult.map((book) => (
                   <CardBuku key={book._id} book={book} />
                 ))}
               </div>
             </div>
-            <div className="row mt-3 kategori" id="terpopuler">
-              <div className="col-md-6 col-12">
-                <h5 className="text-center text-md-start">Terpopuler</h5>
+          )}
+          {/* handle ketika tidak ada inputan atau tidak melakukan search */}
+          {searchResult.length === 0 && searchInput === "" && (
+            <>
+              <div className="row mt-3 kategori" id="direkomendasi">
+                <div className="col-md-6 col-12">
+                  <h5 className="text-center text-md-start">
+                    Direkomendasikan untuk mu
+                  </h5>
+                </div>
+                <div className="col-md-6 text-md-end text-end col-12">
+                  <p>Selengkapnya</p>
+                </div>
+                <div
+                  className="scroll-buku row row-cols-1 row-cols-lg-5 row-cols-md-3 g-lg-4 overflow-x-auto d-flex flex-nowrap mt-2 mt-lg-0 mb-5"
+                  id="direkomendasikan-buku"
+                >
+                  {data.dataRandom.map((book) => (
+                    <CardBuku key={book._id} book={book} />
+                  ))}
+                </div>
               </div>
-              <div className="col-md-6 text-md-end text-end col-12">
-                <p>Selengkapnya</p>
+              <div className="row mt-3 kategori" id="terpopuler">
+                <div className="col-md-6 col-12">
+                  <h5 className="text-center text-md-start">Terpopuler</h5>
+                </div>
+                <div className="col-md-6 text-md-end text-end col-12">
+                  <p>Selengkapnya</p>
+                </div>
+                <div
+                  className="scroll-buku row row-cols-1 row-cols-lg-5 row-cols-md-3 g-lg-4 overflow-x-auto d-flex flex-nowrap mt-2 mt-lg-0 mb-5"
+                  id="terpopuler-buku"
+                >
+                  {data.dataPopuler.map((book) => (
+                    <CardBuku key={book._id} book={book} />
+                  ))}
+                </div>
               </div>
-              <div
-                className="scroll-buku row row-cols-1 row-cols-lg-5 row-cols-md-3 g-lg-4 overflow-x-auto d-flex flex-nowrap mt-2 mt-lg-0 mb-5"
-                id="terpopuler-buku"
-              >
-                {data.dataPopuler.map((book) => (
-                  <CardBuku key={book._id} book={book} />
-                ))}
+              <div className="row mt-3 kategori" id="akademik">
+                <div className="col-md-6 col-12">
+                  <h5 className="text-center text-md-start">Buku Akademik</h5>
+                </div>
+                <div className="col-md-6 text-md-end text-end col-12">
+                  <p>Selengkapnya</p>
+                </div>
+                <div
+                  className="scroll-buku row row-cols-1 row-cols-lg-5 row-cols-md-3 g-lg-4 overflow-x-auto d-flex flex-nowrap mt-2 mt-lg-0 mb-5"
+                  id="akademik-buku"
+                >
+                  {data.dataAkademik.map((book) => (
+                    <CardBuku key={book._id} book={book} />
+                  ))}
+                </div>
+              </div>
+              <div className="row mt-3 kategori" id="lainnya">
+                <div className="col-md-6 col-12">
+                  <h5 className="text-center text-md-start">Lainnya</h5>
+                </div>
+                <div className="col-md-6 text-md-end text-end col-12">
+                  <p>Selengkapnya</p>
+                </div>
+                <div
+                  className="scroll-buku row row-cols-1 row-cols-lg-5 row-cols-md-3 g-4 overflow-x-auto d-flex flex-nowrap mt-1 mt-lg-0 mb-5"
+                  id="lainnya-buku"
+                >
+                  {data.dataLainnya.map((book) => (
+                    <CardBuku key={book._id} book={book} />
+                  ))}
+                </div>
+              </div>
+            </>
+          )}
+          {/* saat lagi search pertama kali  */}
+          {searchResult.length === 0 && searchInput !== "" && (
+            <div className="row mt-3" id="hasil-pencarian">
+              <div className="col">
+                <p className="text-center">Sedang mencari data...</p>
               </div>
             </div>
-            <div className="row mt-3 kategori" id="akademik">
-              <div className="col-md-6 col-12">
-                <h5 className="text-center text-md-start">Buku Akademik</h5>
-              </div>
-              <div className="col-md-6 text-md-end text-end col-12">
-                <p>Selengkapnya</p>
-              </div>
-              <div
-                className="scroll-buku row row-cols-1 row-cols-lg-5 row-cols-md-3 g-lg-4 overflow-x-auto d-flex flex-nowrap mt-2 mt-lg-0 mb-5"
-                id="akademik-buku"
-              >
-                {data.dataAkademik.map((book) => (
-                  <CardBuku key={book._id} book={book} />
-                ))}
-              </div>
-            </div>
-            <div className="row mt-3 kategori" id="lainnya">
-              <div className="col-md-6 col-12">
-                <h5 className="text-center text-md-start">Lainnya</h5>
-              </div>
-              <div className="col-md-6 text-md-end text-end col-12">
-                <p>Selengkapnya</p>
-              </div>
-              <div
-                className="scroll-buku row row-cols-1 row-cols-lg-5 row-cols-md-3 g-4 overflow-x-auto d-flex flex-nowrap mt-1 mt-lg-0 mb-5"
-                id="lainnya-buku"
-              >
-                {data.dataLainnya.map((book) => (
-                  <CardBuku key={book._id} book={book} />
-                ))}
-              </div>
-            </div>
-          </>
-        )}
-        {/* saat lagi search pertama kali  */}
-        {searchResult.length === 0 && searchInput !== "" && (
-          <div className="row mt-3" id="hasil-pencarian">
-            <div className="col">
-              <p className="text-center">Sedang mencari data...</p>
-            </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </>
   );

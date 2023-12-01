@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Container, Row, Col, Form, Button, Spinner } from "react-bootstrap";
 import axios from "axios";
 
 const Payment = () => {
-  // State untuk menyimpan data formulir
+  const dataLocalStorage = localStorage.getItem("data");
+  const userData = JSON.parse(dataLocalStorage);
   const [formData, setFormData] = useState({
     full_name: "",
     email: "",
@@ -11,21 +13,19 @@ const Payment = () => {
     note: "",
   });
 
-  // Fungsi untuk meng-handle perubahan nilai pada input formulir
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Fungsi untuk menetapkan jumlah donasi berdasarkan tombol nominal yang ditentukan
   const handlePredefinedAmount = (amount) => {
     setFormData({ ...formData, donation_amount: amount.toString() });
   };
 
-  // Fungsi yang dipanggil saat formulir dikirimkan
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validasi jumlah donasi minimal
     if (parseInt(formData.donation_amount, 10) < 10000) {
       alert(
         "Maaf, minimal donasi adalah Rp 10,000. Mohon ditambah ya, terima kasih. 😊"
@@ -34,170 +34,201 @@ const Payment = () => {
     }
 
     try {
-      // Kirim permintaan ke server untuk memulai transaksi Midtrans
       const response = await axios.post(
-        "http://localhost:3000/transactions",
-        formData
+        `http://localhost:3000/donasi/donasiuang/${userData._id}`,
+        {
+          full_name: formData.full_name,
+          email: formData.email,
+          phone: formData.phone,
+          donation_amount: formData.donation_amount,
+          note: formData.note,
+        }
       );
+
       console.log("Midtrans Response:", response.data);
 
-      // Redirect ke halaman pembayaran Midtrans
-      window.location.href = response.data.data.redirect_url;
+      if (window.snap && window.snap.pay) {
+        window.snap.pay(response.data.data.token);
+      } else {
+        alert(
+          "Maaf, terjadi kesalahan saat mencoba melakukan transaksi. Silakan coba lagi nanti."
+        );
+      }
     } catch (error) {
       console.error("Error initiating Midtrans transaction:", error.message);
-      // Tangani error di antarmuka pengguna, misalnya, tampilkan pesan error kepada pengguna
+      alert(
+        "Maaf, terjadi kesalahan saat mencoba melakukan transaksi. Silakan coba lagi nanti."
+      );
     }
   };
 
+  useEffect(() => {
+    const fetchConfig = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:3000/transactions/config"
+        );
+        const script = document.createElement("script");
+        script.src = "https://app.sandbox.midtrans.com/snap/snap.js";
+        script.setAttribute("data-client-key", response.data.clientKey);
+
+        // Set a flag when the script is loaded
+        script.onload = () => {
+          window.snapJsLoaded = true;
+        };
+
+        document.body.appendChild(script);
+      } catch (error) {
+        console.error("Error loading Snap.js:", error.message);
+      }
+    };
+
+    fetchConfig();
+  }, []);
+
   return (
-    <div className="container">
-      <div className="row justify-content-center">
-        <div className="col-md-6">
-          {/* Judul halaman */}
-          <h3 className="text-center mb-4">
-            Berikan harapan dengan donasi uang
-          </h3>
+    <div className="payment">
+      <div className="container">
+        <div className="row justify-content-center">
+          <div className="col-md-6">
+            <h3 className="text-center mb-4">
+              Berikan harapan dengan donasi uang
+            </h3>
 
-          {/* Formulir donasi */}
-          <form onSubmit={handleSubmit}>
-            <div className="mb-3 text-center">
-              {/* Input jumlah donasi */}
-              <label className="form-label">
-                <h4>Masukkan nominal donasi</h4>
-                <input
-                  type="number"
-                  name="donation_amount"
-                  value={formData.donation_amount}
-                  onChange={handleChange}
-                  placeholder="Rp"
-                  className="form-control mt-2"
-                />
-                {/* Pesan bantuan untuk jumlah donasi */}
-                <div id="passwordHelpBlock" className="form-text text-danger">
-                  Mohon isi Rp 10.000 atau lebih
+            <form onSubmit={handleSubmit}>
+              <div className="mb-3 text-center">
+                <label htmlFor="donation_amount" className="form-label w-100">
+                  <h4>Masukkan nominal donasi</h4>
+                  <input
+                    type="number"
+                    id="donation_amount"
+                    name="donation_amount"
+                    value={formData.donation_amount}
+                    onChange={handleChange}
+                    placeholder="Rp"
+                    className="form-control mt-2"
+                    required
+                  />
+                  <div id="passwordHelpBlock" className="form-text text-danger">
+                    Mohon isi Rp 10.000 atau lebih
+                  </div>
+                </label>
+
+                <div className="row justify-content-center">
+                  {[10000, 20000, 50000, 100000, 200000, 500000].map(
+                    (amount) => (
+                      <button
+                        key={amount}
+                        type="button"
+                        className="btn btn-outline-dark btn-bold col-3 m-1"
+                        onClick={() => handlePredefinedAmount(amount)}
+                      >
+                        Rp {amount.toLocaleString()}
+                      </button>
+                    )
+                  )}
                 </div>
-              </label>
-
-              {/* Tombol-tombol nominal donasi */}
-              <div className="row justify-content-center">
-                <button
-                  type="button"
-                  className="btn btn-outline-dark btn-bold col-3 m-1"
-                  onClick={() => handlePredefinedAmount(10000)}
-                >
-                  Rp 10,000
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-outline-dark btn-bold col-3 m-1"
-                  onClick={() => handlePredefinedAmount(20000)}
-                >
-                  Rp 20,000
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-outline-dark btn-bold col-3 m-1"
-                  onClick={() => handlePredefinedAmount(50000)}
-                >
-                  Rp 50,000
-                </button>
               </div>
-              <div className="row justify-content-center mt-2">
-                <button
-                  type="button"
-                  className="btn btn-outline-dark btn-bold col-3 m-1"
-                  onClick={() => handlePredefinedAmount(100000)}
-                >
-                  Rp 100,000
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-outline-dark btn-bold col-3 m-1"
-                  onClick={() => handlePredefinedAmount(200000)}
-                >
-                  Rp 200,000
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-outline-dark btn-bold col-3 m-1"
-                  onClick={() => handlePredefinedAmount(500000)}
-                >
-                  Rp 500,000
-                </button>
-              </div>
-            </div>
 
-            {/* Bagian Data Diri */}
-            <h4 className="mb-4 text-center">Data Diri</h4>
-            <div className="mb-3">
+              <h4 className="mb-4 text-center">Data Diri</h4>
+
               {/* Input Nama Lengkap */}
-              <label className="form-label">
-                Nama Lengkap
-                <input
-                  type="text"
-                  name="full_name"
-                  value={formData.full_name}
-                  onChange={handleChange}
-                  className="form-control"
-                  style={{ width: "100%" }}
-                />
-              </label>
-            </div>
+              <div className="mb-3">
+                <label htmlFor="full_name" className="form-label w-100">
+                  Nama Lengkap
+                  <input
+                    type="text"
+                    id="full_name"
+                    name="full_name"
+                    value={formData.full_name}
+                    onChange={handleChange}
+                    className="form-control"
+                    style={{ width: "100%" }}
+                    required
+                  />
+                </label>
+              </div>
 
-            <div className="mb-3">
               {/* Input Email */}
-              <label className="form-label">
-                Email
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="form-control"
-                />
-              </label>
-            </div>
+              <div className="mb-3">
+                <label htmlFor="email" className="form-label w-100">
+                  Email
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="form-control"
+                    required
+                  />
+                </label>
+              </div>
 
-            <div className="mb-3">
               {/* Input Nomor Telepon */}
-              <label className="form-label">
-                Phone
-                <input
-                  type="text"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  className="form-control"
-                />
-              </label>
-            </div>
+              <div className="mb-3">
+                <label htmlFor="phone" className="form-label w-100">
+                  Phone
+                  <input
+                    type="text"
+                    id="phone"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    className="form-control"
+                    required
+                  />
+                </label>
+              </div>
 
-            <div className="mb-3">
               {/* Input Catatan (Opsional) */}
-              <label className="form-label">
-                Catatan (Opsional)
-                <textarea
-                  name="note"
-                  value={formData.note}
-                  onChange={handleChange}
-                  className="form-control"
-                ></textarea>
-              </label>
-            </div>
+              <div className="mb-3">
+                <label htmlFor="note" className="form-label w-100">
+                  Catatan (Opsional)
+                  <textarea
+                    id="note"
+                    name="note"
+                    value={formData.note}
+                    onChange={handleChange}
+                    className="form-control"
+                  />
+                </label>
+              </div>
 
-            {/* Tombol Submit */}
-            <div className="row mt-4">
-              <div className="col-12 text-center">
-                <button
+              {/* Tombol Submit */}
+              <div className="row align-items-center mt-5">
+                <div className="col-12 col-md-4"></div>
+                <div className="col-12 col-md-4 text-center w-100">
+                  {/* <button
                   type="submit"
-                  className="btn btn-light rounded-pill px-5"
+                  className="btn btn-light w-75 text-white rounded-pill shadow px-3 py-2 mb-5"
                   style={{ backgroundColor: "#29AB92" }}
                 >
                   Lanjutkan Donasi
-                </button>
+                </button> */}
+                  <Button
+                    type="submit"
+                    className="btn btn-light w-75 text-white rounded-pill shadow px-3 py-2 mb-5"
+                    style={{ backgroundColor: "#29AB92" }}
+                    disabled={isLoading}
+                  >
+                    {isLoading ? (
+                      <>
+                        <Spinner
+                          animation="border"
+                          size="sm"
+                          className="me-2"
+                        />
+                      </>
+                    ) : (
+                      "Submit"
+                    )}
+                  </Button>
+                </div>
+                <div className="col-12 col-md-4"></div>
               </div>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
     </div>

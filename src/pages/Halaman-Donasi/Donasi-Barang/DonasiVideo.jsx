@@ -45,7 +45,7 @@ export default function DonasiVideo() {
       };
       console.log(formData);
       const response = await axios.post(
-        `http://localhost:3000/donasi/donasivideo/${userData._id}`,
+        `https://charming-cloak-boa.cyclic.app/donasi/donasivideo/${userData._id}`,
         formData,
         config
       );
@@ -73,86 +73,98 @@ export default function DonasiVideo() {
 
   return (
     <>
-      <ToastContainer />
-      <Container className="mt-5 mb-5">
-        <Row>
-          <h1>Halaman Donasi Video</h1>
-        </Row>
-        <Row className="mt-3">
-          <Form onSubmit={handleSubmit}>
-            <Row>
-              <Col lg={6}>
-                <Form.Group className="mb-3">
-                  <Form.Label htmlFor="judul-video">Judul Video</Form.Label>
-                  <Form.Control
-                    type="text"
-                    id="title"
-                    onChange={handleChange}
-                    value={dataDonasi.title}
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Label htmlFor="author-video">Author Video</Form.Label>
-                  <Form.Control
-                    type="text"
-                    id="author"
-                    onChange={handleChange}
-                    value={dataDonasi.author}
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Label htmlFor="deskripsi-buku">
-                    Deskripsi Video
-                  </Form.Label>
-                  <Form.Control
-                    as="textarea"
-                    id="description"
-                    onChange={handleChange}
-                    value={dataDonasi.description}
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Label htmlFor="jenis-video">Kategori Video</Form.Label>
-                  <Form.Select
-                    id="category"
-                    onChange={handleChange}
-                    value={dataDonasi.category}
+      <div className="donasi-video">
+        <ToastContainer />
+        <Container className="mt-5 mb-5">
+          <Row>
+            <h1>Halaman Donasi Video</h1>
+          </Row>
+          <Row className="mt-3">
+            <Form onSubmit={handleSubmit}>
+              <Row>
+                <Col lg={6}>
+                  <Form.Group className="mb-3">
+                    <Form.Label htmlFor="judul-video">Judul Video</Form.Label>
+                    <Form.Control
+                      type="text"
+                      id="title"
+                      onChange={handleChange}
+                      value={dataDonasi.title}
+                    />
+                  </Form.Group>
+                  <Form.Group className="mb-3">
+                    <Form.Label htmlFor="author-video">Author Video</Form.Label>
+                    <Form.Control
+                      type="text"
+                      id="author"
+                      onChange={handleChange}
+                      value={dataDonasi.author}
+                    />
+                  </Form.Group>
+                  <Form.Group className="mb-3">
+                    <Form.Label htmlFor="deskripsi-buku">
+                      Deskripsi Video
+                    </Form.Label>
+                    <Form.Control
+                      as="textarea"
+                      id="description"
+                      onChange={handleChange}
+                      value={dataDonasi.description}
+                    />
+                  </Form.Group>
+                  <Form.Group className="mb-3">
+                    <Form.Label htmlFor="jenis-video">
+                      Kategori Video
+                    </Form.Label>
+                    <Form.Select
+                      id="category"
+                      onChange={handleChange}
+                      value={dataDonasi.category}
+                    >
+                      <option>-- Pilih kategori --</option>
+                      <option>Akademik</option>
+                      <option>Terpopuler</option>
+                      <option>Lainnya</option>
+                    </Form.Select>
+                  </Form.Group>
+                </Col>
+                <Col lg={6}>
+                  <Form.Group className="mb-3">
+                    <Form.Label htmlFor="upload-video">Upload Video</Form.Label>
+                    <Form.Control
+                      type="file"
+                      id="file"
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="mb-5">
+                <div className="mt-4 mb-5">
+                  <Button
+                    type="submit"
+                    className="btn btn-light text-white rounded-5"
+                    style={{ backgroundColor: "#29AB92" }}
+                    disabled={isLoading}
                   >
-                    <option>-- Pilih kategori --</option>
-                    <option>Akademik</option>
-                    <option>Terpopuler</option>
-                    <option>Lainnya</option>
-                  </Form.Select>
-                </Form.Group>
-              </Col>
-              <Col lg={6}>
-                <Form.Group className="mb-3">
-                  <Form.Label htmlFor="upload-video">Upload Video</Form.Label>
-                  <Form.Control type="file" id="file" onChange={handleChange} />
-                </Form.Group>
-              </Col>
-            </Row>
-            <Row className="mb-5">
-              <div className="mt-4 mb-5">
-                <Button
-                  type="submit"
-                  className="btn btn-light text-white rounded-5"
-                  style={{ backgroundColor: "#29AB92" }}
-                  disabled={isLoading}
-                >
-                  {isLoading ? (
-                    <>
-                      <Spinner animation="border" size="sm" className="me-2" />
-                    </>
-                  ) : (
-                    "Submit"
-                  )}
-                </Button>
-              </div>
-            </Row>
-          </Form>
-        </Row>
-      </Container>
+                    {isLoading ? (
+                      <>
+                        <Spinner
+                          animation="border"
+                          size="sm"
+                          className="me-2"
+                        />
+                      </>
+                    ) : (
+                      "Submit"
+                    )}
+                  </Button>
+                </div>
+              </Row>
+            </Form>
+          </Row>
+        </Container>
+      </div>
     </>
   );
 }

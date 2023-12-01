@@ -54,7 +54,7 @@ export default function Register() {
       try {
         //
         const data = await axios.post(
-          "http://localhost:3000/auth/register",
+          "https://charming-cloak-boa.cyclic.app/auth/register",
           {
             nama,
             jenisKelamin,
@@ -95,147 +95,153 @@ export default function Register() {
   }, [userData]);
   return (
     <>
-      <ToastContainer />
-      <Container className="mb-5">
-        <Row className="align-items-center">
-          <Col lg={5} md={12} mt={5} style={{ marginBottom: "5rem" }}>
-            <img
-              src={ellipseBackground}
-              className="img-fluid position-absolute img2 top-0"
-              width="40%"
-              alt="Ellipse Background"
-            />
-            <h1 className="text-center text-lg-start fw-bold">
-              Masuk untuk Menikmati fitur kami
-            </h1>
-            <p className="fw-medium mt-4 font-20 text-center text-lg-start">
-              jika Anda sudah memiliki akun,
-              <br />
-              Anda dapat
-              <Link
-                to="/login"
-                className="btn btn-link text-decoration-none fw-bold font-20 position-relative z-index-1"
-                id={styles.textWarna}
-              >
-                Login di sini!
-              </Link>
-            </p>
-          </Col>
-          <Col lg={4} md={12} className="align-self-center align-items-center">
-            <img
-              src={Character}
-              alt="Character"
-              width="80%"
-              className="img-fluid"
-            />
-          </Col>
-          <Col lg={3} md={12} className="align-self-start mt-5">
-            <Form onSubmit={handleSubmit} id="register-form">
-              <Form.Group className="mb-3">
-                <Form.Label htmlFor="nama-lengkap">Nama lengkap</Form.Label>
-                <Form.Control
-                  type="text"
-                  id="nama"
-                  aria-describedby="namaHelp"
-                  onChange={handleChange} // Tambahkan ini
-                  value={formData.nama} // Tambahkan ini
-                />
-              </Form.Group>
-              <Form.Group className="mb-3">
-                <Form.Label htmlFor="jenis-kelamin">Jenis kelamin</Form.Label>
-                <Form.Select
-                  id="jenisKelamin"
-                  onChange={handleChange} // Tambahkan ini
-                  value={formData.jenisKelamin} // Tambahkan ini
+      <div className="halaman-register">
+        <ToastContainer />
+        <Container className="mb-5">
+          <Row className="align-items-center">
+            <Col lg={5} md={12} mt={5} style={{ marginBottom: "5rem" }}>
+              <img
+                src={ellipseBackground}
+                className="img-fluid position-absolute img2 top-0"
+                width="40%"
+                alt="Ellipse Background"
+              />
+              <h1 className="text-center text-lg-start fw-bold">
+                Masuk untuk Menikmati fitur kami
+              </h1>
+              <p className="fw-medium mt-4 font-20 text-center text-lg-start">
+                jika Anda sudah memiliki akun,
+                <br />
+                Anda dapat
+                <Link
+                  to="/login"
+                  className="btn btn-link text-decoration-none fw-bold font-20 position-relative z-index-1"
+                  id={styles.textWarna}
                 >
-                  <option>-- Pilih Jenis kelamin --</option>
-                  <option value="pria">Pria</option>
-                  <option value="wanita">Wanita</option>
-                </Form.Select>
-              </Form.Group>
-              <Form.Group className="mb-3">
-                <Form.Label htmlFor="email">Email address</Form.Label>
-                <Form.Control
-                  type="email"
-                  id="email"
-                  aria-describedby="emailHelp"
-                  onChange={handleChange} // Tambahkan ini
-                  value={formData.email} // Tambahkan ini
-                />
-              </Form.Group>
-              <Form.Group className="mb-3">
-                <Form.Label htmlFor="password">Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  id="password"
-                  onChange={handleChange} // Tambahkan ini
-                  value={formData.password} // Tambahkan ini
-                  placeholder="Password (minimal 8 karakter)"
-                />
-              </Form.Group>
-              <Form.Group className="mb-3">
-                <Form.Label htmlFor="confirm-password">
-                  Confirm Password
-                </Form.Label>
-                <Form.Control
-                  type="password"
-                  id="confirmPassword"
-                  onChange={handleChange} // Tambahkan ini
-                  value={formData.confirmPassword} // Tambahkan ini
-                  placeholder="Confirm Password (minimal 8 karakter)"
-                />
-              </Form.Group>
-              {isLoading ? (
-                <div className="text-center mt-3">
-                  <div className="spinner-border text-warna" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                  </div>
-                </div>
-              ) : (
+                  Login di sini!
+                </Link>
+              </p>
+            </Col>
+            <Col
+              lg={4}
+              md={12}
+              className="align-self-center align-items-center"
+            >
+              <img
+                src={Character}
+                alt="Character"
+                width="80%"
+                className="img-fluid"
+              />
+            </Col>
+            <Col lg={3} md={12} className="align-self-start mt-5">
+              <Form onSubmit={handleSubmit} id="register-form">
                 <Form.Group className="mb-3">
-                  <Button
-                    type="submit"
-                    className="btn btn-light bg-warna text-white w-100"
-                    id={styles.bgWarna}
-                    disabled={isLoading}
-                  >
-                    Submit
-                  </Button>
+                  <Form.Label htmlFor="nama-lengkap">Nama lengkap</Form.Label>
+                  <Form.Control
+                    type="text"
+                    id="nama"
+                    aria-describedby="namaHelp"
+                    onChange={handleChange} // Tambahkan ini
+                    value={formData.nama} // Tambahkan ini
+                  />
                 </Form.Group>
-              )}
-            </Form>
+                <Form.Group className="mb-3">
+                  <Form.Label htmlFor="jenis-kelamin">Jenis kelamin</Form.Label>
+                  <Form.Select
+                    id="jenisKelamin"
+                    onChange={handleChange} // Tambahkan ini
+                    value={formData.jenisKelamin} // Tambahkan ini
+                  >
+                    <option>-- Pilih Jenis kelamin --</option>
+                    <option value="pria">Pria</option>
+                    <option value="wanita">Wanita</option>
+                  </Form.Select>
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label htmlFor="email">Email address</Form.Label>
+                  <Form.Control
+                    type="email"
+                    id="email"
+                    aria-describedby="emailHelp"
+                    onChange={handleChange} // Tambahkan ini
+                    value={formData.email} // Tambahkan ini
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label htmlFor="password">Password</Form.Label>
+                  <Form.Control
+                    type="password"
+                    id="password"
+                    onChange={handleChange} // Tambahkan ini
+                    value={formData.password} // Tambahkan ini
+                    placeholder="Password (minimal 8 karakter)"
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label htmlFor="confirm-password">
+                    Confirm Password
+                  </Form.Label>
+                  <Form.Control
+                    type="password"
+                    id="confirmPassword"
+                    onChange={handleChange} // Tambahkan ini
+                    value={formData.confirmPassword} // Tambahkan ini
+                    placeholder="Confirm Password (minimal 8 karakter)"
+                  />
+                </Form.Group>
+                {isLoading ? (
+                  <div className="text-center mt-3">
+                    <div className="spinner-border text-warna" role="status">
+                      <span className="visually-hidden">Loading...</span>
+                    </div>
+                  </div>
+                ) : (
+                  <Form.Group className="mb-3">
+                    <Button
+                      type="submit"
+                      className="btn btn-light bg-warna text-white w-100"
+                      id={styles.bgWarna}
+                      disabled={isLoading}
+                    >
+                      Submit
+                    </Button>
+                  </Form.Group>
+                )}
+              </Form>
 
-            <Row className="mt-5">
-              <Col xs={2}>
-                <hr />
-              </Col>
-              <Col xs={8}>
-                <p className="text-center fw-light">Atau lanjutkan dengan</p>
-              </Col>
-              <Col xs={2}>
-                <hr />
-              </Col>
-            </Row>
-            <Row className="text-center mt-3">
-              <Col xs={4}>
-                <Button className="btn btn-light" href="#" role="button">
-                  <Image src={Google} alt="" />
-                </Button>
-              </Col>
-              <Col xs={4}>
-                <Button className="btn btn-light" href="#" role="button">
-                  <Image src={Apple} alt="" />
-                </Button>
-              </Col>
-              <Col xs={4}>
-                <Button className="btn btn-light" href="#" role="button">
-                  <Image src={Facebook} alt="" />
-                </Button>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-      </Container>
+              <Row className="mt-5">
+                <Col xs={2}>
+                  <hr />
+                </Col>
+                <Col xs={8}>
+                  <p className="text-center fw-light">Atau lanjutkan dengan</p>
+                </Col>
+                <Col xs={2}>
+                  <hr />
+                </Col>
+              </Row>
+              <Row className="text-center mt-3">
+                <Col xs={4}>
+                  <Button className="btn btn-light" href="#" role="button">
+                    <Image src={Google} alt="" />
+                  </Button>
+                </Col>
+                <Col xs={4}>
+                  <Button className="btn btn-light" href="#" role="button">
+                    <Image src={Apple} alt="" />
+                  </Button>
+                </Col>
+                <Col xs={4}>
+                  <Button className="btn btn-light" href="#" role="button">
+                    <Image src={Facebook} alt="" />
+                  </Button>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </Container>
+      </div>
     </>
   );
 }

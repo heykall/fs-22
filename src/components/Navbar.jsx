@@ -1,12 +1,34 @@
 import logo from "../assets/logo.svg";
 import { Navbar, Nav, NavDropdown, Button } from "react-bootstrap";
 import "./navbar.css";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { BsCaretDownFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 
 function NavbarComponent() {
+  const [changeColor, setChangeColor] = useState(false);
   const navigate = useNavigate();
+
+  const changeBackgroundColor = () => {
+    if (window.scrollY > 10) {
+      setChangeColor(true);
+    } else {
+      setChangeColor(false);
+    }
+  };
+
+  useEffect(() => {
+    // Memanggil fungsi saat komponen dimount dan saat nilai changeColor berubah
+    changeBackgroundColor();
+
+    // Menambahkan event listener untuk mendengarkan perubahan posisi scroll
+    window.addEventListener("scroll", changeBackgroundColor);
+
+    // Membersihkan event listener saat komponen di-unmount
+    return () => {
+      window.removeEventListener("scroll", changeBackgroundColor);
+    };
+  }, [changeColor]);
 
   const handleProfile = () => {
     navigate("/profile");
@@ -16,12 +38,13 @@ function NavbarComponent() {
     localStorage.removeItem("data");
     navigate("/login");
   };
+
   const dataLocalStorage = localStorage.getItem("data");
   const userData = JSON.parse(dataLocalStorage);
 
   useEffect(() => {}, [userData]);
   return (
-    <Navbar expand="lg">
+    <Navbar expand="lg" className={changeColor ? "color-active" : ""}>
       <div className="container-fluid mx-lg-5 mt-lg-4 ">
         <Navbar.Brand href="/">
           <img src={logo} alt="logo" className="w-75" />

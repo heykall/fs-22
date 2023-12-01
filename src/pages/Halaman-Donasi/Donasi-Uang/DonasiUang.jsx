@@ -3,6 +3,8 @@ import donasiTerkumpul from "../../../assets/svg/donasi-terkumpul.svg";
 import { Link } from "react-router-dom";
 export default function DonasiUang() {
   return (
+    <div className="donasi-uang">
+
     <section>
       <div className="container mt-5 mb-5 text-center text-md-start">
         <div className="row align-items-center">
@@ -51,5 +53,6 @@ export default function DonasiUang() {
         </div>
       </div>
     </section>
+    </div>
   );
 }
